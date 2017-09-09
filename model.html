@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style type="text/css">
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
+    body,html {
+      width: 100%;
+      height: 100%;
+    }
+    #link {
+      display: block;
+      width: 200px;
+      height: 30px;
+      background: skyblue;
+    }
+    .wrap {
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      position: absolute;
+      margin: auto;
+      left: 0px;
+      top: 0px;
+      bottom: 0px;
+      right: 0px;
+      display: none;
+    }
+    .box {
+     width: 600px;
+      background: rgba(0,0,0,0.6);
+      position: absolute;
+      margin: auto;
+      left: 0px;
+      top: 0px;
+      bottom: 0px;
+      right: 0px;
+    }
+    .box h1 {
+      margin: 15px 0;
+      text-align: center;
+      color: white;
+      line-height: 35px;
+    }
+    .box .cont {
+      padding: 20px;
+      height: 400px;
+      font-size: 20px;
+      color: white;
+    }
+    .box .submit {
+      width: 200px;
+      height: 40px;
+      background: skyblue;
+      border: none;
+      position: absolute;
+      color: white;
+      border-radius: 5px;
+      text-decoration: underline;
+      bottom: 20px;
+      left: 50%;
+      margin-left: -100px;
+      cursor: pointer;
+      outline: none;  
+    }
+    .wrap .hd {
+      height: 30px;
+      text-align: right;
+    }
+    .wrap .hd .close {
+      padding: 5px;
+      margin: 5px 5px 0 0;
+      display: inline-block;
+      color: orange;
+    }
+    .wrap .hd .close:hover {
+      color: white;
+      background: orange;
+    }
+  </style>
+</head>
+<body>
+
+  <a id="link" href="javascript:;">你好,点我</a>
+  <div class="wrap" id="wrap">
+    <div class="box" id="box">
+      <div class="hd"><span class="close" id="close">关闭</span></div>
+      <h1>这里是标题</h1>
+      <div class="cont">这里是内容</div>
+      <input id="submit" class="submit" type="button" name="" value="点击提交">
+    </div>
+  </div>
+</body>
+  <script type="text/javascript">
+  function Model() {
+    this.oLink = document.querySelector('#link');
+    this.oWrap = document.querySelector('#wrap');
+    this.oBox = document.querySelector('#box');
+    this.oClose = document.querySelector('#close');
+    this.bindEvent();
+  }
+  Model.prototype.bindEvent = function() {
+    this.oLink.onclick = () => {
+      this.oWrap.style.display = 'block';
+    }
+    this.oWrap.onclick = (e) => {
+      e = e || window.event;
+      var target = e.target;
+      if(target.id === 'close' || target.id === 'wrap') {
+        this.oWrap.style.display = 'none';
+      }
+    }
+  }
+  new Model();
+  </script>
+</html>
