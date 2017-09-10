@@ -1,11 +1,5 @@
  
-  function toast(cont,time,callback) {
-    var callback
-    if(callback) {
-      callback = callback;
-    } else {
-      callback = null;
-    }
+  function toast(cont,time) {
     var time = time || 3000;
     var oDiv = document.createElement('div');
     oDiv.className = 'toast';
@@ -18,7 +12,6 @@
     oDiv.style.marginLeft = -parseInt(getStyle(oDiv,'width')) / 2 + 'px';
     var timer = setInterval(function(){
         document.body.removeChild(oDiv);
-        callback;
         clearInterval(timer);
       }, time);
   }
@@ -35,5 +28,3 @@
       return (obj.currentStyle[property])
     }
   }
-
-  

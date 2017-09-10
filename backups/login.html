@@ -13,7 +13,6 @@
       padding: 50px;
       width: 200px;
       height: 200px;
-      position: relative;
       position: absolute;
       left: 0px;
       top: 0px;
@@ -23,23 +22,6 @@
       background: #f1f1f1;
       border: 5px solid #999;
       z-index: 200;
-    }
-    .register input[name=username].false {
-      border: 1px solid red;
-    }
-    .register input[name=username].right {
-      border: 1px solid green;
-    }
-    .register #prompt {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-    }
-    .register span.false {
-      color: red;
-    }
-    .register span.right {
-      color: green;
     }
     input {
       font-size: 20px;
@@ -200,12 +182,9 @@
 
 
   <div class="nav-out"><div class="nav" id="nav"></div></div>
-  <div class="register" id="login-page">
-    <div>
-      <input type="text" name="username" placeholder="用户名" />
-      <span id="prompt">1</span>
-    </div>
-    <input type="password" name="password" placeholder="密码" />
+  <div class="register">
+    <input type="text" placeholder="用户名" />
+    <input type="password" placeholder="密码" />
     <input type="button" value="提交" />
     <a class="login" href="register.html">去注册</a>
     <a class="home" href="index.html">返回首页</a>
@@ -213,33 +192,10 @@
   <script type="text/javascript" src="js/toast.js"></script>
   <script type="text/javascript" src="js/myajax.js"></script>
   <script type="text/javascript">
-    var oLoginPage = document.querySelector('#login-page');
-    var oUsername = document.querySelector('input[name=username]');
+    var oUsername = document.querySelector('input[type=text]');
     var oPassword = document.querySelector('input[type=password]')
     var oBtn = document.querySelector('input[type=button]');
-    var oPrompt = document.querySelector('#prompt');
-    oLoginPage.onkeyup = function(e) {
-      e = e || window.event;
-      target = e.target || e.srcElement;
-      if(target.name === 'username') {
-        myajax.post('http://h6.duchengjiu.top/shop/api_user.php',
-        {status:'check',username: oUsername.value},
-        function(error,responseText) {
-          var json = JSON.parse(responseText);
-          console.log(json)
-          if(json.code === 2001) {
-            target.className = 'right';
-            oPrompt.innerText = '正确'
-            oPrompt.className = 'right';
-            // target.classList.add('')
-          } else {
-            oPrompt.innerText = '错误'
-            oPrompt.className = 'false';
-            target.className = 'false';
-          }
-        })
-      }
-    }
+
     oBtn.onclick = function() {
       myajax.post('http://h6.duchengjiu.top/shop/api_user.php',{
         status: 'login',
