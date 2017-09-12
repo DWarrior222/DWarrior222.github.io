@@ -3,249 +3,258 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
   <link rel="stylesheet" type="text/css" href="css/toast.css">
   <style type="text/css">
+    body {
+      width:100%;
+      height:100%
+    }
+    body{
+      background:url("images/Afternoon_BGImage_v2_0.jpeg") no-repeat 100% fixed;
+    }
     * {
       padding: 0px;
       margin: 0px;
     }
-    .register {
-      padding: 50px;
-      width: 200px;
-      height: 200px;
-      position: absolute;
-      left: 0px;
-      top: 0px;
-      bottom: 0px;
-      right: 0px;
-      margin: auto;
-      background: #f1f1f1;
-      z-index: 200;
-      border: 5px solid #999;
-    }
-    .login {
-      bottom: 10px;
-      left: 10px;
-      position: absolute;
-    }
-    .register input[name=username].false {
-      border: 1px solid red;
-    }
-    .register input[name=username].right {
-      border: 1px solid green;
-    }
-    .register #prompt1 {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-    }
-    .register #prompt2 {
-      position: absolute;
-      right: 10px;
-      top: 30px;
-    }
-    .register #prompt3 {
-      position: absolute;
-      right: 10px;
-      top: 60px;
-    }
-    .register span.false {
-      color: red;
-    }
-    .register span.right {
-      color: green;
-    }
-    input {
-      font-size: 20px;
-      outline: none;
-      border: none;
-      display: block;
-      margin: 30px 0;
-      width: 200px;
-      height: 30px;
-    }
-    input[type=button] {
-      width: 100px;
-      height: 30px;
-      margin-left: 50px;
-      background: #666;
-      color: white;
-    }
-    .home {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-    }
-
-    .header {
-      height: 30px;
-      background: #f1f1f1;
-    }
-    .header .header-box {
-      width: 1200px;
-      margin: 0 auto;
-    }
-    .header .header-box a:hover {
-      color: orange;
-    }
-    .header-box .header-rt {
-      float: right;
-      margin-right: 20px; 
-    }
-    .header-box .header-rt a {
-      text-decoration: none;
-      display: inline-block;
-      color: grey;
-      margin: 5px;
-    }
-    .header-box .header-rt .exit {
-      display: none;
-    }
-    .hot-goods {
-      font-size: 30px;
-      text-align: center;
-      line-height: 100px;
-      color: #ff0036;
-    }
-    .header-box .header-lt {
-      float: left;
-      width: 400px;
-      margin-left: 20px;
-      line-height: 30px;
-    }
-    .header-box .header-lt a {
-      color: grey;
-      text-decoration: none;
-    }
-    .header-box .header-lt .welcome {
-      color: orange;
-    }
-    .header-box .header-lt .hello {
-      color: orange;
-      margin-left: 10px;
-      display: none;
-    }
-    .search {
-      width: 100%;
+    .search-outer {
+      overflow: hidden;
       height: 100px;
+      width: 100%;
       z-index: 110;
       left: 0px;
       top: 0px;
       position: relative;
-      background: skyblue;
     }
-    .search-cont {
-      width: 1000px;
+    .search {
+      width: 1050px;
       margin: 0 auto;
     }
-    .search img {
+    .search .logo {
+      width: 220px;
+      height: 100px;
+      float: left;
+    }
+    .search .logo img {
       width: 80px;
       height: 80px;
-      display: block;
       float: left;
-      /* vertical-align: middle; */
       border-radius: 17px;
-      margin: 10px 20px 10px -36px;
+      margin: 10px 20px 10px 0;
     }
-    .search .logo-text {
+    .search .logo .logo-txt {
       float: left;
-      margin: 9px 0;
+      margin: 20px 0;
       width: 30px;
       color: orange;
       font-size: 30px;
       display: inline-block;
     }
-  
 
-
-
-
-
-
+    .container .recommend{
+      color: black;
+      opacity: 0;
+      display: inline-block;
+    }
+    .recommend img {
+      position: absolute;
+      top: 150px;
+      left: 200px;
+      opacity: 1;
+      border-radius: 10px;
+    }
+    .recommend span {
+      text-align: center;
+      border: 1px solid #ccc;
+      width: 200px;
+      line-height: 50px;
+      font-size: 30px;
+      position: absolute;
+      opacity: 1 ;
+      top: 500px;
+      left: 320px;
+      z-index: 20;
+      background: rgba(0,0,0,0);
+    }
+    .register-page {
+      padding: 0 50px;
+      width: 300px;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      position: absolute;
+      top: 0px;
+      right: 800px;
+      background: rgba(255,255,235,0.6);
+      z-index: 200;
+    }
+    .register-page-cont {
+      height: 350px;
+      width: 300px;
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+      margin: auto;
+    }
+    .register-page .user-box {
+      height: 70px;
+    }
+    .register-page .user-box span {
+      font-size: 13px;
+    }
+    .register-page input.false {
+      border-color: #fca1a5;
+      background: #ffe6e7;
+    }
+    .register-page input.right {
+      border-color: #d1d1d1;
+      background: #fff;
+    }
+    .register-page #prompt {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+    .register-page span.false {
+      color: red;
+    }
+    .register-page span.right {
+      color: green;
+    }
+    .register-page input {
+      text-indent: 1em;
+      font-size: 20px;
+      outline: none;
+      user-select: none;
+      border: 1px solid #d1d1d1;
+      border-radius: 3px;
+      display: block;
+      margin: 10px 0;
+      width: 300px;
+      height: 40px;
+    }
+    .register-page input[type=button] {
+      text-indent: 0;
+      width: 150px;
+      height: 40px;
+      border: 1px solid #f43499;
+      background: #f43499;
+      color: white;
+    }
+    .register-page label {
+      height: 20px;
+    }
+    .register-page label span {
+      padding-left: 6px;
+      color: #666;
+    }
+    .register-page input[type=checkbox] {
+      /* margin: 0px; */
+      width: 20px;
+      vertical-align: middle;
+      display: inline-block;
+      height: 30px;
+    }
+    .register-page input[type=button]:hover {
+      border: 1px solid #f10180;
+      background: #f10180;
+    }
+    .register-page a {
+      position: absolute;
+      text-decoration: none;
+      bottom: 10px;
+      color: #666;
+    }
+    .register-page .home {
+      right: 10px;
+    }
+    .register-page .login {
+      right: 90px;
+    }
+    .register-page a:hover {
+      color: #f10180;
+    }
 
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="header-box">
-      <div class="header-lt">
-        <a href="" id="username">用户</a>
-        <span class="hello" id="user-hello">您好！</span>
-        <a href="index.html" class="welcome">欢迎光临乐购</a>
-        <a id="login" href="login.html">请登陆</a>
-      </div>
-      <div class="header-rt">
-        <a href="" class="exit" id="exit">退出</a>
-        <a href="">我的乐购</a>
-        <a href="cart.html" id="cart">购物车</a>
-        <a id="register" href="register.html">注册</a>
+  <div class="search-outer" id="search-outer">
+    <div class="search">
+      <div class="logo">
+        <a href="index.html">
+          <img src="images/logo.jpg"/>
+          <span class="logo-txt">乐购</span>
+        </a>
       </div>
     </div>
   </div>
-  <div class="search">
-    <div class="search-cont">
-      <a href="index.html"><img src="images/logo-1.jpg"><span class="logo-text">乐购</span></a>
+  <div class="container">
+    <a href="goods.html?goods_id=252753" class="recommend" id="recommend">
+      <span>好货不停</span>
+    </a>
+    <div class="register-page" id="register-page">
+      <div class="register-page-cont">
+        <div class="user-box">
+          <input type="text" name="username" placeholder="用户名什么要求来着忘了" />
+          <span class="prompt-username" id="prompt-username"></span>
+        </div>
+        <div class="user-box">
+          <input type="password" name="password" oncopy="return false" onpaste="return false" placeholder="密码什么要求来着忘了" />
+          <span class="prompt-password" id="prompt-password"></span>
+        </div>
+        <div class="user-box">
+          <input type="password" name="repassword" oncopy="return false" onpaste="return false" placeholder="验证密码什么要求来着忘了" />
+          <span class="prompt-repassword" id="prompt-repassword"></span>
+        </div>
+        <input type="button" value="注册" />
+        <div class="user-box">
+          <a class="login" href="login.html">去登录</a>
+          <a class="home" href="index.html">返回首页</a>
+        </div>
+      </div>
     </div>
   </div>
-
-  <script type="text/javascript">
-    var oUsername = document.querySelector('#username');
-    var oSpan = document.querySelector('#user-hello');
-    var oLogin = document.querySelector('#login')
-    var oExit = document.querySelector('#exit');
-    if(localStorage.username) {
-      oSpan.style.display = 'inline-block'
-      oUsername.style.display = 'inline-block';
-      oUsername.innerText = localStorage.username;
-      oLogin.style.display = 'none'
-      oExit.style.display = 'inline-block'
-    } else {
-      oUsername.style.display = 'none';
-      oSpan.style.display = 'none';
-      oLogin.style.display = 'inline-block'
-      oExit.style.display = 'none'
-    }
-
-    oExit.onclick = () => {
-      localStorage.clear();
-      loaction.reload();
-    }
-    // console.log(localStorage.token)
-  </script>
-
-
-
-
-
-
-
-  <div class="register" id="register-page">
-    <div>
-      <input type="text" name="username" placeholder="用户名" />
-      <span id="prompt1">1</span>
-    </div>
-    <input type="password" name="password" placeholder="密码" />
-    <span id="prompt2">1</span>
-    <input type="password" name="repassword" placeholder="密码" />
-    <span id="prompt3">1</span>
-    <input type="button" value="提交" />
-    <a class="login" href="login.html">去登陆</a>
-    <a class="home" href="index.html">返回首页</a>
-  </div>
+  <script type="text/javascript" src="js/animate-1.1.js"></script>
   <script type="text/javascript" src="js/toast.js"></script>
   <script type="text/javascript" src="js/myajax.js"></script>
   <script type="text/javascript">
     var oRegisterPage = document.querySelector('#register-page');
     var oUsername = document.querySelector('input[name=username]');
-    var oPassword = document.querySelector('input[name=password]')
-    var oRepassword = document.querySelector('input[name=repassword]')
+    var oPassword = document.querySelector('input[name=password]');
+    var oRepassword = document.querySelector('input[name=repassword]');
     var oBtn = document.querySelector('input[type=button]');
-    var oPrompt1 = document.querySelector('#prompt1');
-    var oPrompt2 = document.querySelector('#prompt2');
-    var oPrompt3 = document.querySelector('#prompt3');
+    var oPromptUsername = document.querySelector('#prompt-username');
+    var oPromptPassword = document.querySelector('#prompt-password');
+    var oPromptRepassword = document.querySelector('#prompt-repassword')
     var oPasswordValue;
     var oJudgePassValue;
-    oRegisterPage.onkeyup = function(e) {
+    var oRecommend = document.querySelector('#recommend');
+    var falsenumber = 0;
+    sayHello();
+
+    animate(oRegisterPage,{'right':0},2000,'QuartEaseInOut');
+    recommend(252753);
+    function recommend(goods_id) {
+      var goods_id = goods_id || 252753;
+      myajax.get('http://h6.duchengjiu.top/shop/api_goods.php',{goods_id},function(error,responseText) {
+        loading(error,responseText)
+        animate(oRecommend,{'opacity':1},2000,'QuartEaseInOut');
+      });
+    }
+    function loading(error,responseText) {
+      // oUl.innerHTML = '';
+      var json = JSON.parse(responseText);
+      var data = json.data;
+      console.log(data)
+      for(var i = 0; i < data.length; i++) {
+        oRecommend.innerHTML += `<img src="${data[i].goods_thumb}"/>`
+      }
+    }
+
+    oRegisterPage.onkeyup = check;
+    function check(e) {
       e = e || window.event;
       target = e.target || e.srcElement;
       if(target.name === 'username') {
@@ -256,12 +265,12 @@
           console.log(json)
           if(json.code === 0) {
             target.className = 'right';
-            oPrompt1.innerText = '可以使用'
-            oPrompt1.className = 'right';
+            oPromptUsername.innerText = '可以使用'
+            oPromptUsername.className = 'right';
             // target.classList.add('')
           } else {
-            oPrompt1.innerText = '不能使用'
-            oPrompt1.className = 'false';
+            oPromptUsername.innerText = '不能使用'
+            oPromptUsername.className = 'false';
             target.className = 'false';
           }
         })
@@ -269,26 +278,17 @@
       if(target.name === 'password') {
         console.log(target)
           if(!/^\w{6,16}$/.test(target.value)){
-            oPrompt2.innerText = '不能使用'
-            oPrompt2.className = 'false';
+            target.className = 'false';
+            oPromptPassword.innerText = '不能使用'
+            oPromptPassword.className = 'false';
             // target.classList.add('')
           } else {
-            // target.className = 'right';
-            oPrompt2.innerText = '可以使用'
-            oPrompt2.className = 'right';
+            target.className = 'right';
+            oPromptPassword.innerText = '可以使用'
+            oPromptPassword.className = 'right';
           }
           oPasswordValue = target.value;
           paddword();
-        /*if() {
-          target.className = 'right';
-          oPrompt.innerText = '可以使用'
-          oPrompt.className = 'right';
-          // target.classList.add('')
-        } else {
-          oPrompt.innerText = '不能使用'
-          oPrompt.className = 'false';
-          target.className = 'false';
-        }*/
       }
        if(target.name === 'repassword') {
         console.log(target.value)
@@ -298,20 +298,16 @@
     }
     function paddword() {
       if(!oJudgePassValue) return;
-      if(oPasswordValue != oJudgePassValue){
-        oPrompt3.innerText = '不能使用'
-        oPrompt3.className = 'false';
+      if(oPasswordValue != oJudgePassValue || !/^\w{6,16}$/.test(oPassword.value)){
+        oRepassword.className = 'false'
+        oPromptRepassword.innerText = '不能使用'
+        oPromptRepassword.className = 'false';
       } else {
-        oPrompt3.className = 'right';
-        oPrompt3.innerText = '可以使用';
+        oPromptRepassword.className = 'right';
+        oPromptRepassword.innerText = '可以使用';
+        oRepassword.className = 'true'
       }
     }
-
-
-
-
-
-
     oBtn.onclick = function() {
       myajax.post('http://h6.duchengjiu.top/shop/api_user.php',{
         status: 'register',
@@ -320,11 +316,16 @@
       },function(error,responseText) {
         var json = JSON.parse(responseText);
         // var data = json.data;
+        console.log(json.code)
         if(json.code === 0) {
-          toast('注册成功',2000);
-          location.href = 'login.html';
-        } else {
-          toast(json.message,2000);
+          // toast('登陆成功,两秒钟后跳转',2000);
+          localStorage.token = json.data.token;
+          localStorage.username = json.data.username;
+          if(localStorage.backurl) {
+            location.href = localStorage.backurl;
+          } else {
+            location.href = 'index.html';
+          }
         }
       })
     }

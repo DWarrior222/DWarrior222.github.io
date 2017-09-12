@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style type="text/css">
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
+    body {
+      width:100%;
+      height:100%
+    }
+    body{
+      background:url("images/Afternoon_BGImage_v2_0.jpeg") no-repeat 100% fixed;
+    }
+
+
+
+
+  /*
+    header
+   */
+    .header {
+      height: 30px;
+      background: rgba(255,255,235,0.6);
+    }
+    .header .header-box {
+      width: 1200px;
+      margin: 0 auto;
+    }
+    .header .header-box a:hover {
+      color: orange;
+    }
+    .header-box .header-rt {
+      float: right;
+      margin-right: 20px; 
+    }
+    .header-box .header-rt a {
+      text-decoration: none;
+      display: inline-block;
+      color: grey;
+      margin: 5px;
+    }
+    .header-box .header-rt .exit {
+      display: none;
+    }
+    .hot-goods {
+      font-size: 30px;
+      text-align: center;
+      line-height: 100px;
+      color: #ff0036;
+    }
+    .header-box .header-lt {
+      float: left;
+      width: 400px;
+      margin-left: 20px;
+      line-height: 30px;
+    }
+    .header-box .header-lt a {
+      color: grey;
+      text-decoration: none;
+    }
+    .header-box .header-lt .welcome {
+      color: orange;
+    }
+    .header-box .header-lt .hello {
+      color: orange;
+      margin-left: 10px;
+      display: none;
+    }
+
+
+    /* search */
+    .search {
+      height: 100px;
+      width: 100%;
+      z-index: 110;
+      left: 0px;
+      top: 0px;
+      position: relative;
+      background: rgba(255,255,235,0.5);
+    }
+    .searchfixed {
+      background: rgba(255,255,235,0.9);
+    }
+    .search-cont {
+      clear: both;
+      overflow: hidden;
+      width: 1200px;
+      margin: 0 auto;
+    }
+    .search .logo-box {
+      width: 300px;
+      height: 100px;
+      float: left;
+    }
+    .search img {
+      width: 80px;
+      height: 80px;
+      float: left;
+      border-radius: 17px;
+      margin: 10px 20px 10px 83px;
+    }
+    .search .logo-text {
+      float: left;
+      margin: 9px 0;
+      width: 30px;
+      color: orange;
+      font-size: 30px;
+      display: inline-block;
+    }
+    .search .search-input-box {
+      width: 300px;
+      height: 100px;
+      float: left;
+      position: relative;
+    }
+    .search input {
+      text-indent: 2em;
+      font-size: 20px;
+      outline: none;
+      width: 220px;
+      padding: 3px 0;
+      border: none;
+      background: rgba(255,255,235,0) url('images/icon/magnifier1.png') left center no-repeat;
+      height: 30px;
+      color: #bfbfbf;
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      top: 35px;
+      border-bottom: 1px solid rgba(0,0,0,0.5);
+    }
+    .search input.focus {
+      border-bottom: 1px solid #f6e56d;
+      background: rgba(255,255,235,0) url('images/icon/magnifier1-hover.png') left center no-repeat;
+    }
+
+    .search .shop {
+      width: 500px;
+      float: right;
+    }
+    .search .shop-cart {
+      background: url('images/icon/shop-cart.png') left center no-repeat;
+    }
+     .search .shop-order {
+      background: url('images/icon/order.png') left center no-repeat;
+    }
+    .search .shop a {
+      width: 100px;
+      color: #6f6f6f;
+      line-height: 60px;
+      display: inline-block;
+      float: left;
+      padding-left: 60px;
+      margin: 20px 0;
+      background-size: 40px 40px;
+    }
+    .search .shop-qrcode {
+      float: left;
+      margin: 10px 0;
+    }
+
+    /* 导航 */
+    .nav-out {
+      background: rgba(255,255,235,0.4);
+      position: relative;
+      left: 0px;
+      top: 0px;
+    }
+    .nav {
+      width: 1000px;
+      height: 40px;
+      margin: 0 auto;
+    }
+    .nav .nav-list {
+      width: 81px;
+      float: left;
+      text-align: center;
+      line-height: 40px;
+    }
+    .nav .current {
+      background: white;
+    }
+    /* .nav div:hover {
+    } */
+    .nav .navlist {
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+      text-decoration: none;
+      color: orange;
+    }
+    .nav a:hover {
+      color: rgba(255, 165, 0, 0.6);
+      text-decoration: underline;
+    }
+    .box {
+      margin: 0 auto;
+      width: 900px;
+      overflow: hidden;
+    }
+    .box li b {
+      position: absolute;
+      bottom: 20px;
+      left: 10px;
+      color: red;
+    }
+    .box li {
+      list-style: none;
+      position: relative;
+      width: 200px;
+      border: 1px solid rgba(255,255,255,0.3);
+      height: 300px;
+      margin: 10px 10px;
+      background: rgba(255,255,255,0.3);
+      background-size: 100% 100%;
+      float: left;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    .box li.night {
+      border: 1px solid rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.3);
+    }
+    .box li:hover {
+      border: 1px solid rgba(255,255,255,0.7);
+    }
+    .box li img {
+      width: 200px;
+      height: 180px;
+    }
+    .box li .intro {
+      height: 60px;
+      overflow: hidden;
+      font-size: 16px;
+      color: orange;
+    }
+    .box a {
+      text-decoration-color: orange;
+    }
+
+    /* side-bar */
+    .side-bar {
+      width: 35px;
+      height: 100%;
+      position: fixed;
+      right: 0px;
+      top: 100px;
+      display: none;
+      background: rgba(255,255,235,0.8);
+    }
+    .side-bar .to-up {
+      position: fixed;
+      bottom: 10px;
+      right: 0px;
+      width: 35px;
+      height: 35px;
+      background: url('images/icon/to-up.png') center no-repeat;
+      background-size: 25px 25px;
+    }
+    .side-bar .to-up:hover {
+      background: #000 url('images/icon/to-up.png') center no-repeat;
+      background-size: 25px 25px;
+    }
+    .side-bar .to-up-intro {
+      width: 0;
+      height: 31px;
+      text-align: center;
+      border-radius: 3px 0 0 3px;
+      overflow: hidden;
+      line-height: 31px;
+      background: #000;
+      color: white;
+      position: absolute;
+      left: 0px;
+      top: 2px;
+    }
+
+
+
+
+    .footer {
+      height: 100px;
+      background: rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-box">
+      <div class="header-lt">
+        <a href="" id="username">用户</a>
+        <span class="hello" id="user-hello">您好！</span>
+        <a href="index.html" class="welcome">欢迎光临乐购</a>
+        <a id="login" href="login.html">请登陆</a>
+      </div>
+      <div class="header-rt">
+        <a href="" class="exit" id="exit">退出</a>
+        <a href="">我的乐购</a>
+        <a href="cart.html" id="cart">购物车</a>
+        <a id="register" href="register.html">注册</a>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    var oUsername = document.querySelector('#username');
+    var oSpan = document.querySelector('#user-hello');
+    var oExit = document.querySelector('#exit');
+    var oLogin = document.querySelector('#login')
+    if(localStorage.username) {
+      oSpan.style.display = 'inline-block'
+      oUsername.style.display = 'inline-block';
+      oLogin.style.display = 'none'
+      oUsername.innerText = localStorage.username;
+      oExit.style.display = 'inline-block'
+    } else {
+      oUsername.style.display = 'none';
+      oSpan.style.display = 'none';
+      oLogin.style.display = 'inline-block'
+      oExit.style.display = 'none'
+    }
+
+    oExit.onclick = () => {
+      localStorage.clear();
+      loaction.reload();
+    }
+    // console.log(localStorage.token)
+  </script>
+
+
+
+
+
+  <div class="search" id="search">
+    <div class="search-cont">
+      <div class="logo-box">
+        <a href="index.html"><img src="images/logo-1.jpg"><span class="logo-text">乐购</span></a>
+      </div>
+      <div class="search-input-box">
+        <input type="text" name="search-box" placeholder="搜索商品">
+      </div>
+      <div class="shop" id="shop">
+        <a class="shop-cart" href="cart.html">购物车</a>
+        <a class="shop-order" href="order.html">我的订单</a>
+        <img class="shop-qrcode" src="images/legou.png" width="60px" height="80px" />
+      </div>
+    </div>
+  </div>
+  <div class="nav-out">
+    <div class="nav" id="nav">
+      <div class="nav-list" id="index-page"><a class="navlist" href="javascript:;">主页</a></div>
+    </div>
+  </div>
+  <div class="side-bar" id="side-bar">
+    <a href="javascript:;" class="to-up" id="to-up">
+      <span class="to-up-intro" id="to-up-intro">回到顶部</span>
+    </a>
+  </div>
+  <script type="text/javascript" src="js/animate-1.1.js"></script>
+  <script type="text/javascript" src="js/backtotop.js"></script>
+  <script type="text/javascript">
+    var oShop = document.querySelector('#shop');
+    var oSearchBox = document.querySelector('input[name=search-box]');
+    // var oToUp = document.querySelector('#to-up');
+    var oSideBar = document.querySelector('#side-bar');
+    var oToUp = new BackToTop('#to-up');
+    var oToUpIntro = document.querySelector('#to-up-intro')
+    oSideBar.onclick = function(e) {
+      e = e || window.event;
+      target = e.target || e.srcElement;
+      if(target.id === 'to-up') {
+        oToUp();
+      }
+    }
+    oSideBar.onmouseover = function(e) {
+      e = e || window.event;
+      target = e.target || e.srcElement;
+      if(target.id === 'to-up') {
+        if(oToUpIntro.isAnimated)return;
+        animate(oToUpIntro,{'width':100,'left':-100},120,'CubicEaseInOut');
+      }
+    }
+    oSideBar.onmouseleave = function(e) {
+      if(oToUpIntro.isAnimated) return;
+      animate(oToUpIntro,{'width':0,'left':0},120,'CubicEaseInOut');
+    }
+    oSearchBox.onfocus = function() {
+      oShop.style.display = 'none';
+      this.classList.add('focus')
+      var width = parseInt(this.clientWidth);
+      console.log(width)
+      var self = this;
+      var timer = setInterval(function() {
+        width += 50
+        if(width > 800) {
+          clearInterval(timer);
+          self.style.width = 800 + 'px';
+        }
+        self.style.width = width + 'px';
+      },20)
+    }
+    oSearchBox.onblur = function() {
+      this.classList.remove('focus')
+      var width = parseInt(this.clientWidth);
+      console.log(width)
+      var self = this;
+      var timer = setInterval(function() {
+        width -= 50
+        if(width <= 300){
+          clearInterval(timer);
+          self.style.width = 300 + 'px';
+          oShop.style.display = 'block';
+        }
+        self.style.width = width + 'px';
+      },20)
+    }
+  </script>
+
+  <div class="hot-goods">热门商品</div>
+  <div id="box" class="box"></div>
+  <div class="footer"></div>
+
+  <script type="text/javascript" src="js/allLoaction.js"></script>
+  <script type="text/javascript" src="js/myajax.js"></script>
+  <script type="text/javascript">
+
+
+
+    var oFooter = document.querySelector('.footer');
+    var oInput  = document.querySelector('input[name=search-box]');
+    var oWrap   = document.querySelector('#search')
+    var oBox    = document.querySelector('#box');
+    var oNav    = document.querySelector('#nav');
+
+    var oLogin  = document.querySelector('#login');
+    var oRegister = document.querySelector('#register');
+
+    //页面初始化
+    window.onload = function() {
+      myajax.get('http://h6.duchengjiu.top/shop/api_cat.php',{},function(error,responseText) {
+        var json = JSON.parse(responseText);
+        var data = json.data;
+        for(var i = 0; i < data.length + 1; i++) {
+          if(i === data.length) {
+            oNav.innerHTML += `<div class="nav-list"><a href="" class="navlist">更多</a></div>`
+          } else {
+          oNav.innerHTML += `<div class="nav-list"><a href="classify.html?cat_id=${data[i].cat_id}" class="navlist">${data[i].cat_name}</a></div>`
+          }
+        }
+      })
+      myajax.get('http://h6.duchengjiu.top/shop/api_goods.php',{},function(error,responseText){loading(error,responseText)})
+    }
+
+    //关键词搜索商品
+    oInput.onkeydown = function(e) {
+      e = e || window.event;
+      if(e.keyCode === 13) {
+        location.href = `hot-goods.html?search_text=${oInput.value}`;
+        oInput.value = '';
+      }
+    }
+    //当向下滚动时：继续添加商品
+    //固定导航栏
+    var index = 1;
+    window.onscroll = function() {
+      oInput.blur();
+      // e = e || window.event;
+      scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+      if(getAllTop(oFooter) - scrollTop < 560) {
+        index++;
+        if(index)
+        myajax.get('http://h6.duchengjiu.top/shop/api_goods.php',{page:index},function(error,responseText){addcont(error,responseText)})
+      }
+      if(scrollTop > 190) {
+        oWrap.style.position = 'fixed';
+        oSideBar.style.display = 'block';
+        oWrap.style.background = 'rgba(255,255,235,0.8)';
+      } else {
+        oSideBar.style.display = 'none';
+        oWrap.style.position = 'relative'
+        oWrap.style.background = 'rgba(255,255,235,0.5)';
+      }
+    }
+
+    function sayHello() {
+      var date = new Date();
+      var hour = date.getHours();
+      console.log(hour)
+      if(hour >= 6 && hour < 9) {
+        console.log(1);
+        return('早上好！')
+      } else if(hour >= 9 && hour < 12) {
+        return('上午好！')
+      } else if(hour >= 12 && hour < 15) {
+        return('中午好！')
+      } else if(hour >= 15 && hour < 18) {
+        return('下午好！')
+      } else if(hour >= 18 && hour < 21) {
+        night();
+        return('傍晚好！')
+      } else {
+        night();
+        return('晚上好！')
+      }
+    }
+    oSpan.innerText = sayHello();
+    function night() {
+      var oLis = oBox.querySelectorAll('li');
+        for(var i = 0; i < oLis.length; i++ ) {
+          oLis[i].className = 'night'
+        }
+        document.body.style.background = 'url("images/Evening_BGImage_v2.jpg") no-repeat 100% fixed';
+    }
+
+
+  </script>
+</body>
+</html>

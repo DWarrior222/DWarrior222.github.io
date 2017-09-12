@@ -77,18 +77,45 @@
     return arr.join('&');
   }
 })();
+//加载商品；
+    function loading(error,responseText) {
+      oBox.innerHTML = '';
+      var json = JSON.parse(responseText);
+      var data = json.data;
+      var oUl = document.createElement('ul');
+      oBox.appendChild(oUl);
+      for(var i = 0; i < data.length; i++) {
+        oUl.innerHTML += `<li><a href="goods.html?goods_id=${data[i].goods_id}">
+          <img src="${data[i].goods_thumb}"/>
+          <div class='intro'>${data[i].goods_name}</div>
+          <b>${data[i].price}</b>
+          </a>
+        </li>`
+      }
+    }
+    //向下滚动时再次商品加载
+    function addcont(error,responseText) {
+      var json = JSON.parse(responseText);
+      var data = json.data;
+      var oUl = document.createElement('ul');
+      oBox.appendChild(oUl);
+      for(var i = 0; i < data.length; i++) {
+        oUl.innerHTML += `<li><a href="goods.html?goods_id=${data[i].goods_id}">
+          <img src="${data[i].goods_thumb}"/>
+          <div class='intro'>${data[i].goods_name}</div>
+          <b>${data[i].price}</b>
+          </a>
+        </li>`
+      }
+    }
+    function getQueryString(name) {
+      var search = location.search.substr(1);
+      var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
+      var result = search.match(reg);
+      return result === null ? null : decodeURIComponent(result[2]);
+    }
 
-function getQueryString(name) {
-  var search = location.search.substr(1);
-  //abc=123&a=&ccc=abc
-  //(^|&)   (&|$)
-  //abc=([^&]*)
-  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-  var result = search.match(reg);
-  // if (result === null) return null;
-  // return decodeURIComponent(result[2]);
-  return result === null ? null : decodeURIComponent(result[2]);
-}
+
 
 //表单序列化
 function serializeForm(oForm) {
@@ -129,39 +156,6 @@ function serializeForm(oForm) {
     }
   }
   return arr;
-}
-
-
-
-function sayHello() {
-  var date = new Date();
-  var hour = date.getHours();
-  console.log(hour)
-  if(hour >= 6 && hour < 9) {
-    console.log(1);
-    return('早上好！')
-  } else if(hour >= 9 && hour < 12) {
-    document.body.style.background = 'url("images/Morning_BGImage_v2.jpg") no-repeat 100% fixed';
-    return('上午好！')
-  } else if(hour >= 12 && hour < 15) {
-    return('中午好！')
-  } else if(hour >= 15 && hour < 18) {
-    return('下午好！')
-  } else if(hour >= 18 && hour < 21) {
-    night();
-    return('傍晚好！')
-  } else {
-    night();
-    return('晚上好！')
-  }
-}
-
-function night() {
-  // var oLis = oBox.querySelectorAll('li');
-  // for(var i = 0; i < oLis.length; i++ ) {
-  //   oLis[i].className = 'night'
-  // }
-  document.body.style.background = 'url("images/Evening_BGImage_v2.jpg") no-repeat 100% fixed';
 }
 
 function getAllTop(obj) {
