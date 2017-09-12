@@ -61,6 +61,7 @@ a {
 .search {
   width: 1050px;
   margin: 0 auto;
+  overflow: hidden;
 }
 .search .logo {
   width: 220px;
@@ -111,6 +112,13 @@ a {
 .search .mylegou {
   width: 405px;
   float: right;
+  position: relative;
+}
+.search .mylegou .cart-number {
+  position: absolute;
+  left: 39px;
+  top: 6px;
+  color: red;
 }
 .search .mylegou .shop-cart {
   background: url('../images/icon/shop-cart.png') left center no-repeat;

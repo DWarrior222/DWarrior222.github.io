@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>商品详情页</title>
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="css/toast.css">
+  <style type="text/css">
+    .goods-content {
+      width: 1050px;
+      padding-top: 100px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+      /* background: url('images/3.png') center no-repeat;
+      background-size: cover; */
+    }
+    .goods-content .bigPic {
+      width: 400px;
+      height: 400px;
+      position: absolute;
+      left: 410px;
+      top: 100px;
+      display: none;
+      /* background-position:  */
+      background-color: rgba(0,0,0,0.3);
+      background-size: 800px 800px;
+    }
+    .goods-box {
+      width: 400px;
+      position: relative;
+      height: 400px;
+      float: left;
+      background: #f1f1f1;
+    }
+    .goods-box img {
+      width: 400px;
+      height: 400px;
+    }
+    .goods-box b {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      color: red;
+    }
+    .goods-intro button, {
+      /* position: absolute; */
+      width: 200px;
+      height: 30px;
+      outline: none;
+      border: none;
+      background: #ff0036;
+      bottom: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+    .goods-intro {
+      padding: 30px 20px;
+      position: relative;
+      float: left;
+      width: 610px;
+      color: khaki;
+      height: 340px;
+      background: rgba(101,73,73,0.5)
+    }
+    .goods-box img{
+      width: 100%;
+      height: 100%;
+    }
+    .goods-box .zoom {
+      position: absolute;
+      width: 175px;
+      height: 175px;
+      cursor: crosshair;
+      background-color: #FEDE4F;
+      opacity: 0.5;
+      filter: alpha(opacity=50);
+      border: 1px solid #aaa;
+      display: none;
+    }
+
+    .quantity-add-less-Separation{
+        display: inline-block;
+        overflow: hidden;
+    }
+    .quantity-add-less-Separation .quantity-input-num{
+        float: left;
+        width:4rem;
+        height: 3rem;
+        margin-right: 3px;
+        padding: 0;
+        text-align: center;
+        border: 1px solid #999;
+        outline: none;
+    }
+    .quantity-add-less-Separation .add-less {
+        float: left;
+    }
+    .quantity-add-less-Separation .add-less .less,.quantity-add-less-Separation .add-less .add{
+        display: block;
+        width: 2rem;
+        height: 1.5rem;
+        margin: 0;
+        text-align: center;
+        line-height: 100%;
+        background: #fff;
+        border: 1px solid #999;
+        outline: none;
+    }
+    .quantity-add-less-Separation .add-less .add{
+        margin-bottom: 2px;
+    }
+    /*--------------------数量的加减（间隔）-------------------*/
+    .goods-intro .quantity-add-less-spacing{
+        border: 1px solid#999;
+        padding: 0px;
+        margin-bottom: 40px;
+    }
+    .quantity-add-less-spacing .quantity-input-num{
+        border:0;
+    }
+    .quantity-add-less-spacing .add-less .add,.quantity-add-less-spacing .add-less .less {
+        border: 0;
+    }
+    .quantity-add-less-spacing .add-less .add{
+        margin-bottom: 1px ;
+        border-bottom: 1px solid #999;
+    }
+    .quantity-add-less-spacing .add-less{
+        border-left: 1px solid #999;
+    }
+    .goods-intro>div{
+      padding-bottom: 40px;
+    }
+    .goods-intro  .goods_brand {
+
+    }
+    .goods-intro .goods_price {
+      padding: 20px 0;
+      color: brown;
+      background: rgba(202,182,102,0.6);
+    }
+    .goods-intro .goods_price span {
+      padding-left: 5px;
+      font-size: 30px;
+    }
+    .goods-intro  .goods_address{
+      padding-top: 20px;
+      color: ;
+    }
+    .goods-intro .buy-button button {
+      border-radius: 2px;
+      margin-right: 5px;
+      color: initial;
+      width: 150px;
+      cursor: pointer;
+      border: 1px solid brown;
+      background: brown;
+      color: white;
+      line-height: 40px;
+      text-align: center;
+    }
+    .goods-intro .buy-button button:hover {
+      border: 1px solid #ca3838;
+      background: #ca3838;
+    }
+    .goods-intro .buy-goods{}
+    .goods-intro .add-goods{}
+  </style>
+</head>
+<body>
+  <div class="header-outer">
+    <div class="header">
+      <ul class="header-l">
+        <li>
+          <a class="header-light" id="username">username</a>
+        </li>
+        <li>
+          <a class="header-light" id="user-hello">您好</a>
+        </li>
+        <li>
+          <a href="" class="header-light">欢迎光临乐购</a>
+        </li>
+        <li>
+          <a href="login.html" id="user-login">登陆</a>
+        </li>
+        <li>
+          <a href="register.html" id="user-register">注册</a>
+        </li>
+      </ul>
+      <ul class="header-r">
+        <li><a href="" id="exit">退出</a></li>
+        <li><a href="">乐购首页</a></li>
+        <li><a href="">我的乐购</a></li>
+        <li><a href="">联系客服</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="search-outer" id="search-outer">
+    <div class="search">
+      <div class="logo">
+        <a href="index.html">
+          <img src="images/logo.jpg"/>
+          <span class="logo-txt">乐购</span>
+        </a>
+      </div>
+      <div class="search-input">
+        <input type="" name="search-box">
+      </div>
+      <div class="mylegou" id="mylegou">
+        <a class="shop-cart" href="cart.html"><i>购物车</i><b id="cart-number" class="cart-number">0</b></a>
+        <a class="shop-order" href="order.html">我的订单</a>
+        <img class="shop-qrcode" src="images/legou.png" width="80px" height="80px" />
+      </div>
+    </div>
+  </div>
+  <div class="side-bar" id="side-bar">
+    <a href="javascript:;" class="to-up" id="to-up">
+      <span class="to-up-intro" id="to-up-intro">回到顶部</span>
+    </a>
+  </div>
+  
+
+
+
+  <div class="goods-content" id="goods-content">
+    <div class="goods-box" id="goods-box">
+      <div id="zoom" class="zoom"></div>
+    </div>
+    <div class="goods-intro" id="goods-intro"></div>
+    <div id="bigPic" class="bigPic"></div>
+  </div>
+
+
+
+  <div class="footer" id="footer"></div>
+  <script type="text/javascript" src="js/zoom.js"></script>
+  <script type="text/javascript" src="js/toast.js"></script>
+  <script type="text/javascript" src="js/myajax.js"></script>
+  <script type="text/javascript" src="js/animate-1.1.js"></script>
+  <script type="text/javascript" src="js/backtotop.js"></script>
+  <script type="text/javascript" src="js/index-simple.js"></script>
+  <script type="text/javascript">
+    var oGoodsContent =  document.querySelector('#goods-content');
+    var oGoodsBox = document.querySelector('#goods-box');
+    var oGoodsIntro = document.querySelector('#goods-intro');
+    //获取传入页面的参数
+    function getQueryString(name) {
+      var search = location.search.substr(1);
+      var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
+      var result = search.match(reg);
+      if(result === null) return;
+      return decodeURIComponent(result[2]);
+    }
+    //保存参数：
+    var goods_id = getQueryString('goods_id');
+    var goods_thumb
+
+    //渲染商品内容
+    myajax.get('http://h6.duchengjiu.top/shop/api_goods.php',{goods_id},function(error,responseText) {
+      var json = JSON.parse(responseText);
+      var data = json.data;
+      for(var i = 0; i < 1; i++) {
+        goods_thumb = data[i].goods_thumb;
+        console.log(data[i])
+        /*
+        var oImg = document.createElement('img');
+        oImg.src = data[i].goods_thumb;
+        oGoodsBox.appendChild(oImg);
+        */
+       //innerHTML会重新生成里面的内容，在之前获取的元素就失效了
+        oGoodsBox.innerHTML += `
+        <img src="${data[i].goods_thumb}"/>`;
+        new Zoom("#goods-box", "#bigPic", "#zoom", goods_thumb);
+        oGoodsIntro.innerHTML += `
+        <div class="goods_brand">${data[i].goods_name}</div>
+        <div class="goods_price"><i>&yen;</i><span>${data[i].price}</span></div>
+        <div class='goods_address'>地址ID：${localStorage.addressId}</div>
+        <div class="quantity-add-less-Separation quantity-add-less-spacing">
+            <input type="text" class="quantity-input-num" value="1">
+            <div class="add-less">
+                <button class="add" id="add" data-id="${data[i].goods_id}">+</button>
+                <button class="less" id="less" data-id="${data[i].goods_id}">-</button>
+            </div>
+        </div>
+        <div class="buy-button">
+          <button id="buy-goods" data-number="${data[i].goods_number}" data-id="${data[i].goods_id}">立即购买</button>
+          <button id="add-goods" data-number="${data[i].goods_number}" data-id="${data[i].goods_id}">添加到购物车</button>
+        </div>
+        `
+      }
+    })
+
+
+    oGoodsIntro.onclick = function(e) {
+      e = e || window.event;
+      target = e.target || e.srcElement;
+      // console.log(goods_number);
+      var oInput = document.querySelector('.quantity-input-num');
+      var number = oInput.value;
+      if(target.id === 'add') {
+        number++;
+        if(number > 10) {
+          number = 10;
+        }
+        oInput.value = number;
+      }
+      if(target.id === 'less') {
+        number--
+        if(number < 1) {
+          number = 1;
+        }
+        oInput.value = number;
+      }
+      if(target.id === 'add-goods') {
+        var goods_id = target.dataset.id;
+        console.log(goods_id)
+        if(localStorage.token)
+        myajax.post('http://h6.duchengjiu.top/shop/api_cart.php?token='+localStorage.token,
+        {goods_id, number:oInput.value},
+        function(error, responseText) {
+          var json = JSON.parse(responseText);
+          console.log(json)
+          if (json.code === 0) {
+            toast('添加到购物车成功',2000,function() {location.reload();});
+          } else {
+            toast('购物车未更新',2000);
+          }
+        })
+        else {
+          localStorage.backurl = location.href;
+          location.href = 'login.html?';
+        }
+      } else if(target.id === 'buy-goods') {
+        var goods_id = target.dataset.id;
+        if(localStorage.token)
+          myajax.post('http://h6.duchengjiu.top/shop/api_cart.php?token='+localStorage.token,
+          {goods_id, number:oInput.value},
+          function(error, responseText) {
+            var json = JSON.parse(responseText);
+            if (json.code === 0) {
+              location.href = 'order.html';
+            }
+          })
+        else {
+          localStorage.backurl = location.href;
+          location.href = 'login.html?';
+        }
+      }
+    }
+  </script>
+</body>
+</html>

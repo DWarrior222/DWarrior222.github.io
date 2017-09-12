@@ -84,7 +84,7 @@
       position: relative;
       position: absolute;
       top: 0px;
-      right: 800px;
+      right: 1300px;
       background: rgba(255,255,235,0.6);
       z-index: 200;
     }
@@ -234,7 +234,7 @@
     var falsenumber = 0;
     sayHello();
 
-    animate(oRegisterPage,{'right':0},2000,'QuartEaseInOut');
+    animate(oRegisterPage,{'right':0},1200,'QuartEaseInOut');
     recommend(252753);
     function recommend(goods_id) {
       var goods_id = goods_id || 252753;
@@ -318,14 +318,7 @@
         // var data = json.data;
         console.log(json.code)
         if(json.code === 0) {
-          // toast('登陆成功,两秒钟后跳转',2000);
-          localStorage.token = json.data.token;
-          localStorage.username = json.data.username;
-          if(localStorage.backurl) {
-            location.href = localStorage.backurl;
-          } else {
-            location.href = 'index.html';
-          }
+          location.href = 'login.html';
         }
       })
     }

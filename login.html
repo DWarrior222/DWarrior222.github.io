@@ -83,7 +83,7 @@
       position: relative;
       position: absolute;
       top: 0;
-      right: 800px;
+      right: 1300px;
       background: rgba(255,255,235,0.6);
       z-index: 200;
     }
@@ -223,11 +223,12 @@
     var oPromptUsername = document.querySelector('#prompt-username');
     var oPromptPassword = document.querySelector('#prompt-password');
     var oRecommend = document.querySelector('#recommend');
+    var oCheckbox = document.querySelector('input[name=checkbox]')
     var falsenumber = 0;
     sayHello();
 
 
-    animate(oLoginPage,{'right':0},2000,'QuartEaseInOut');
+    animate(oLoginPage,{'right':0},1200,'QuartEaseInOut');
 
 
 
@@ -314,6 +315,9 @@
           // toast('登陆成功,两秒钟后跳转',2000);
           localStorage.token = json.data.token;
           localStorage.username = json.data.username;
+          if(oCheckbox.checked) {
+            //cookie;
+          }
           if(localStorage.backurl) {
             location.href = localStorage.backurl;
           } else {
@@ -332,6 +336,13 @@
         }
       })
     }
+
+    // document.cookie = 'username=value';
+    // console.log(document.cookie);
+    // window.addEventListener('load',function() {
+    //   oUsername.value = getCookie
+    //   oPassword
+    // })
   </script>
 </body>
 </html>

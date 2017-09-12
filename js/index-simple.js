@@ -21,7 +21,7 @@ if(localStorage.username) {
 
 oExit.onclick = () => {
   localStorage.clear();
-  location.reload();
+  loaction.reload();
 }
 
 var oInput = document.querySelector('input[name=search-box]');
@@ -82,26 +82,7 @@ oSideBar.onmouseleave = function(e) {
   if(oToUpIntro.isAnimated) return;
   animate(oToUpIntro,{'width':0,'left':0},120,'CubicEaseInOut');
 }
-var oNav = document.querySelector('#nav');
-var oNavUl = document.querySelector('#goods-list');
-window.addEventListener('load', function() {
-  myajax.get('http://h6.duchengjiu.top/shop/api_cat.php',{},function(error,responseText) {
-    var json = JSON.parse(responseText);
-    var data = json.data;
 
-    for(var i = 0; i < data.length + 1; i++) {
-      if(i === data.length) {
-        oNavUl.innerHTML += `<li><a href="">更多</a></li>`
-      } else {
-      oNavUl.innerHTML += `
-        <li>
-          <a href="list.html?cat_id=${data[i].cat_id}">${data[i].cat_name}</a>
-        </li>`
-      }
-    }
-  })
-  // myajax.get('http://h6.duchengjiu.top/shop/api_goods.php',{},function(error,responseText){loading(error,responseText)})
-})
 
 
 var oFooter = document.querySelector('#footer')
@@ -112,7 +93,7 @@ window.addEventListener('scroll', function() {
   oInput.blur();
   // e = e || window.event;
   scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-  if(scrollTop > 450) {
+  if(scrollTop > 190) {
     oWrap.style.position = 'fixed';
     oSideBar.style.display = 'block';
     oWrap.style.background = 'rgba(255,255,235,0.8)';
@@ -148,38 +129,9 @@ function sayHello() {
 }
 oSpan.innerText = sayHello();
 function night() {
-  document.body.style.background = 'url("images/Evening_BGImage_v2.jpg") no-repeat 100% fixed';
-}
-
-
-function loading(error,responseText) {
-// oUl.innerHTML = '';
-var json = JSON.parse(responseText);
-var data = json.data;
-console.log(data)
-for(var i = 0; i < data.length; i++) {
-  oUl.innerHTML += `<li>
-    <a href="goods.html?goods_id=${data[i].goods_id}">
-      <img src="${data[i].goods_thumb}"/>
-      <p class="goods-name">${data[i].goods_name}</p>
-      <p class="goods-desc">${data[i].goods_desc}</p>
-      <p class="goods-price">&yen;${data[i].price}</p>
-    </a>
-  </li>`
-}
-}
-//向下滚动时再次商品加载
-function addcont(error,responseText) {
-var json = JSON.parse(responseText);
-var data = json.data;
-for(var i = 0; i < data.length; i++) {
-  oUl.innerHTML += `<li>
-    <a href="goods.html?goods_id=${data[i].goods_id}">
-      <img src="${data[i].goods_thumb}"/>
-      <p class="goods-name">${data[i].goods_name}</p>
-      <p class="goods-desc">${data[i].goods_desc}</p>
-      <p class="goods-price">&yen;${data[i].price}</p>
-    </a>
-  </li>`
-}
+  // var oLis = oBox.querySelectorAll('li');
+  //   for(var i = 0; i < oLis.length; i++ ) {
+  //     oLis[i].className = 'night'
+  //   }
+    document.body.style.background = 'url("images/Evening_BGImage_v2.jpg") no-repeat 100% fixed';
 }

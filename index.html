@@ -8,13 +8,106 @@
   <style type="text/css">
 
     .hot-goods {
-      line-height: 100px;
+      line-height: 110px;
       font-size: 30px;
       text-align: center;
       color: red;
     }
 
 
+    .carousel-outer{
+      width: 100%;
+      height: 400px; 
+      margin-top: 45px;
+    }
+    .carousel{
+      width: 1020px;
+      height: 400px;
+      margin: 0 auto;
+      /*border: 1px solid #000;*/
+      position: relative;
+      overflow: hidden;
+    }
+    .carousel .imagesList ul{
+      list-style: none;
+      position: relative;
+    }
+    .carousel .imagesList ul li{
+      position: absolute;
+      top: 0;
+      left: 1020px;
+      width: 1020px;
+      height: 400px;
+    }
+    .carousel .imagesList img{
+      width: 1020px;
+      height: 400px;
+    }
+    .carousel .imagesList ul li.first{
+      left: 0;
+    }
+    .btns{
+      position: absolute;
+      top: 50%;
+      width: 1020px;
+      height: 70px;
+      margin-top: -35px;
+      z-index: 999;
+    }
+    .btns a{
+      width: 50px;
+      height: 32px;
+      margin-top: 19px;
+      display: none;
+      z-index: 999;
+    }
+    .btns:hover a{
+      display: block;
+    }
+    .btns a.leftBtn{
+      float: left;
+      background:url(images/leftBtn.png) no-repeat;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+    .btns a.rightBtn{
+      float: right;
+      background:url(images/rightBtn.png) no-repeat;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+    .circles{
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      margin-left: -130px;
+      width: 260px;
+      height: 8px;
+    }
+    .circles ol{
+      list-style: none;
+    }
+    .circles ol li{
+      float: left;
+      width: 30px;
+      height: 5px;
+      margin: 0 10px;
+      border-radius: 10px;
+      background-color: gray;
+      cursor: pointer;
+    }
+    .circles ol li.cur{
+      background-color: white;
+    }
+
+     .load-again {
+      width: 1050px;
+      margin: 10px auto;
+      text-align: center;
+      line-height: 30px;
+    }
+    .load-again a {
+      font-size: 30px;
+      color: rgba(255,255,255,0.8);
+    }
   </style>
 </head>
 <body>
@@ -58,7 +151,7 @@
         <input type="" name="search-box">
       </div>
       <div class="mylegou" id="mylegou">
-        <a class="shop-cart" href="cart.html">购物车</a>
+        <a class="shop-cart" href="cart.html"><i>购物车</i><b id="cart-number" class="cart-number">0</b></a>
         <a class="shop-order" href="order.html">我的订单</a>
         <img class="shop-qrcode" src="images/legou.png" width="80px" height="80px" />
       </div>
@@ -90,13 +183,49 @@
       myajax.get('http://h6.duchengjiu.top/shop/api_goods.php',{},function(error,responseText){loading(error,responseText)})
     }
     )
-    
   </script>
+		
+		<!--轮播图-->
+		<div class="carousel-outer" id="carousel-outer">
+			<div class="carousel" id="carousel">
+				<div class="btns">
+					<a href="javascript:;" class="leftBtn" id="leftBtn"></a>
+					<a href="javascript:;" class="rightBtn" id="rightBtn"></a>
+				</div>
+				<div class="imagesList" id="imagesList">
+					<ul>
+						<li class="first"><a href="#"><img src="images/0.jpg" alt="0" title="haha0"/></a></li>
+						<li><a href="#"><img src="images/1.jpg" alt="1" title="haha1"/></a></li>
+						<li><a href="#"><img src="images/2.jpg" alt="2" title="haha2"/></a></li>
+						<li><a href="#"><img src="images/3.jpg" alt="3" title="haha3"/></a></li>
+						<li><a href="#"><img src="images/4.jpg" alt="4" title="haha4"/></a></li>
+					</ul>
+				</div>
+				<div class="circles" id="circles">
+					<ol>
+						<li class="cur"></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/animate-1.1.js"></script>
+		<script type="text/javascript" src="js/carousel.js"></script>
+		<script type="text/javascript">
+			new Carousel('#carousel');
+		</script>
 
-  <h1 class="hot-goods">热门商品</h1>
+
+<h1 class="hot-goods">热门商品</h1>
   <div class="commodity-outer" id="commodity-outer">
     <ul class="commodity-list" id="commodity-list">
     </ul>
+  </div>
+  <div class="load-again" id="load-again">
+    <a href="javascript:;">点击继续加载...</a>
   </div>
   <div class="footer" id="footer"></div>
   <script type="text/javascript" src="js/myajax.js"></script>
@@ -104,51 +233,37 @@
   <script type="text/javascript" src="js/backtotop.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
   <script type="text/javascript">
+    var oLoadAgain = document.querySelector('#load-again');
     var oFooter = document.querySelector('#footer')
     var oUl = document.querySelector('#commodity-list');
     //加载商品；
+    
+
+    oInput.onkeydown = function(e) {
+      e = e || window.event;
+      if(e.keyCode === 13) {
+        location.href = `search.html?search_text=${oInput.value}`;
+        oInput.value = '';
+      }
+    }
+
+
+
+
     var index = 1;
     window.addEventListener('scroll', function() {
       // e = e || window.event;
       scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
       if(getAllTop(oFooter) - scrollTop < 560) {
         index++;
-        if(index)
+        if(index < 5)
         myajax.get('http://h6.duchengjiu.top/shop/api_goods.php',{page:index},function(error,responseText){addcont(error,responseText)})
       }
     })
-    function loading(error,responseText) {
-      // oUl.innerHTML = '';
-      var json = JSON.parse(responseText);
-      var data = json.data;
-      console.log(data)
-      for(var i = 0; i < data.length; i++) {
-        oUl.innerHTML += `<li>
-          <a href="goods.html?goods_id=${data[i].goods_id}">
-            <img src="${data[i].goods_thumb}"/>
-            <p class="goods-name">${data[i].goods_name}</p>
-            <p class="goods-desc">蛋糕杯特殊的双层碗设计保证在加热过后隔热。有了这款蛋糕杯，用微波炉</p>
-            <p class="goods-price">&yen;${data[i].price}</p>
-          </a>
-        </li>`
-      }
+    oLoadAgain.onclick = function() {
+      index++;
+      myajax.get('http://h6.duchengjiu.top/shop/api_goods.php',{page:index},function(error,responseText){addcont(error,responseText)})
     }
-    //向下滚动时再次商品加载
-    function addcont(error,responseText) {
-      var json = JSON.parse(responseText);
-      var data = json.data;
-      for(var i = 0; i < data.length; i++) {
-        oUl.innerHTML += `<li>
-          <a href="goods.html?goods_id=${data[i].goods_id}">
-            <img src="${data[i].goods_thumb}"/>
-            <p class="goods-name">${data[i].goods_name}</p>
-            <p class="goods-desc">蛋糕杯特殊的双层碗设计保证在加热过后隔热。有了这款蛋糕杯，用微波炉</p>
-            <p class="goods-price">&yen;${data[i].price}</p>
-          </a>
-        </li>`
-      }
-    }
-    
   </script>
 </body>
 </html>
