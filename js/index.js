@@ -122,6 +122,15 @@ window.addEventListener('scroll', function() {
     oWrap.style.background = 'rgba(255,255,235,0.5)';
   }
 })
+window.addEventListener('scroll', function() {
+  // e = e || window.event;
+  scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+  if(scrollTop > 150) {
+    oSideBar.style.display = 'block';
+  } else {
+    oSideBar.style.display = 'none';
+  }
+})
 
 
 function sayHello() {

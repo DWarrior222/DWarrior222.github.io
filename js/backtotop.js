@@ -12,7 +12,7 @@
 		var self = this;
 		window.onscroll = function(){
 		  var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-		  if (scrollTop > 500) {
+		  if (scrollTop > 300) {
 			self.dom.style.display = 'block';
 		  } else {
 			self.dom.style.display = 'none';

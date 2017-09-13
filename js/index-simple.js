@@ -87,7 +87,6 @@ oSideBar.onmouseleave = function(e) {
 
 var oFooter = document.querySelector('#footer')
 var oUl = document.querySelector('#commodity-list');
-//加载商品；
 var index = 1;
 window.addEventListener('scroll', function() {
   oInput.blur();
@@ -95,14 +94,22 @@ window.addEventListener('scroll', function() {
   scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
   if(scrollTop > 190) {
     oWrap.style.position = 'fixed';
-    oSideBar.style.display = 'block';
     oWrap.style.background = 'rgba(255,255,235,0.8)';
   } else {
-    oSideBar.style.display = 'none';
     oWrap.style.position = 'relative'
     oWrap.style.background = 'rgba(255,255,235,0.5)';
   }
 })
+window.addEventListener('scroll', function() {
+  // e = e || window.event;
+  scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+  if(scrollTop > 100) {
+    oSideBar.style.display = 'block';
+  } else {
+    oSideBar.style.display = 'none';
+  }
+})
+
 
 
 function sayHello() {
@@ -134,4 +141,19 @@ function night() {
   //     oLis[i].className = 'night'
   //   }
     document.body.style.background = 'url("images/Evening_BGImage_v2.jpg") no-repeat 100% fixed';
+}
+
+
+function fetchComputedStyle(obj, property) {
+  if (window.getComputedStyle) {
+    property = property.replace(/[A-Z]/g, function(match){
+      return '-' + match.toLowerCase();
+    });
+    return window.getComputedStyle(obj)[property]; //中括号里面可以是变量
+  } else {
+    property = property.replace(/-([a-z])/g, function(match, $1){
+      return $1.toUpperCase();
+    });
+    return obj.currentStyle[property];
+  }
 }

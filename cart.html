@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <style>
+    .cart-search-outer{
+      width: 100%;
+      height: 80px;
+      padding: 45px 0;
+      /* background: rgba(255, 255,235,0.5) */
+    }
+    .cart-search{
+      width: 1050px;
+      height: 80px;
+      margin: 0 auto;
+    }
+    .cart-search-logo{
+      width: 200px;
+      height: 80px;
+      float: left;
+    }
+    .cart-search-logo i{
+      float: left;
+      width: 80px;
+      height: 80px;
+      background: url(images/logo.jpg);
+      background-size: 100%;
+      border-radius: 15px;
+    }
+    .cart-search-logo span{
+      float: left;
+      height: 80px;
+      font-size: 28px;
+      line-height: 80px;
+      margin: 0 10px;
+    }
+    .cart-search-box{
+      width: 500px;
+      height: 80px;
+      float: right;
+    }
+    .cart-search-box input{
+      float: right;
+      width: 300px;
+      height: 18px;
+      padding: 5px;
+      text-indent: 4px;
+      outline: none;
+      margin-top: 24px;
+      border: 2px solid red;
+      border-right: 0;
+    }
+    .cart-search-box a{
+      float: right;
+      width: 60px;
+      height: 24px;
+      padding: 2px;
+      color: white;
+      text-align: center;
+      line-height: 24px;
+      font-size: 18px;
+      margin-top: 24px;
+      border: 2px solid red;
+      border-left: 0;
+      background: red;
+    }
+
+    .cart-outer{
+      width: 100%;
+    }
+    .cart-list{
+      width: 1050px;
+      margin: 0 auto;
+    }
+    .cart-list table,.cart-list table td{
+      padding: 10px;
+      vertical-align: middle;
+    }
+    .cart-list table{
+      width: 100%;
+      border-collapse: collapse;
+      text-align:  center;
+    }
+    .cart-list table thead{
+      background: rgba(0, 0, 0, 0.3);
+    }
+    .cart-list table tbody{
+      background: rgba(255, 255, 254, 0.6);
+    }
+    .cart-list table tfoot{
+      background: rgba(0, 0, 0, 0.3);
+    }
+    .cart-tb img{
+      border-radius: 50%;
+      width: 100px;
+    }
+    .cart-table tfoot a{
+      display: inline-block;
+      color: white;
+      width: 50px;
+      height: 26px;
+      padding: 5px;
+      line-height: 26px;
+      text-align: center;
+      background: red;
+      border-radius: 5px;
+    }
+    .cart-table #total-price{
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<body>
+    <div class="header-outer">
+        <div class="header">
+            <ul class="header-l">
+                <li>
+                    <a class="header-light" id="username">username</a>
+                </li>
+                <li>
+                    <a class="header-light" id="user-hello">您好</a>
+                </li>
+                <li>
+                    <a href="" class="header-light">欢迎光临乐购</a>
+                </li>
+                <li>
+                    <a href="login.html" id="user-login">登陆</a>
+                </li>
+                <li>
+                    <a href="register.html" id="user-register">注册</a>
+                </li>
+            </ul>
+            <ul class="header-r">
+                <li><a href="" id="exit">退出</a></li>
+                <li><a href="">乐购首页</a></li>
+                <li><a href="">我的乐购</a></li>
+                <li><a href="">联系客服</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="cart-search-outer">
+        <div class="cart-search">
+            <div class="cart-search-logo">
+                <a href="index.html">
+                    <i></i>
+                    <span>购物车</span>
+                </a>
+            </div>
+            <div class="cart-search-box">
+                <a href="">搜索</a>
+                <input type="text">
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-outer" id="cart-outer">
+        <div class="cart-list" id="cart-list">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <td>商品ID</td>
+                        <td>图片</td>
+                        <td>名称</td>
+                        <td>数量</td>
+                        <td>单价</td>
+                        <td>小计</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody class="cart-tb">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>合计:</td>
+                        <td id="total-price"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><a href="order.html">结算</a></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <script src="js/myajax.js"></script>
+    <script>
+        var oTable = document.querySelector('.cart-table');
+        var oTableTb = document.querySelector('.cart-tb');
+        var oTotalPrice = document.querySelector('#total-price');
+        var oExit = document.querySelector('#exit');
+        oExit.onclick = () => {
+          localStorage.clear();
+          location.reload();
+        }
+        if(!localStorage.token) location.href = 'login.html'
+        myajax.get('http://h6.duchengjiu.top/shop/api_cart.php',
+            {token: localStorage.token}, function(err, responseText){
+                var json = JSON.parse(responseText);
+                console.log(json);
+                var data = json.data;
+                var sum = 0;
+                for (var i = 0;i < data.length;i++) {
+                    var obj = data[i];
+                    sum += (obj.goods_price * obj.goods_number);
+                    oTableTb.innerHTML += `
+                                        <tr>
+                                            <td name="goods_id">${obj.goods_id}</td>
+                                            <td><img src="${obj.goods_thumb}"></td>
+                                            <td>${obj.goods_name}</td>
+                                            <td><input data-id="${obj.goods_id}" type="number" name="number" min="1" max="10" value="${obj.goods_number}" /></td>
+                                            <td>${obj.goods_price}</td>
+                                            <td name="sum">${obj.goods_price * obj.goods_number}</td>
+                                            <td><input data-id="${obj.goods_id}" type="button" name="delete" value="删除"></td>
+                                        </tr>
+                                        `;
+                }
+                oTotalPrice.innerText = "¥" + sum;
+            });
+
+        oTable.onchange = function(event) {
+            console.log(event.target.data);
+            event = event || window.event;
+            var target = event.target || event.srcElement;
+            if(target.name === 'number') {
+                if (isNaN(parseInt(target.value))) {
+                    target.value = 1;
+                }
+                var goods_id = target.dataset.id;
+                console.log(target.dataset);
+                var number = target.value;
+                myajax.post('http://h6.duchengjiu.top/shop/api_cart.php?token='+localStorage.token,
+                 {goods_id,number},
+                function(err, responseText) {
+                    var json = JSON.parse(responseText);
+                    console.log(json);
+                        if(json.code === 0) {
+                        var oPrice = target.parentNode.nextElementSibling.innerText;
+                        target.parentNode.nextElementSibling.nextElementSibling.innerText = parseInt(target.value) * oPrice;
+                        getSum();
+                        }
+                });
+            }
+        }
+        oTable.addEventListener('click', function(event){
+          event = event || window.event;
+          var target = event.target || event.srcElement;
+          if (target.name === 'delete') {
+            if (!confirm('确认要删除吗')) {
+              return;
+            }
+            var goods_id = target.dataset.id;
+            var number = 0;
+            myajax.post('http://h6.duchengjiu.top/shop/api_cart.php?token='+localStorage.token,
+              {goods_id, number},
+              (err, responseText) => {
+                var json = JSON.parse(responseText);
+                console.log(json);
+                if (json.code === 0) {
+                  var tr = target.parentNode.parentNode;
+                  tr.parentNode.removeChild(tr);
+                  getSum();
+                }
+              })
+          }
+        });
+        var oUsername = document.querySelector('#username');
+        var oSpan = document.querySelector('#user-hello');
+        var oExit = document.querySelector('#exit');
+        var oRegister = document.querySelector('#user-register');
+        var oLogin = document.querySelector('#user-login')
+        if(localStorage.username) {
+          oSpan.style.display = 'inline-block'
+          oUsername.style.display = 'inline-block';
+          oLogin.style.display = 'none'
+          oRegister.style.display = 'none'
+          oUsername.innerText = localStorage.username;
+          oExit.style.display = 'inline-block';
+          oSpan.innerText = sayHello();
+        } else {
+          oRegister.style.display = 'block';
+          oUsername.style.display = 'none';
+          oSpan.style.display = 'none';
+          oLogin.style.display = 'inline-block'
+          oExit.style.display = 'none'
+        }
+
+
+
+
+        function getSum() {
+            var oSum = document.querySelectorAll('td[name="sum"]');
+            var oSums = 0;
+            for(var i = 0;i < oSum.length;i++) {
+                oSums += parseInt(oSum[i].innerText);
+            }
+            oTotalPrice.innerText = "¥" + oSums;
+        }
+    </script>
+
+
+</body>
+</html>

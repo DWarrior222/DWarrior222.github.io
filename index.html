@@ -248,6 +248,22 @@
     }
 
 
+    var oCartNumber = document.querySelector('#cart-number');
+    //购物车显示数量
+    myajax.get('http://h6.duchengjiu.top/shop/api_cart.php',{
+      token:localStorage.token
+    },function(error,responseText) {
+      var json = JSON.parse(responseText);
+      var data = json.data;
+      var number = 0;
+      for(var i = 0; i < data.length; i++) {
+        var obj = data[i];
+        number += parseInt(obj.goods_number);
+      }
+      oCartNumber.innerText = number;
+    });
+
+
 
 
     var index = 1;

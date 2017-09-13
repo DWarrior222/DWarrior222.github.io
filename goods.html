@@ -131,7 +131,7 @@
         border-left: 1px solid #999;
     }
     .goods-intro>div{
-      padding-bottom: 40px;
+      padding-bottom: 20px;
     }
     .goods-intro  .goods_brand {
 
@@ -146,8 +146,11 @@
       font-size: 30px;
     }
     .goods-intro  .goods_address{
-      padding-top: 20px;
-      color: ;
+      padding: 30px 0;
+      line-height: 20px;
+    }
+    .goods-intro .goods_address a{
+      color: khaki;
     }
     .goods-intro .buy-button button {
       border-radius: 2px;
@@ -246,6 +249,7 @@
     var oGoodsContent =  document.querySelector('#goods-content');
     var oGoodsBox = document.querySelector('#goods-box');
     var oGoodsIntro = document.querySelector('#goods-intro');
+    var oGoodsId;
     //获取传入页面的参数
     function getQueryString(name) {
       var search = location.search.substr(1);
@@ -258,6 +262,10 @@
     var goods_id = getQueryString('goods_id');
     var goods_thumb
 
+
+
+
+    
     //渲染商品内容
     myajax.get('http://h6.duchengjiu.top/shop/api_goods.php',{goods_id},function(error,responseText) {
       var json = JSON.parse(responseText);
@@ -277,7 +285,7 @@
         oGoodsIntro.innerHTML += `
         <div class="goods_brand">${data[i].goods_name}</div>
         <div class="goods_price"><i>&yen;</i><span>${data[i].price}</span></div>
-        <div class='goods_address'>地址ID：${localStorage.addressId}</div>
+        <div class='goods_address'>地址：</div>
         <div class="quantity-add-less-Separation quantity-add-less-spacing">
             <input type="text" class="quantity-input-num" value="1">
             <div class="add-less">
@@ -290,6 +298,20 @@
           <button id="add-goods" data-number="${data[i].goods_number}" data-id="${data[i].goods_id}">添加到购物车</button>
         </div>
         `
+        oGoodsId = oGoodsIntro.querySelector('.goods_address');
+        console.log(123)
+      }
+    })
+    myajax.get('http://h6.duchengjiu.top/shop/api_useraddress.php',{token:localStorage.token},function(error,responseText) {
+      var json = JSON.parse(responseText);
+      // console.log(json);
+      var data = json.data;
+      for(var i = 0; i < data.length; i++ ) {
+        var obj = data[i];
+        console.log(obj)
+        if(obj.address_id === localStorage.addressId){
+          oGoodsId.innerHTML += `<a href='javascript:;'> ${obj.province} ${obj.city} ${obj.district} ${obj.address}<br/> 收货人：${obj.consignee}</a>`
+        }
       }
     })
 
