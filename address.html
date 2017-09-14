@@ -5,6 +5,7 @@
   <title>Document</title>
   <link rel="stylesheet" type="text/css" href="css/reset.css">
   <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="css/toast.css">
   <style type="text/css">
     .search-outer {
       box-shadow: 0 4px 2px rgba(0,0,0,0.5);
@@ -63,8 +64,14 @@
       display: inline-block;
       margin: 0 0 10px 10px;
       padding: 14px;
+      cursor: pointer;
       overflow: hidden;
-      background: #deb887;
+      background: rgba(222,184,135,0.7);
+      transition: all 0.3s;
+    }
+    .mymanage  .manage-content .address li:hover {
+      box-shadow: 1px 4px 15px rgba(0,0,0,0.8);
+      background: rgba(222,184,135,0.9);
     }
     .address-username {
       font-size: 14px;
@@ -94,6 +101,10 @@
     .mymanage .add-address-details {
       padding: 25px 0;
     }
+    .mymanage .add-address-details form .input-box .errorbc {
+      border-color: #fca1a5;
+      background-color: #ffe6e7;
+    }
     .mymanage .add-address .input-title {
       width: 75px;
       text-align: right;
@@ -118,6 +129,9 @@
       background: #fff;
       border: 1px solid #f1f1f1;
     }
+    .mymanage .add-address .input-address-details input{
+      width: 300px;
+    }
     .mymanage .add-address input {
       height: 23px;
       font-size: 16px;
@@ -135,7 +149,10 @@
     }
     .mymanage .add-address .input-address input{
       width: 130px;
-      background: #fff;
+      background: rgba(0,0,0,0);
+    }
+    .add-address-details form .input-box input {
+      background: rgba(0,0,0,0);
     }
     .mymanage .add-address .input-box-inner {
       float: left;
@@ -194,6 +211,9 @@
     .address-classify .input-box-inner {
       margin-left: 90px;
     }
+
+
+
   </style>
 </head>
 <body>
@@ -284,9 +304,9 @@
               <div class="input-box">
                 <div class="input-title input-box-inner">收货人</div>
                 <div class="input-box-inner input">
-                  <input type="text" name="" placeholder="用户姓名" value="路远">
+                  <input type="text" name="consignee" placeholder="用户姓名" value="">
                 </div>
-                <div class="input-box-inner prompt error">
+                <div class="input-box-inner prompt">
 
                 </div>
               </div>
@@ -295,15 +315,15 @@
               <div class="input-box">
                 <div class="input-title input-box-inner">地址</div>
                 <div class="input-box-inner input-address">
-                  <input type="text" name="" placeholder="省或直辖市" value="北京">
+                  <input type="text" name="city" placeholder="省或直辖市" value="北京">
                 </div>
                 <div class="input-box-inner input-address">
-                  <input type="text" name="" placeholder="市" value="北京">
+                  <input type="text" name="province" placeholder="市" value="北京">
                 </div>
                 <div class="input-box-inner input-address">
-                  <input type="text" name="" placeholder="区或县" value="石景山">
+                  <input type="text" name="district" placeholder="区或县" value="石景山">
                 </div>
-                <div class="input-box-inner prompt error">
+                <div class="input-box-inner prompt">
 
                 </div>
               </div>
@@ -311,9 +331,9 @@
               <div class="input-box">
                 <div class="input-title input-box-inner">&nbsp;</div>
                 <div class="input-box-inner input-address-details">
-                  <input type="text" name="" placeholder="详细地址" value="实兴东街11号朗诚大厦南楼二层">
+                  <input type="text" name="address" placeholder="详细地址" value="实兴东街11号朗诚大厦南楼二层">
                 </div>
-                <div class="input-box-inner prompt error">
+                <div class="input-box-inner prompt">
 
                 </div>
               </div>
@@ -322,9 +342,9 @@
               <div class="input-box">
                 <div class="input-title input-box-inner">邮编</div>
                 <div class="input-box-inner input">
-                  <input type="text" name="" placeholder="邮编" value="100000">
+                  <input type="text" name="zip_code" placeholder="邮编" value="100000">
                 </div>
-                <div class="input-box-inner prompt error">
+                <div class="input-box-inner prompt">
 
                 </div>
               </div>
@@ -333,27 +353,27 @@
               <div class="input-box">
                 <div class="input-title input-box-inner">手机</div>
                 <div class="input-box-inner input">
-                  <input type="text" name="" placeholder="手机号码" value="18392709319">
+                  <input type="text" name="mobile" placeholder="手机号码" value="">
                 </div>
-                <div class="input-box-inner prompt error">
+                <div class="input-box-inner prompt">
 
                 </div>
               </div>
               <div class="input-box">
                 <div class="input-title input-box-inner">固定电话</div>
                 <div class="input-box-inner input">
-                  <input type="text" name="">
+                  <input type="text" name="tel">
                 </div>
-                <div class="input-box-inner prompt error">
+                <div class="input-box-inner prompt">
 
                 </div>
               </div>
               <div class="input-box">
                 <div class="input-title input-box-inner">送货时间</div>
                 <div class="input-box-inner input">
-                  <input type="text" name="" value="周末">
+                  <input type="text" name="besttime" value="周末">
                 </div>
-                <div class="input-box-inner prompt error">
+                <div class="input-box-inner prompt">
 
                 </div>
               </div>
@@ -361,21 +381,21 @@
                 <div class="input-box-inner" id="address-classify">
                   <label>
                     <span class="radio-box checked">
-                      <input type="radio" name="familyAddress" value="家庭地址">
+                      <input type="radio" name="address_name" value="家庭地址">
                       <label for="familyAddress"></label>
                     </span>
                     家庭住址
                   </label>
                   <label>
                     <span class="radio-box">
-                      <input type="radio" name="companyAddress" value="公司地址">
+                      <input type="radio" name="address_name" value="公司地址">
                       <label for="companyAddress"></label>
                     </span>
                     公司地址
                   </label>
                   <label>
                     <span class="radio-box">
-                      <input type="radio" name="otherAddress" value="其他">
+                      <input type="radio" name="address_name" value="其他">
                       <label for="otherAddress"></label>
                     </span>
                     其他
@@ -385,10 +405,9 @@
                 <div class="input-box-inner prompt address-classify-help">
                 </div>
               </div>
-
               <div class="input-box">
                 <div class="input-title input-box-inner">&nbsp;</div>
-                <a href="">保存更改</a>
+                <a href="javascript:;" id="save">保存更改(还没有验证)</a>
               </div>
             </form>
           </div>
@@ -469,6 +488,9 @@
       </div>
     </div>
   </div>
+
+
+
 <script type="text/javascript">
     var oFamily = document.querySelector('.radio-box input[name=familyAddress]');
     var oOther = document.querySelector('.radio-box input[name=otherAddress]');
@@ -497,14 +519,127 @@
 
 
 </script>
-
+  <script type="text/javascript" src="js/toast.js"></script>
   <script type="text/javascript" src="js/myajax.js"></script>
   <script type="text/javascript" src="js/backtotop.js"></script>
   <script type="text/javascript" src="js/animate-1.1.js"></script>
   <script type="text/javascript">
      var oAddAddress = document.querySelector('#add-address');
       var oForm = oAddAddress.querySelector('form');
-      console.log(serializeForm(oForm))
+      var oSave = document.querySelector('#save');
+      oSave.onclick = function() {
+        var postobj = serializeForm(oForm);
+        myajax.post('http://h6.duchengjiu.top/shop/api_useraddress.php?status=add&token='+localStorage.token,postobj,function(error,responseText) {
+          var json = JSON.parse(responseText);
+          console.log(json)
+          if(json.code === 0) {
+            toast('添加成功',2000);
+            showAddress();
+          }
+        });
+      }
+      var lock = false;
+      oForm.onchange = function(e) {
+        var e = e || window.event;
+        var target = e.target || e.srcElement;
+        var targetElem = oForm.querySelector('input[name=address]').parentNode.nextElementSibling;
+        switch(target.name) {
+          case 'consignee':
+          case 'zip_code':
+          case 'mobile':
+          case 'tel':
+          case 'besttime':
+          case 'address_name':
+            var targetElem = target.parentNode.nextElementSibling;
+            if(target.value === ''){
+              target.setAttribute("placeholder","我本来有很多想说的，但是只能说这么多了");
+              target.parentNode.classList.add('errorbc');
+              targetElem.style.width = 0;
+              targetElem.classList.remove('right');
+              targetElem.classList.add('error');
+              animate(targetElem,{'width':50},800,'CubicEaseInOut')
+            } else {
+              target.setAttribute("placeholder","我本来有很多想说的，但是只能说这么多了");
+              target.parentNode.classList.remove('errorbc');
+              targetElem.classList.remove('error');
+              targetElem.classList.add('right');
+              targetElem.style.width = 0;
+              animate(targetElem,{'width':50},800,'CubicEaseInOut')
+              // animate()
+            }
+            break;
+          case 'city':
+            if(target.value === '') {
+              targetElem.classList.add('error');
+              break;
+            }
+          case 'province':
+            if(target.value === '') {
+              targetElem.classList.add('error');
+              break;
+            }
+          case 'district':
+            if(target.value === '') {
+              targetElem.classList.add('error');
+              break;
+            }
+          case 'address':
+            if(target.value === ''){
+              targetElem.style.width = 0;
+              targetElem.classList.remove('right');
+              targetElem.classList.add('error');
+              animate(targetElem,{'width':50},800,'CubicEaseInOut')
+            } else {
+              targetElem.classList.remove('error');
+              targetElem.classList.add('right');
+              targetElem.style.width = 0;
+              animate(targetElem,{'width':50},800,'CubicEaseInOut')
+              // animate()
+            }
+        }
+      }
+
+      /*function resetFields(whichform) {
+         if(Modernizr.input.placeholder) return;//检测是否支持placeholder
+         for(var i=0 ; i<whichform.elements.length ; i++){
+             var elem = whichform.elements[i];
+             if(elem.input == "submit") continue; //如果是按钮 跳过
+             var check = elem.placeholder || elem.getAttribute("placeholder");
+             if(!check) continue; //检查是否有placeholder属性
+             elem.onfocus = function () {
+                 var text = this.placeholder || this.getAttribute("placeholder");
+                 if(text == this.value){
+                     this.value = "";
+                     this.className = "";
+                 }
+             }
+             elem.onblur = function () {
+                 if(this.value == ""){
+                     var txt = this.placeholder || this.getAttribute("placeholder");
+                     this.value = txt;
+                     this.className = "placeholders";
+                 }
+             }
+             elem.onblur();//立即调用失去焦点事件
+         }
+      }
+      function prepareForms() {
+          for(var j=0 ; j<document.forms.length ; j++){
+              var this_forms = document.forms[j];
+              resetFields(this_forms);
+          }
+      }
+      prepareForms();
+*/
+
+
+
+
+
+
+
+
+
   </script>
   <script type="text/javascript">
     var oUsername = document.querySelector('#username');
@@ -582,7 +717,7 @@
       oCartNumber.innerText = number;
     });
 
-
+    // var lock = false;
     var oAddress = document.querySelector('#address');
     showAddress();
     function showAddress() {
@@ -609,11 +744,25 @@
               </li>
           `
         }
+        toTarget(data.length);
         //得到的手机号码处理一下，用正则；
       })
     }
 
-
+    /*var oLis = oAddress.querySelectorAll('li');
+    oAddress.addEventListener('click', function(e) {
+      e = e || window.event;
+      // window.event? window.event.cancelBubble = true : e.stopPropagation();
+      var target = e.target || e.srcElement;
+      if(target.nodeName === 'P') {
+        console.log(target)
+      } else if(target.nodeName === 'LI') {
+        console.log(target)
+      }
+    })*/
+    // function myfn(e){
+    //   window.event? window.event.cancelBubble = true : e.stopPropagation();
+    // }
 
     oAddress.onclick = function(e) {
     e = e || window.event;
@@ -622,69 +771,123 @@
     var oDeleteAddress = document.querySelector('#delete');
     if(target.id === 'change') {
       console.log(target);
-    } else if(target.id === 'delete') {
-      if(!confirm('确定要删除吗？')) return;
+      console.log(target.dataset.id);
       var address_id = target.dataset.id;
-      myajax.get('http://h6.duchengjiu.top/shop/api_useraddress.php',{status:'delete',token:localStorage.token,address_id},
+      myajax.get('http://h6.duchengjiu.top/shop/api_useraddress.php',{status:'check',token:localStorage.token,address_id},
         function(error,responseText) {
         var json = JSON.parse(responseText);
+        var data = json.data;
         console.log(json)
         if(json.code === 0) {
-          showAddress();
-          location.href = "address.html#address"
+          for(var i = 0; i < data.length; i++ ) {
+            var obj = data[i];
+            if(obj.address_id === address_id) {
+              for(var k in obj) {
+                if(k != 'address_id')
+                renderForm(k,obj[k])
+              }
+            }
+          }
         }
-      });
-    }
-  }
-  //
-  function BackToTarget(selector,targetSelector) {
-    this.dom = null;
-    this.targetdom = null;
-    this.selector = selector;
-    this.start;
-    this.targetSelector = targetSelector;
-    this.targetAllTop;
-    this.init();
-    this.bindEvent();
-  }
-  BackToTarget.prototype.init = function() {
-    this.dom = document.querySelector(this.selector);
-    this.targetdom = document.querySelector(this.targetSelector);
-    this.targetAllTop = getAllTop(this.targetdom);
-    this.start = getAllTop(this.dom);
-  }
-  BackToTarget.prototype.bindEvent = function() {
-     this.dom.onclick = () => {
-      scrollAnimate(this.targetAllTop, 1000);
+      })
+    } else if(target.id === 'delete') {
+        if(!confirm('确定要删除吗？')) return;
+        var address_id = target.dataset.id;
+        myajax.get('http://h6.duchengjiu.top/shop/api_useraddress.php',{status:'delete',token:localStorage.token,address_id},
+          function(error,responseText) {
+          var json = JSON.parse(responseText);
+          console.log(json)
+          if(json.code === 0) {
+            showAddress();
+            location.href = "address.html#address"
+          }
+        });
+      }
     }
 
-    function scrollAnimate(target, timer) {
-      var interval = 20;
-      var frame = 0;
-      var frames = timer / interval;
-      var start = document.body.scrollTop || document.documentElement.scrollTop;
-      var distance = target - start;
-      var timer;
-      clearInterval(timer);
-      timer = setInterval(function(){
-      frame++;
-      if (frame >= frames) {
+    function renderForm(name,value) {
+      // location.href = 'address.html';
+      var oInput = oForm.querySelector('input[name=' + name + ']');
+      if(name === 'address_name') {
+        var oInputRadio = oForm.querySelectorAll('input[name=' + name + ']')
+        for(var i = 0; i < oInputRadio.length; i++ ) {
+          oInputRadio[i].parentNode.classList.remove('checked');
+        }
+         if( value === '家庭地址') {
+          oInputRadio[0].checked = true;
+          oInputRadio[0].parentNode.classList.add('checked');
+        } else if(value === '公司地址') {
+          oInputRadio[1].checked = true;
+          oInputRadio[1].parentNode.classList.add('checked');
+        } else {
+          oInputRadio[2].checked = true;
+          oInputRadio[2].parentNode.classList.add('checked');
+        }
+      }
+      console.log(value)
+      oInput.value = value;
+    }
+
+    function BackToTarget(selectorElem,targetSelector) {
+      this.dom = selectorElem;
+      this.targetdom = null;
+      // this.selector = selector;
+      this.start;
+      this.targetSelector = targetSelector;
+      this.targetAllTop;
+      this.init();
+      this.bindEvent();
+    }
+    BackToTarget.prototype.init = function() {
+      // this.dom = document.querySelector(this.selector);
+      this.targetdom = document.querySelector(this.targetSelector);
+      this.targetAllTop = getAllTop(this.targetdom);
+      this.start = getAllTop(this.dom);
+    }
+    BackToTarget.prototype.bindEvent = function() {
+       this.dom.onclick = () => {
+        scrollAnimate(this.targetAllTop, 1000);
+      }
+
+      function scrollAnimate(target, timer) {
+        var interval = 20;
+        var frame = 0;
+        var frames = timer / interval;
+        var start = document.body.scrollTop || document.documentElement.scrollTop;
+        var distance = target - start - 50;
+        var timer;
         clearInterval(timer);
-      }
-      //第一个参数t表示当前帧
-      //第二个b表示起始位置
-      //第三个c表示变化量
-      //第四个d表示总帧数
-      document.body.scrollTop = document.documentElement.scrollTop = CubicEaseInOut(frame, start, distance, frames);
-      }, interval);
+        timer = setInterval(function(){
+        frame++;
+        if (frame >= frames) {
+          clearInterval(timer);
+        }
+        //第一个参数t表示当前帧
+        //第二个b表示起始位置
+        //第三个c表示变化量
+        //第四个d表示总帧数
+        document.body.scrollTop = document.documentElement.scrollTop = CubicEaseInOut(frame, start, distance, frames);
+        }, interval);
 
-      function CubicEaseInOut(t,b,c,d){
-        if ((t/=d/2) < 1) return c/2*t*t*t + b;
-        return c/2*((t-=2)*t*t + 2) + b;
+        function CubicEaseInOut(t,b,c,d){
+          if ((t/=d/2) < 1) return c/2*t*t*t + b;
+          return c/2*((t-=2)*t*t + 2) + b;
+        }
       }
     }
-  }
-  var oToAddAddress = new BackToTarget('#add-button', '#add-address')
+    //第一次想法：new两个实例， 问题：只有一个修改可以跳转，因为只有一个new了一个实例
+    //第二个想法：通过myajax获取地址时保存数量，传入函数，循环new多个实例
+    //问题：new中传过去的选择器，他当成了同一个
+    //第三个想法：修改构造函数，通过二中传入的数量可以获取类为change的dom对象，然后将对象传入构造函数，则可以正确new多个实例；
+    function toTarget(num){
+      console.log(num)
+      var oAddButton = document.querySelector('#add-button');
+      var oLis = document.querySelectorAll('.change');
+      for(var i = 0; i < num; i++ ) {
+        new BackToTarget(oLis[i], '#add-address');
+      }
+      var oToAddAddress = new BackToTarget(oAddButton, '#add-address')
+    }
   </script>
 </body>
 </html>

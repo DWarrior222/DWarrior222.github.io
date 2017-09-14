@@ -6,15 +6,16 @@
     } else {
       callback = null;
     }
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     var time = time || 3000;
     var oDiv = document.createElement('div');
     oDiv.className = 'toast';
     oDiv.innerText = cont;
     document.body.appendChild(oDiv);
-    oDiv.style.height = getStyle(oDiv,'height')
-    oDiv.style.width = getStyle(oDiv,'width')
+    oDiv.style.height = getStyle(oDiv,'height');
+    oDiv.style.width = getStyle(oDiv,'width');
      ////HTML加载完成
-    oDiv.style.marginTop = -parseInt(getStyle(oDiv,'height')) / 2 + 'px';
+    oDiv.style.marginTop = -parseInt(getStyle(oDiv,'height')) / 2 + scrollTop + 'px';
     oDiv.style.marginLeft = -parseInt(getStyle(oDiv,'width')) / 2 + 'px';
     var timer = setInterval(function(){
         document.body.removeChild(oDiv);
@@ -35,5 +36,3 @@
       return (obj.currentStyle[property])
     }
   }
-
-  
