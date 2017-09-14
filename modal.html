@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="css/modal.css">
+  <style type="text/css">
+    .add-address {
+      width: 600px;
+      height: 400px;
+      background: pink;
+      position: absolute;
+      margin: auto;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      /* display: none; */
+    }
+    .mymanage  .manage-content .address li{
+      width: 227px;
+      height: 122px;
+      position: relative;
+      display: inline-block;
+      margin: 0 0 10px 10px;
+      padding: 14px;
+      overflow: hidden;
+      background: #deb887;
+    }
+    .address-username {
+      font-size: 14px;
+      line-height: 23px;
+      background: url(images/icon/i-addr-user.png) no-repeat 1px center;
+      padding: 0 0 0px 20px;
+      border-bottom: 1px dotted #dcdcdc;
+    }
+    .address-details {
+      background: url(images/icon/i-addr-mark.png) no-repeat 1px 4px;
+      padding: 6px 0 3px 20px;
+      border-bottom: 1px dotted #dcdcdc;
+      height: 54px;
+    }
+    .mobile-number {
+      background: url(images/icon/i-addr-phone.png) no-repeat 1px 4px;
+      padding: 3px 0 3px 20px;
+      line-height: 20px;
+    }
+    .delete-change {
+      text-align: right;
+    }
+    .add-button {
+      position: absolute;
+      right: 10px;
+    }
+    .add-address-details {
+      padding: 25px 0;
+    }
+    .add-address .input-title {
+      width: 75px;
+      text-align: right;
+      margin-right: 15px;
+    }
+    .add-address .input-box {
+      margin-bottom: 15px;
+      line-height: 28px;
+      overflow: hidden;
+    }
+    .add-address .input {
+      width: 200px;
+      height: 28px;
+      border-radius: 3px;
+      background: #fff;
+      border: 1px solid #f1f1f1;
+    }
+    .add-address .input-address-details {
+      width: 300px;
+      height: 28px;
+      border-radius: 3px;
+      background: #fff;
+      border: 1px solid #f1f1f1;
+    }
+    .add-address input {
+      height: 23px;
+      font-size: 16px;
+      text-indent: 5px;
+      border: none;
+      outline: none;
+    }
+    .add-address .input-address {
+      margin-right: 5px;
+      width: 140px;
+      height: 28px;
+      border-radius: 3px;
+      background: #fff;
+      border: 1px solid #f1f1f1;
+    }
+    .add-address .input-address input{
+      width: 130px;
+      background: #fff;
+    }
+    .add-address .input-box-inner {
+      float: left;
+    }
+    .add-address .prompt {
+      width: 50px;
+      margin-left: 15px;
+      height: 30px;
+    }
+    .add-address .right {
+      background: url('images/icon/right1.png') left center no-repeat;
+      background-size: 28px 28px;
+    }
+    .add-address .error {
+      background: url('images/icon/error.png') left center no-repeat;
+      background-size: 28px 28px;
+    }
+    .input-box .address-classify-help {
+      background: url('images/icon/help.png') left center no-repeat;
+      background-size: 22px 22px;
+    }
+    .address-classify>label {
+      display: block;
+      width: 200px;
+      height: 22px;
+      cursor: pointer;
+      padding-top: 5px;
+    }
+    .address-classify label i{
+      display: inline-block;
+      font-size: 13px;
+    }
+    .address-classify .radio-box{
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 1px solid #b1b1b1;
+      background: white;
+      border-radius: 50%;
+    }
+    .address-classify .checked {
+      background: url('images/icon/circle.png') left center no-repeat;
+    }
+    .address-classify .radio-box label{
+      display: inline;
+    }
+    .address-classify input {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <button data-name="register" class="register" id="register">注册</button>
+
+  <div class="add-address madal" id="add-address">
+    <div class="add-address-details">
+      <form>
+        <div class="input-box">
+          <div class="input-title input-box-inner">收货人</div>
+          <div class="input-box-inner input">
+            <input type="" name="" placeholder="用户姓名">
+          </div>
+          <div class="input-box-inner prompt error">
+          </div>
+        </div>
+
+        <div class="input-box">
+          <div class="input-title input-box-inner">地址</div>
+          <div class="input-box-inner input-address">
+            <input type="" name="" placeholder="省或直辖市">
+          </div>
+          <div class="input-box-inner input-address">
+            <input type="" name="" placeholder="市">
+          </div>
+          <div class="input-box-inner input-address">
+            <input type="" name="" placeholder="区或县">
+          </div>
+          <div class="input-box-inner prompt error">
+
+          </div>
+        </div>
+
+        <div class="input-box">
+          <div class="input-title input-box-inner">&nbsp;</div>
+          <div class="input-box-inner input-address-details">
+            <input type="" name="" placeholder="详细地址">
+          </div>
+          <div class="input-box-inner prompt error">
+
+          </div>
+        </div>
+
+
+        <div class="input-box">
+          <div class="input-title input-box-inner">邮编</div>
+          <div class="input-box-inner input">
+            <input type="" name="" placeholder="邮编">
+          </div>
+          <div class="input-box-inner prompt error">
+
+          </div>
+        </div>
+
+
+        <div class="input-box">
+          <div class="input-title input-box-inner">手机</div>
+          <div class="input-box-inner input">
+            <input type="" name="" placeholder="手机号码">
+          </div>
+          <div class="input-box-inner prompt error">
+
+          </div>
+        </div>
+        <div class="input-box">
+          <div class="input-title input-box-inner">固定电话</div>
+          <div class="input-box-inner input">
+            <input type="" name="">
+          </div>
+          <div class="input-box-inner prompt error">
+
+          </div>
+        </div>
+        <div class="input-box">
+          <div class="input-title input-box-inner">送货时间</div>
+          <div class="input-box-inner input">
+            <input type="" name="">
+          </div>
+          <div class="input-box-inner prompt error">
+
+          </div>
+        </div>
+        <div class="input-box address-classify">
+          <div class="input-box-inner">
+            <label id="test">
+              <span class="radio-box">
+                <input type="radio" name="familyAddress">
+                <label for="familyAddress"></label>
+              </span>
+              <i>家庭住址</i>
+            </label>
+            <label>
+              <span class="radio-box">
+                <input type="radio" name="companyAddress">
+                <label for="companyAddress"></label>
+              </span>
+              <i>公司地址</i>
+            </label>
+            <label>
+              <span class="radio-box">
+                <input type="radio" name="otherAddress">
+                <label for="otherAddress"></label>
+              </span>
+              <i>其他地址</i>
+            </label>
+          </div>
+
+          <div class="input-box-inner prompt address-classify-help">
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <script type="text/javascript" src="js.modal.js"></script>
+  <script type="text/javascript">
+    var modal = new Modal('#register')
+  </script>
+</body>
+</html>

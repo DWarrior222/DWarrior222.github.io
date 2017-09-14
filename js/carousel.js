@@ -17,23 +17,23 @@ Carousel.prototype.bindEvent = function() {
 	var self = this;
 	this.oRightBtn.onclick = function(){
 		if(self.oImagesLists[self.idx].isAnimated) return;
-		animate(self.oImagesLists[self.idx],{"left":-1020},700,"QuadEaseOut");
+		animate(self.oImagesLists[self.idx],{"left":-900},700,"QuadEaseOut");
 	  self.idx++;
 	  if (self.idx > self.oImagesLists.length - 1) {
 		self.idx = 0;
 	  }
-	  self.oImagesLists[self.idx].style.left = "1020px";
+	  self.oImagesLists[self.idx].style.left = "900px";
 	  animate(self.oImagesLists[self.idx],{"left":0},700,"QuadEaseOut");
 	  self.changeCircles();
 	}
 	self.oLeftBtn.onclick = function(){
 		if(self.oImagesLists[self.idx].isAnimated) return;
-		animate(self.oImagesLists[self.idx],{"left":1020},700,"QuadEaseOut");
+		animate(self.oImagesLists[self.idx],{"left":900},700,"QuadEaseOut");
 	  self.idx--;
 	  if (self.idx < 0) {
 		  self.idx = self.oImagesLists.length - 1;
 	  }
-	  self.oImagesLists[self.idx].style.left = "-1020px";
+	  self.oImagesLists[self.idx].style.left = "-900px";
 	  animate(self.oImagesLists[self.idx],{"left":0},700,"QuadEaseOut");
 	  self.changeCircles();
 	}
@@ -45,14 +45,14 @@ Carousel.prototype.BindCircles = function() {
 		this.oCirclesLists[i].onclick = function() {
 			if(self.oImagesLists.isAanimated) return;
 			if(this.index > self.idx) {
-			  animate(self.oImagesLists[self.idx],{"left":-1020},700,"QuadEaseOut");
+			  animate(self.oImagesLists[self.idx],{"left":-900},700,"QuadEaseOut");
 			  self.idx = this.index;
-			  self.oImagesLists[self.idx].style.left = "1020px";
+			  self.oImagesLists[self.idx].style.left = "900px";
 			  animate(self.oImagesLists[self.idx],{"left":0},700,"QuadEaseOut");
 			}else if(this.index < self.idx){
-			  animate(self.oImagesLists[self.idx],{"left":1020},700,"QuadEaseOut");
+			  animate(self.oImagesLists[self.idx],{"left":900},700,"QuadEaseOut");
 			  self.idx = this.index;
-			  self.oImagesLists[self.idx].style.left = "-1020px";
+			  self.oImagesLists[self.idx].style.left = "-900px";
 			  animate(self.oImagesLists[self.idx],{"left":0},700,"QuadEaseOut");
 			}
 			self.changeCircles();
@@ -71,12 +71,12 @@ Carousel.prototype.setMove = function() {
 	if(self.oImagesLists[self.idx].isAnimated) return;
 //	clearInterval(self.timer);
 	this.timer = setInterval(function() {
-		animate(self.oImagesLists[self.idx],{"left":-1020},700,"QuadEaseOut");
+		animate(self.oImagesLists[self.idx],{"left":-900},700,"QuadEaseOut");
 		self.idx++;
 		if(self.idx > self.oImagesLists.length - 1){
 			self.idx = 0;
 		}
-		self.oImagesLists[self.idx].style.left = "1020px";
+		self.oImagesLists[self.idx].style.left = "900px";
 		animate(self.oImagesLists[self.idx],{"left":0},700,"QuadEaseOut");
 		self.changeCircles();
 	}, 3000);
