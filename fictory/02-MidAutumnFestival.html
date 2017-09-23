@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style type="text/css">
+    span {
+      display: block;
+    }
+    .wrap_box {
+      width: 400px;
+      height: 500px;
+      overflow: hidden;
+      margin: 100px auto;
+      position: relative;
+    }
+    .que_cont {
+      width: 400px;
+      height: 500px;
+      background: #f3f3f3;
+    }
+    .que_cont_box {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap_box">
+    <div class="que_cont_box"></div>
+  </div>
+
+  <a class="btn" href="javascript:;" data-type="sub">上一题</a>
+  <a class="btn" href="javascript:;" data-type="add">下一题</a>
+  <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+  <script type="text/javascript" src="js/underscore.js"></script>
+
+  <script type="text/javascript">
+    var templateString = `
+      <span data-select="A"><%=A%></span>
+      <span data-select="B"><%=B%></span>
+      <span data-select="C"><%=C%></span>
+      <span data-select="D"><%=D%></span>
+    `;
+    var compileFunction = _.template(templateString);
+
+    var questionNumber;
+
+    var index = 0;
+
+    var rightNumber = 0;
+
+    loadQuestion();
+
+    function loadQuestion() {
+
+      $.get('json/json.txt',function(json) {
+
+        var json = eval('(' + json +')');
+
+        var data = json.data;
+
+        for(var i = 0; i < data.length; i++ ) {
+          questionNumber = i;
+
+          var $quecont = $('<div class="que_cont"></div>')
+
+          $quecont.addClass('que_cont' + i);
+
+          $quecont.appendTo($('.que_cont_box'));
+
+          var $question = $('<div class="question"></div>')
+
+          $question.html(data[i].question)
+
+          $question.appendTo($('.que_cont' + i));
+
+          var $answers = $('<div class="answers"></div>')
+
+          $answers.html(compileFunction(data[i].answers));
+
+          $answers.appendTo($('.que_cont' + i));
+
+        }
+      })
+    }
+
+    $('.wrap_box').click(function(e) {
+
+      var e = e || window.event;
+
+      var target = e.target || e.srcElement;
+
+      if(target.nodeName === 'SPAN') {
+
+        $.get('json/json.txt',function(json) {
+
+          var json = eval('(' + json +')');
+
+          var data = json.data;
+
+          if($(target).data('select') === data[index].right) {
+            // alert('right');
+            rightNumber++;
+
+            $(target).css({
+              'color':'green'
+            }).siblings().css('color','black');
+
+          } else {
+            $(target).css({
+              'color':'red'
+            })
+          }
+
+          if(index === questionNumber) {
+
+            if(rightNumber / questionNumber > 0.6) {
+              console.log(rightNumber);
+              $('.wrap_box').html('恭喜您答对了' + rightNumber + '道题')
+            } else {
+              $('.wrap_box').html('很遗憾你答对了' + rightNumber + '道题')
+            }
+          }
+        })
+      }
+    })
+
+    $('.btn').click(function() {
+      if($(this).data('type') === 'add') {
+        index = Math.min(questionNumber, ++index)
+        $('.que_cont_box').stop(true).animate({'top': -500 * index},1000)
+      }
+
+      if($(this).data('type') === 'sub') {
+        index = Math.max(0, --index)
+        $('.que_cont_box').stop(true).animate({'top': -500 * index},1000)
+      }
+    })
+  </script>
+</body>
+</html>
