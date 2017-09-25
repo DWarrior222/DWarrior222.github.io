@@ -608,7 +608,12 @@
       'images/moon2.png',
       'images/fictory1.gif',
       'images/fictory2.gif',
-      'images/tu2.gif'
+      'images/tu2.gif',
+      'images/moon1.png',
+      'images/moon2.png',
+      'images/moon3.png',
+      'images/moon4.png',
+      'images/moon5.png'
     ];
     var $progress = $('.progress');
     $.each(images, function(i,src) {
@@ -620,8 +625,8 @@
       })
     })
     $progress[0].timer = setInterval(function() {
-      $progress.html(Math.round(loadNumber / 12 *100) + '%');
-      if (loadNumber >= 12) {
+      $progress.html(Math.round(loadNumber / 17 *100) + '%');
+      if (loadNumber >= 17) {
         $('.loading').hide();
         loadings = true;
         clearInterval($progress[0].timer);
