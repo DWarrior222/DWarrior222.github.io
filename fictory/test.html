@@ -7,6 +7,8 @@
   body,html {
     width: 100%;
     height: 100%;
+    background: url('images/fistory7.jpg') center no-repeat;
+    background-size: cover;
   }
   * {
     padding: 0px;
@@ -23,34 +25,104 @@
     bottom: 0px;
     left: 0px;
     right: 0px;
-    width: 200px;
-    height: 200px;
-    border-radius: 50% 50% 0;
-    background: skyblue;
-    transition: all 1s;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
   }
-  /* .inner:hover {
-    transform: rotate(360deg);
-  } */
+  .hand {
+    position: absolute;
+    top: -97px;
+    left: 25px;
+    border: 50px solid transparent;
+    width: 1px;
+    height: 1px;
+    transform-origin: 200px 26px;
+    border-bottom: 80px solid transparent;
+    border-bottom-color: skyblue;
+  }
+  .start {
+    width: 120px;
+    height: 100px;
+    margin: 18px;
+    text-align: center;
+    padding-top: 20px;
+    line-height: 40px;
+    color: white;
+    font-size: 30px;
+    text-shadow: 1px 1px 2px #000;
+    border-radius: 50%;
+    background: #fdbc06;
+    transition: all 1s;
+    border: 2px solid #fcd651;
+    z-index: 10;
+  }
+  .start-box {
+    position: absolute;
+    margin: auto;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    box-shadow:  0 0 6px 1px #000;
+    background: #fbbc07;
+  }
+  .backimg {
+    position: absolute;
+    margin: auto;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    width: 580px;
+    height: 600px;
+    background: #5fcbd5  url('images/3.png') -18px center no-repeat;
+    background-size: cover;
+  }
   </style>
 </head>
 <body>
-<button>点击抽奖</button>
+
   <div class="outer">
-    <div class="inner"></div>
+    <div class="backimg">
+      <div class="inner" style="">
+        <div class="hand"></div>
+      </div>
+      <div class="start-box">
+        <div class="start">开始<br />抽奖</div>
+      </div>
+    </div>
   </div>
   <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
   <script type="text/javascript">
   // http://www.chuangyihui.net/site/item/id/1456
-  $('button').click(function() {
-    if($('.inner')[0].timer) return;
-    var random = Math.random() * 360 + 2000;
+  $('.start').click(function() {
+    if($('.hand')[0].timer) return;
+    var random = (Math.random() * 360 + 2000).toFixed(2);
     console.log(random % 360);
+    var rotate = random  % 360;
     var speed = 5;
-    $('.inner')[0].timer = setInterval(function() {
+    $('.hand')[0].timer = setInterval(() => {
       speed--;
       if(speed < 1) {
         speed = 1;
+        var transform = $('.inner')[0].style.transform;
+        // console.log(transform);
+        // console.log('rotate('+ random +'deg)');
+        if(transform === 'rotate('+ random +'deg)') {
+          clearInterval($('.hand')[0].timer);
+          if(rotate >= 168 && rotate <= 207) {
+            console.log('恭喜您获得三等奖');
+          } else if(rotate >= 288 && rotate <= 319) {
+            console.log('恭喜您获得一等奖');
+          } else if(rotate >= 36 && rotate <= 74) {
+            console.log('恭喜您获得二等奖');
+          } else {
+            console.log('您获得了幸运奖')
+          }
+        }
       }
       $('.inner').css({
         'transform': 'rotate('+ random +'deg)',

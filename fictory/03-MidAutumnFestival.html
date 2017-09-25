@@ -84,29 +84,162 @@
       background-size: cover;
     }
     .page0{
-      
     }
     .page0 .time {
       color: white;
+      font-size: 40px;
+      width: 50px;
+      position: absolute;
+      line-height: 50px;
+      right: 50px;
+      top: 100px;
+      text-align: center;
     }
-    .page1{background-image: url('images/fistory2.jpg')}
-    .page2{background-image: url('images/fistory3.jpg')}
+    .page0 .time i {
+      font-style: normal;
+      font-size: 20px;
+      color: deepskyblue;
+    }
+    .page0 .time-prompt {
+      position: absolute;
+      right: 211px;
+      top: 50%;
+      margin-top: -50px;
+      font-size: 31px;
+      width: 50px;
+      line-height: 50px;
+      color: white;
+    }
+    .page0 .theme-box {
+      border-top: 30px solid #C94;
+      width: 260px;
+      height: 300px;
+      position: absolute;
+      position: relative;
+      bottom: -320px;
+      left: 20px;
+      border-radius: 15px;
+      background: burlywood;
+      transform-origin: center -86px;
+    }
+    .page0 .theme-box .nail {
+      width: 50px;
+      height: 50px;
+      background: url('images/icon/dingzi.png') center no-repeat;
+      background-size: 30px 30px;
+      margin-top: -153px;
+      margin-left: 114px;
+      transform:skewX(-10deg);
+      -webkit-transform: skewX(-10deg);
+    }
+    .page0 .theme-box .line-outer {
+      margin: -18px 0 0 158px;
+      width: 2px;
+      height: 110px;
+      background: red;
+      transform:skewX(25deg);
+      -webkit-transform: skewX(25deg);
+    }
+    .page0 .theme-box .line-inner {
+      margin:-111px 0 0 101px;
+      width: 2px;
+      height: 110px;
+      background: red;
+      margin: ;
+      transform:skewX(-25deg);
+      -webkit-transform: skewX(-25deg);     }
+    .page0 .fictory-theme {
+      text-align: center;
+      width: 200px;
+      height: 50px;
+      color: cadetblue;
+      border: 10px solid #F3F396;
+      background: #F1F362;
+      position: absolute;
+      left: 15px;
+      transition: all 0.5s;
+      overflow: hidden;
+    }
+    .page0 .fictory-theme:before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 100px;
+      top: -20px;
+      left: -40px;
+      opacity:0.3;
+      transform:skewX(-25deg);
+      -webkit-transform: skewX(-25deg); 
+      transition:left 0.5s ease-out; 
+      -webkit-transition: left 0.5s ease-out;
+      background: white;
+    }
+    .page0 .fictory-theme:hover:before {
+      left: 250px;
+    }
+    .page0 .fictory-theme:hover {
+      transform: translate(10px,-6px);
+    }
+    .page1{background-image: url('images/fistory6.jpg')}
+    .page2{background-image: url('images/fistory8.jpg')}
     .page3{background-image: url('images/fistory4.jpg')}
     .page4{background-image: url('images/fistory5.jpg')}
+    .page5{background-image: url('images/fistory7.jpg')}
 
-    .page1 .first{
+    .page .first{
+      cursor: pointer;
       position: absolute;
+      border-radius: 20px;
+      width: 80px;
+      height: 80px;
+      top: 88px;
+      left: -600px;
+      overflow: hidden;
+    }
+    .page img{
+      cursor: default;
+      margin: -25px -20px;
+      width: 120px;
+      height: 120px;
+    }
+    .page .second{
+      position: absolute;
+      border-radius: 20px;
       width: 300px;
       height: 300px;
+      top: 0px;
       left: -600px;
+      overflow: hidden;
     }
-    .page1 .second{
-      height: 300px;
+    .page h1 {
+      color: white;
+    }
+    .page .storycont {
+      width: 0px;
+    }
+    .page p {
+      position: relative;
+      display: inline-block;
+      width: auto;
+      overflow: hidden;
+      height: 25px;
+      line-height: 25px;
+      color: white;
+      opacity: 0;
+    }
+    .page p:before {
+      content: '';
       position: absolute;
-      left: -600px;
+      bottom: 0px;
+      left: 0px;
+      width: 0px;
+      height: 3px;
+      background: red;
+      transition: all 0.5s ease-in;
     }
-
-
+    .page p:hover:before {
+      width: 1000px;
+    }
 
     .wrap_box {
       border: 20px solid #C94;
@@ -200,29 +333,91 @@
   </div>
   <div class="container" id="container">
     <div class="page page0">
-      <h1 class="time"></h1>
+      <div class="time-prompt">距离</div>
+      <div class="time">
+        <span></span>
+        <i>天</i>
+        <span></span>
+        <i>小时</i>
+        <span></span>
+        <i>分钟</i>
+        <span></span>
+        <i>秒</i>
+      </div>
+      <div class="theme-box">
+        <h1 class="fictory-theme">了解中秋</h1>
+        <h1 class="fictory-theme">趣味答题</h1>
+        <h1 class="fictory-theme">抽奖活动</h1>
+        <div class="nail"></div>
+        <div class="line-outer"></div>
+        <div class="line-inner"></div>
+      </div>
     </div>
     <div class="page page1">
-      <h1>
-        月亮上为什么有玉兔更多
-        传说吴刚的妻子与炎帝之孙伯陵私通，吴刚一怒之下杀了伯陵，因而惹怒太阳神炎帝，被发配到月亮砍伐不死之树。但月桂树随砍即合，吴刚每砍一斧，斧子砍下的枝叶就会长回树上，经过了这么久，吴刚仍然没能砍倒月桂树。吴刚的妻子心存愧疚，命她的三个儿子分别变成蟾蜍、兔和蛇飞上月亮陪伴吴刚。为了帮助父亲早日砍倒桂树，玉兔便不停的把砍下的枝叶捣碎。
-      </h1>
-      <img src="images/fictory1.gif" class="first" />
-      <img src="images/fictory2.gif" class="second" />
+      <div class="wrap_box">
+        <h1>
+          月亮上为什么有玉兔
+        </h1>
+        <div class="storycont"><p>传说吴刚的妻子与炎帝之孙伯陵私通，吴刚一怒之下杀了</p></div>
+        <div class="storycont"><p>伯陵，</p></div>
+        <div class="storycont"><p>因而惹怒太阳神炎帝，被发配到月亮砍伐不死之树。</p></div>
+        <div class="storycont"><p>但月桂树随砍即合，吴刚每砍一斧，斧子砍下的枝叶就会长</p></div>
+        <div class="storycont"><p>长回树上，经过了这么久，吴刚仍然没能砍倒月桂树。</p></div>
+        <div class="storycont"><p>吴刚的妻子心存愧疚，命她的三个儿子分别变成蟾蜍、兔</p></div>
+        <div class="storycont"><p>和蛇飞上月亮陪伴吴刚。</p></div>
+        <div class="storycont"><p>为了帮助父亲早日砍倒桂树，玉兔便不停的把砍下的枝叶</p></div>
+        <div class="storycont"><p>捣碎。</p></div>
+      </div>
+      <div class="first">
+        <img src="images/tu2.gif" />
+      </div>
     </div>
+
+
+
     <div class="page page2">
-      <h1>
-        八月十五为什么是中秋节更多
-        传说嫦娥本是后羿之妻，后羿射下9个太阳后西王母赐其不老仙药，但后羿不舍得吃下，就交于嫦娥保管。后羿门徒蓬蒙觊觎仙药，逼迫嫦娥交出仙药，嫦娥无奈情急之下吞下仙药，便向天上飞去。当日正是八月十五，月亮又大又亮，因不舍后羿，嫦娥就停在了离地球最近的月亮，从此长居广寒宫。后羿回家后心痛不止，于是每年八月十五便摆下宴席对着月亮与嫦娥团聚。
-      </h1>
+      <div class="wrap_box">
+        <h1>
+          八月十五为什么是中秋节
+        </h1>
+        <div class="storycont"><p>传说嫦娥本是后羿之妻，后羿射下9个太阳后西王母赐其</p></div>
+        <div class="storycont"><p>不老仙药，</p></div>
+
+        <div class="storycont"><p>但后羿不舍得吃下，就交于嫦娥保管。</p></div>
+        <div class="storycont"><p>后羿门徒蓬蒙觊觎仙药，逼迫嫦娥交出仙药，嫦娥无奈情</p></div>
+        <div class="storycont"><p>急之下吞下仙药，便向天上飞去。</p></div>
+        <div class="storycont"><p>当日正是八月十五，月亮又大又亮，因不舍后羿，嫦娥就</p></div>
+        <div class="storycont"><p>停在了离地球最近的月亮，从此长居广寒宫。。</p></div>
+        <div class="storycont"><p>后羿回家后心痛不止，于是每年八月十五便摆下宴席对着</p></div>
+        <div class="storycont"><p>月亮与嫦娥团聚</p></div>
+      </div>
+      <div class="first">
+        <img src="images/fictory2.gif" />
+      </div>
     </div>
+
+
     <div class="page page3">
-      <h1>
-        中秋节为什么要吃月饼更多
-        嫦娥到了月宫后，异常思念丈夫，而后羿也日思夜想，期望能再见到妻子。一天，一位仙人向后羿指点了方法：在八月十五月圆之夜，用面粉作丸，团成如圆月的形状，放在屋子的西北方向，然后再连续呼唤嫦娥的名字，三更时分，嫦娥就可以回家团聚。后羿照做，果然见到了从月亮中飞来的嫦娥，夫妻重圆。这种面粉做出的圆团后来就演变成了各式月饼。
-      </h1>
+      <div class="wrap_box">
+        <h1>
+          中秋节为什么要吃月饼
+        </h1>
+        <div class="storycont"><p>嫦娥到了月宫后，异常思念丈夫，而后羿也日思夜想，期</p></div>
+        <div class="storycont"><p>望能再见到妻子。</p></div>
+        <div class="storycont"><p>一天，一位仙人向后羿指点了方法：</p></div>
+        <div class="storycont"><p>在八月十五月圆之夜，用面粉作丸，团成如圆月的形状，</p></div>
+        <div class="storycont"><p>放在屋子的西北方向，然后再连续呼唤嫦娥的名字，</p></div>
+        <div class="storycont"><p>三更时分，嫦娥就可以回家团聚。后羿照做，果然见到了</p></div>
+        <div class="storycont"><p>从月亮中飞来的嫦娥，夫妻重圆。</p></div>
+        <div class="storycont"><p>这种面粉做出的圆团后来就演变成了各式月饼。</p></div>
+      </div>
+      <div class="first">
+        <img src="images/fictory1.gif" />
+      </div>
     </div>
-    <div class="page page4">
+
+
+    <div class="page page4" id="page4">
       <div class="wrap_box">
         <div class="que_cont_box"></div>
         <div class="btn_box" id="btn_box">
@@ -232,9 +427,18 @@
           <a class="btn" href="javascript:;" data-type="add">下一题</a>
           <i class="prompt"></i>
         </div>
+        <a href="javascript:;" style="display: none" id="again">再来一次(还没实现)</a>
+      </div>
+      <div class="first">
+        <img src="images/fictory3.gif" />
       </div>
     </div>
+    <!-- <div class="page page5">
+    
+    </div> -->
   </div>
+
+  
 
 
 
@@ -249,25 +453,68 @@
     var INARRAY = [];
     var OUTARRAY = [];
     OUTARRAY[0] = function() {
-      $('.page0 h1').hide();  //fadeOut,,,都属于hide；
+      $('.page0 h1').hide(500);  //fadeOut,,,都属于hide；
     }
     OUTARRAY[1] = function() {
-      $('.first').hide(300,function() {
-        $('.first').css('left',-600);
-      });
-      $('.second').hide(300,function() {
-        $('.second').css('left',-600);
+      $('.page1 .first').hide(300,function() {
+        $('.page1 .first').css('left',-600);
+      })
+    }
+    OUTARRAY[4] = function() {
+      $('.page4 .first').hide(300,function() {
+        $('.page4 .first').css('left',-600);
       });
     }
+    OUTARRAY[2] = function() {
+      $('.page2 .first').hide(300,function() {
+        $('.page2 .first').css('left',-600);
+      })
+    }
+    OUTARRAY[3] = function() {
+      $('.page3 .first').hide(300,function() {
+        $('.page3 .first').css('left',-600);
+      });
+    }
+
+
+
     //隐藏的东西，要让它出现。
     INARRAY[0] = function() {
-      $('.page0 h1').show();
+      $('.page0 h1').show(300);
     }
     INARRAY[1] = function() {
-      $('.first').show().animate({'left':400},600)
+      $('.page1 .first').show(300).animate({'left':104},600);
+      $.each($('.page1 .storycont'),function(index,elem) {
+        $('.page1 p').eq(index).delay(index * 1600).animate({'opacity':'1'},300);
+        $('.page1 .storycont').eq(index).delay(index * 1600).animate({'width':'100%'},1600)
+      })
       //delay延时方法；
-      $('.page1 .second').show().animate({'top':200},100).delay(500).animate({'left':500},1000);
     }
+
+    INARRAY[2] = function() {
+      $('.page2 .first').show(300).animate({'left':104},600);
+      $.each($('.page2 .storycont'),function(index,elem) {
+        console.log(index,elem)
+        $('.page2 p').eq(index).delay(index * 1600).animate({'opacity':'1'},300);
+        $('.page2 .storycont').eq(index).delay(index * 1600).animate({'width':'100%'},1600)
+      })
+    }
+
+    INARRAY[3] = function() {
+      $('.page3 .first').show(300).animate({'left':104},600);
+      $.each($('.page3 .storycont'),function(index,elem) {
+        console.log(index,elem)
+        $('.page3 p').eq(index).delay(index * 1600).animate({'opacity':'1'},300);
+        $('.page3 .storycont').eq(index).delay(index * 1600).animate({'width':'100%'},1600)
+      })
+    }
+    INARRAY[4] = function() {
+      $('.page4 .first').show(300).animate({'left':104},600);
+    }
+
+
+
+
     //Jquery mousewheel事件，需要官方插件，兼容性已解决；
     $(document).mousewheel(function(e) {
       //判断动画是否存在
@@ -293,20 +540,63 @@
       }
     });
 
+    $('.page0 .fictory-theme').each(function() {
+      $(this).css({
+        'top': $(this).index() * 84 + 20
+      })
+    })
 
+    //用一下函数截流；
+    var themeBoxLock = true;
+    $('.theme-box').mousedown(function() {
+      $(this).mousemove(function() {
+        if(!themeBoxLock) return;
+        // console.log(111111);
+        themeBoxLock = false;
+        this.rotate = 0;
+        this.rotateMax = 20;
+        this.oldRotateMax = 20;
+        this.flag = 1;
+        this.timer = setInterval( () => {
+          this.rotate += 0.5 * this.flag;
+          if(this.rotateMax < 2) {
+            clearInterval(this.timer);
+            $(this).css({
+              'transform': 'rotate(' + 0 + 'deg)'
+            })
+            $(this).unbind('mousemove');
+            themeBoxLock = true;
+            return;
+          }
+          if(this.rotate >= this.oldRotateMax) {
+            this.rotateMax -= 3;
+            this.flag = -this.flag;
+          }
+          if(this.rotate <= -this.rotateMax) {
+            this.oldRotateMax -= 3;
+            this.flag = -this.flag;
+          }
+          $(this).css({
+            'transform': 'rotate(' + this.rotate + 'deg)'
+          })
+        },20)
+      })
+    })
 
     var loadNumber = 0;
 
     var images = [
       'images/fistory1.jpg',
-      'images/fistory2.jpg',
+      'images/fistory6.jpg',
       'images/fistory3.jpg',
       'images/fistory4.jpg',
       'images/fistory5.jpg',
+      'images/fistory8.jpg',
       'images/moon1.png',
       'images/moon2.png',
       'images/fictory1.gif',
-      'images/fictory2.gif'
+      'images/fictory2.gif',
+      'images/tu2.gif'
     ];
 
     var $progress = $('.progress');
@@ -319,8 +609,8 @@
       })
     })
     $progress[0].timer = setInterval(function() {
-      $progress.html(Math.round(loadNumber / 17 *100) + '%');
-      if (loadNumber >= 17) {
+      $progress.html(Math.round(loadNumber / 12 *100) + '%');
+      if (loadNumber >= 12) {
         $('.loading').hide();
         clearInterval($progress[0].timer);
       }
@@ -354,14 +644,19 @@
 
     function loadQuestion() {
 
-      $.get('json/json.txt',function(json) {
+      $.get('json/json.txt?a=' + Math.random(),function(json) {
 
         var json = eval('(' + json +')');
 
         var data = json.data;
 
+        console.log(data);
+
         for(var i = 0; i < data.length; i++ ) {
           //题目数量；
+          if(i === data.length - 1) {
+            loadNumber++;
+          }
           questionNumber = i + 1;
           //正确的答案
           rightSelect.push(data[i].right)
@@ -384,12 +679,12 @@
 
           $answers.appendTo($('.que_cont' + i));
 
-          console.log(loadNumber++);
+          // console.log(loadNumber++);
         }
       })
     }
 
-    $('.wrap_box').click(function(e) {
+    $('.page4 .wrap_box').click(function(e) {
 
       var e = e || window.event;
 
@@ -427,10 +722,10 @@
 
         if(rightNumber / questionNumber > 0.6) {
           console.log(rightNumber);
-          $('.wrap_box').html('恭喜您答对了' + rightNumber + '道题,获得一次抽奖机会');
-          $('<a href="test.html">去抽奖</a>').appendTo('.wrap_box');
+          $('.page4 .wrap_box').html('恭喜您答对了' + rightNumber + '道题,获得一次抽奖机会');
+          $('<a href="test.html">去抽奖</a>').appendTo('.page4 .wrap_box');
         } else {
-          $('.wrap_box').html('您答对了' + rightNumber + '道题,很遗憾您没有获得抽奖机会')
+          $('.page4 .wrap_box').html('您答对了' + rightNumber + '道题,很遗憾您没有获得抽奖机会');
         }
       }
       if($(this).data('type') === 'add') {
@@ -546,7 +841,7 @@
     function Game() {
       this.time = 15;
       this.ballons = [];
-      this.delay = 7300
+      this.delay = 20300
       this.endelem = document.querySelector('#end');
       this.start();
       // this.level();
@@ -564,6 +859,8 @@
     }
     var game = new Game();
 
+     $('.first').draggable();
+    //倒计时：
     var fictoryDate = new Date('2017,10,4');
     fictoryDateTime = fictoryDate.getTime();
     $('.time')[0].timer = setInterval(function() {
@@ -576,7 +873,10 @@
       // console.log(countDownMinutes);
       var countDownSeconds = Math.floor(((((allTime - countDownDays) * 24 - countDownHours) * 60 - countDownMinutes) * 60))
       console.log(countDownSeconds);
-      $('.time').html(countDownDays + '天' + countDownHours + '小时' + countDownMinutes + '分钟' + countDownSeconds + '秒');
+      $('.time span').eq(0).html('0' + countDownDays);
+      $('.time span').eq(1).html(countDownHours);
+      $('.time span').eq(2).html(countDownMinutes);
+      $('.time span').eq(3).html(countDownSeconds);
     },1000)
   </script>
 </body>
