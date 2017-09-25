@@ -324,13 +324,14 @@
   </style>
 </head>
 <body>
-  <div class="loading">
+  <div class="loading" id="loading">
     <p class="loading-prompt">正在为您加载资源，请稍等</p>
     <p class="progress">0%</p>
     <div class="load-line">
       <div class="loading-1"></div>
     </div>
   </div>
+
   <div class="container" id="container">
     <div class="page page0">
       <div class="time-prompt">距离</div>
@@ -448,6 +449,15 @@
   <script type="text/javascript" src="js/jquery.easing.1.2.js"></script>
   <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
   <script type="text/javascript">
+    $("#loading").mouseenter(function(){
+      $(document).mousewheel(function(event) {
+        event.preventDefault();
+      })
+    });
+
+
+
+
     var index = 0;
     var $container = $('#container');
     var INARRAY = [];
@@ -514,11 +524,13 @@
 
 
 
+    var loadings = false;
 
     //Jquery mousewheel事件，需要官方插件，兼容性已解决；
     $(document).mousewheel(function(e) {
       //判断动画是否存在
       if($container.is(':animated')) return;
+      if(!loadings) return;
       var oldIndex = index;
       index -= e.deltaY;
       if(index < 0) {
@@ -598,7 +610,6 @@
       'images/fictory2.gif',
       'images/tu2.gif'
     ];
-
     var $progress = $('.progress');
     $.each(images, function(i,src) {
       var image = new Image();
@@ -612,6 +623,7 @@
       $progress.html(Math.round(loadNumber / 12 *100) + '%');
       if (loadNumber >= 12) {
         $('.loading').hide();
+        loadings = true;
         clearInterval($progress[0].timer);
       }
     },50)
