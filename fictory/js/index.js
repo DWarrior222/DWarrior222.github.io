@@ -1,18 +1,12 @@
-$("#loading").mouseenter(function(){
-  $(document).mousewheel(function(event) {
-    event.preventDefault();
-  })
-});
 
-
-
+//控制页面的滚动；
 
 var index = 0;
 var $container = $('#container');
 var INARRAY = [];
 var OUTARRAY = [];
 OUTARRAY[0] = function() {
-  $('.page0 h1').hide(500);  //fadeOut,,,都属于hide；
+  $('.page0 h1').hide(500);
 }
 OUTARRAY[1] = function() {
   $('.page1 .first').hide(300,function() {
@@ -79,6 +73,7 @@ var loadings = false;
 $(document).mousewheel(function(e) {
   //判断动画是否存在
   if($container.is(':animated')) return;
+  //判断是否加载完成
   if(!loadings) return;
   var oldIndex = index;
   index -= e.deltaY;
@@ -87,9 +82,7 @@ $(document).mousewheel(function(e) {
   } else if(index > 4) {
     index = 4;
   }
-  //滚轮事件中，当index改变时，才让内容隐藏；
   if(oldIndex !== index) {
-    //判断一下当数组中存在这个隐藏函数时，才会执行，
     if(typeof OUTARRAY[oldIndex] === 'function'){
       OUTARRAY[oldIndex]();
     }
@@ -188,7 +181,7 @@ $progress[0].timer = setInterval(function() {
 
 
 
-
+//渲染题目
 var templateString = `
   <span data-select="A"><%=A%></span>
   <span data-select="B"><%=B%></span>
@@ -293,7 +286,7 @@ $('.btn').click(function() {
     if(rightNumber / questionNumber >= 0.6) {
       console.log(rightNumber);
       $('.page4 .wrap_box').html('恭喜您答对了' + rightNumber + '道题,获得一次抽奖机会');
-      $('<a href="test.html">去抽奖</a>').appendTo('.page4 .wrap_box');
+      $('<a href="lottery-draw.html">去抽奖</a>').appendTo('.page4 .wrap_box');
     } else {
       $('.page4 .wrap_box').html('您答对了' + rightNumber + '道题,很遗憾您没有获得抽奖机会');
     }
@@ -351,7 +344,7 @@ var oScore = document.querySelectorAll('h1')[0];
 var oTime  = document.querySelectorAll('h1')[1];
 var oLevel = document.querySelectorAll('h1')[2];
 var oLevelScores = document.querySelectorAll('h1')[3];
-//气球的初始化，移动和消失；
+
 function Ballon() {
   this.left = Math.random()*1100;
   this.top = -100;
@@ -373,7 +366,6 @@ Ballon.prototype.bindEvent = function() {
     self.fly();
   }
 }
-// Ballon.prototype = new Game();
 Ballon.prototype.init = function() {
   this.dom = document.createElement('div');
   this.dom.className = 'ballon';
@@ -386,10 +378,6 @@ Ballon.prototype.init = function() {
   this.dom.style.backgroundImage = 'url(images/moon' + x + '.png)'
   var self = this;
 
-  //初始化的方法中this.dom 表示创建的气球；
-  /*this.dom.onclick = function() {
-    self.destroy();
-  }*/
 }
 Ballon.prototype.fly = function() {
   this.dom.timer = setInterval(function() {
