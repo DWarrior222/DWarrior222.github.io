@@ -177,11 +177,12 @@ $('.search-input input').focus(function() {
   $('#go-search').show(300);
   $('#go-back').show(300);
   $('.search-bc').fadeIn(300);
-  $('.search-prompt').show().stop(true).velocity({'height': '120px'},500);
+  $('.search-prompt').show(100);
 })
 
 $('.search-input input').blur(function() {
   focusLock = false;
+  changeStyle();
 })
 $(document).click(function(event) {
   var target = event.target;
@@ -189,7 +190,7 @@ $(document).click(function(event) {
     $('#go-search').hide(200);
     $('#go-back').hide(200);
     $('.search-bc').fadeOut(300);
-    $('.search-prompt').stop(true).velocity({'height': '0px'},500);
+    $('.search-prompt').hide(100);
     $('#user').show(300);
     if(scrollLock) return;
     $('#logo').show(300);
@@ -199,8 +200,24 @@ $(document).click(function(event) {
 
 // document.addEventListener('touchmove', changeStyle)
 window.onscroll = changeStyle;
+var rgba = [0,0,0,0.6];
+// rgba(229, 105, 125, 1);
 function changeStyle() {
   var scrollTop = document.body.scrollTop;
+  console.log(scrollTop)
+  if(scrollTop > 0 && scrollTop <= 100) {
+    rgba[0] = parseInt(scrollTop * 2.29);
+    rgba[1] = parseInt(scrollTop * 1.05);
+    rgba[2] = parseInt(scrollTop * 1.25);
+    rgba[3] = 0.6 + scrollTop * 0.004;
+  } else if(scrollTop === 0) {
+    rgba = [0,0,0,0.6];
+  } else {
+    rgba = [229, 105, 125, 1];
+  }
+  console.log(rgba);
+  // var strRgba =
+  $('.L-header').css({'background': 'rgba(' + rgba[0] +',' + rgba[1] +',' + rgba[2] +',' + rgba[3] +')'})
   if(scrollTop != 0) {
     scrollLock = true;
     $('#logo').hide();

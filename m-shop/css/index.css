@@ -9,6 +9,7 @@ a {
 }
 div.L-leave-header {
   background: rgba(229, 105, 125, 1);
+  /* background: rgba(0, 0, 0, 0.6); */
 }
 div.L-leave-header .search-box .go-back {
   color: white;
@@ -137,7 +138,7 @@ div.L-leave-header .search-box .go-back {
   width: 100%;
   position: fixed;
   overflow: hidden;
-  height: 0px;
+  height: 120px;
   top: 85px;
   display: none;
   left: 0px;
