@@ -191,6 +191,18 @@ div.L-leave-header .search-box .go-back {
   color: white;
   padding: 0 1rem;
 }
+.nav-box .unit ul li a span {
+  position: relative;
+}
+.nav-box .unit ul li a span.cur::after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  top: 22px;
+  left: 0px;
+  background: #faea11;
+}
 
 
 /* L-body */
@@ -202,7 +214,6 @@ div.L-leave-header .search-box .go-back {
   width: 100%;
   min-width: 320px;
   max-width: 640px;
-  height: 1000px;
 }
 .carousel-wrap {
   padding-top: 90px;
@@ -405,10 +416,62 @@ div.L-leave-header .search-box .go-back {
 
 /* 今日特卖 */
 
-.today-sale {
+.L-today-sale {
   text-align: center;
 }
+.ts-header {
+  height: 40px;
+  line-height: 40px;
+}
 
+/* style1 */
+.ts-body .style1 {
+  width: 100%;
+}
+.ts-body .style1 .ts-page-container {
+  width: 100%;
+  /* display: flex; */
+}
+.ts-body .style1 .ts-page-container li {
+  width: 50%;
+  float: left;
+  height: 200px;
+  background: skyblue;
+  box-sizing: border-box;
+  border: 1px solid red;
+}
+/* style2 */
+.ts-body .style2 {
+  width: 100%;
+}
+.ts-body .style2 .ts-page-container {
+  width: 100%;
+  /* display: flex; */
+}
+.ts-body .style2 .ts-page-container li {
+  width: 100%;
+  /* float: left; */
+  height: 120px;
+  background: skyblue;
+  box-sizing: border-box;
+  border: 1px solid red;
+}
+/* style3 */
+.ts-body .style3 {
+  width: 100%;
+}
+.ts-body .style3 .ts-page-container {
+  width: 100%;
+  /* display: flex; */
+}
+.ts-body .style3 .ts-page-container li {
+  width: 100%;
+  /* float: left; */
+  height: 25rem;
+  background: skyblue;
+  box-sizing: border-box;
+  border: 1px solid red;
+}
 
 
 /* L-area */
@@ -468,4 +531,72 @@ div.L-leave-header .search-box .go-back {
 }
 .area-container .area-select-box ul li:last-child {
 
+}
+
+/* model-comfirm */
+body,html {
+  width: 100%;
+  height: 100%;
+}
+.model-comfirm {
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 2000;
+  display: none;
+}
+.model-comfirm .wrap {
+  width: 80%;
+  height: 100px;
+  background: rgba(0,0,0,0.6);
+  position: absolute;
+  margin: auto;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  /* display: none; */
+}
+.model-comfirm .box {
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  position: absolute;
+  margin: auto;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+}
+.model-comfirm .box h1 {
+  text-align: center;
+  color: white;
+  margin: 10px;
+  line-height: 35px;
+}
+.model-comfirm .box .yn {
+  text-align: center;
+}
+.model-comfirm .box .yn span {
+  width: 56px;
+  height: 25px;
+  line-height: 25px;
+  color: white;
+  display: inline-block;
+  background: red;
+  text-align: center;
+  border-radius: 10px;
+}
+.model-comfirm .wrap .hd {
+  height: 30px;
+  text-align: right;
+}
+.model-comfirm .wrap .hd .close {
+  padding: 5px;
+  margin: 5px 5px 0 0;
+  display: inline-block;
+  color: orange;
 }

@@ -86,17 +86,17 @@
     <div class="nav-box">
       <div class="unit" id="unit">
         <ul>
-          <li><a href="#">今日推荐</a></li>
-          <li><a href="#">家居</a></li>
-          <li><a href="#">家具</a></li>
-          <li><a href="#">文具</a></li>
-          <li><a href="#">数码</a></li>
-          <li><a href="#">玩乐</a></li>
-          <li><a href="#">厨卫</a></li>
-          <li><a href="#">美食</a></li>
-          <li><a href="#">男装</a></li>
-          <li><a href="#">女装</a></li>
-          <li><a href="#">童装</a></li>
+          <li><a href="#"><span class="cur">今日推荐</span></a></li>
+          <li><a href="#"><span>家居</span></a></li>
+          <li><a href="#"><span>家具</span></a></li>
+          <li><a href="#"><span>文具</span></a></li>
+          <li><a href="#"><span>数码</span></a></li>
+          <li><a href="#"><span>玩乐</span></a></li>
+          <li><a href="#"><span>厨卫</span></a></li>
+          <li><a href="#"><span>美食</span></a></li>
+          <li><a href="#"><span>男装</span></a></li>
+          <li><a href="#"><span>女装</span></a></li>
+          <li><a href="#"><span>童装</span></a></li>
         </ul>
       </div>
     </div>
@@ -345,15 +345,42 @@
       </div>
     </div>
 
-    <div class="today-sale">
-    今日特卖...
+    <div class="L-today-sale">
+      <div class="ts-header">今日热卖</div>
+      <div class="ts-body">
+        <ul class="style1">
+          <div class="ts-page-container">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </div>
+        </ul>
+      </div>
     </div>
   </div>
 
 
   <div class="search-bc"></div>
   <div class ="area-bc"></div>
-
+  <div class="model-comfirm" id="model-comfirm">
+    <div class="wrap" id="wrap">
+    <div class="box" id="box">
+      <!-- <div class="hd"><span class="close" id="close">关闭</span></div> -->
+      <h1>是否同意获取地址信息</h1>
+      <div class="yn">
+        <span class="yes" id="yes">是</span>
+        <span class="no" id="no">否</span>
+      </div>
+    </div>
+  </div>
+  </div>
   <!-- <script type="text/javascript" src="js/zepto.js"></script> -->
   <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
   <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
@@ -364,21 +391,13 @@
   <script type="text/javascript">
     new Slide(0,'#L-body','#unit');
     new Slide(0,'#L-body','#pd-m-unit');
-    // toast('你好',2000);
     var mySwiper = new Swiper('.swiper-container', {
       autoplay: 5000,
       loop: true,
       pagination : '.swiper-pagination'
     })
 
-    // document.write(returnCitySN["cip"]+','+returnCitySN["cname"])  
-    // console.log(returnCitySN);
-    /*(function() {
-      //用模态框
-      if(confirm('是否同意获取地址信息'))
-        $('#header-area').html(returnCitySN['cname']);
-    })()*/
-
+    
 
     //太影响性能 放弃。
 

@@ -35,8 +35,6 @@
       self.oLisLength += parseInt(this.offsetWidth);
     })
 
-
-
     console.log(this.windowWidth)
 
     this.maxTransform = this.windowWidth - this.oLisLength - this.sideWidth;
@@ -314,7 +312,7 @@ function getOverTime(Year,Mon,Day,Hou,Min,Sec) {
       panicStart = true;
       if(panicEnd) {
         panicEnd = false;
-        $('#panic-buying .pd-header i').html('16点快抢 · 距开始还有');
+        $('#panic-buying .pd-header i').html('16点快抢 · 距开抢还有');
       }
     }
     $('#panic-buying .pd-header em').eq(0).html(Hours);
@@ -322,3 +320,20 @@ function getOverTime(Year,Mon,Day,Hou,Min,Sec) {
     $('#panic-buying .pd-header em').eq(2).html(Seconds);
   },1000)
 }
+
+// 是否同意获取地址信息
+console.log(returnCitySN);
+$('#model-comfirm').show();
+$('#model-comfirm').click(function(event) {
+  var target = event.target;
+  if(target.id === 'yes') {
+    // getAddress = returnCitySN['cname'];
+    $('#header-area').html(returnCitySN['cname']);
+    $('.area-position-cont li').html(returnCitySN['cname']);
+    toast('当前定位城市:' + returnCitySN['cname'] ,2000);
+    $(this).hide();
+  }
+  if(target.id === 'no') {
+    $(this).hide();
+  }
+})
