@@ -216,8 +216,8 @@ function changeStyle() {
     rgba = [229, 105, 125, 1];
   }
   console.log(rgba);
-  // var strRgba =
-  $('.L-header').css({'background': 'rgba(' + rgba[0] +',' + rgba[1] +',' + rgba[2] +',' + rgba[3] +')'})
+  var strRgba = rgba.toString();
+  $('.L-header').css({'background': 'rgba(' + strRgba +')'})
   if(scrollTop != 0) {
     scrollLock = true;
     $('#logo').hide();
@@ -231,3 +231,32 @@ function changeStyle() {
     $('.L-header').removeClass('L-leave-header');
   }
 }
+
+
+
+// (function() {
+//     //用模态框
+//     // if(confirm('是否同意获取地址信息')) {
+//       $('#header-area')[0].innerText = returnCitySN['cname'];
+//       $('.area-position-cont li').html(returnCitySN['cname']);
+//     // }
+// })()
+
+$('#header-area')[0].addEventListener('touchstart', function() {
+  $('.L-area').show();
+  $('.area-bc').hide();
+})
+
+$('.L-area')[0].addEventListener('click', function(event) {
+  var target = event.target;
+  if(target.id === 'area-close') {
+    $('.L-area').hide();
+    $('.area-bc').hide();
+  }
+  if(target.nodeName === 'LI') {
+    var area = $(target).html();
+    $('#header-area').html(area);
+    $('.L-area').hide();
+    $('.area-bc').hide();
+  }
+})
