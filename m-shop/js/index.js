@@ -1,133 +1,144 @@
 (function() {
-    window.navslide = slide;
+  window.Slide = Slide;
 
-    function slide(sideWidth,selector) {
+  function Slide(sideWidth,selector,mUnit) {
 
-      var selector = selector || 'body';
+    this.selector = selector || 'body';
 
-      var sideWidth = sideWidth;
+    this.sideWidth = sideWidth;
 
-      var $unit = $('#unit');
+    this.$unit = $(mUnit);
 
-      $ul = $('#unit ul');
+    this.$ul = $(mUnit +' ul');
 
-      $lis = $('#unit ul li');
+    this.$lis = $(mUnit + ' ul li');
 
-      var oLisLength = 0;
+    this.oLisLength = 0;
+    // console.log(maxTransform);
+    this.deltaX = 0;
 
-      $lis.each(function(index,value) {
+    this.windowWidth = document.querySelector(selector).clientWidth;
 
-        oLisLength += parseInt($(this).css('width'));
-      })
+    this.nowX = 0;
 
+    this.movearr = [];
 
-      var windowWidth = document.querySelector(selector).clientWidth;
+    this.handleData()
 
-      console.log(windowWidth)
+    this.bindEvent();
+  }
+  Slide.prototype.handleData = function() {
+    var self = this;
 
-      var maxTransform = windowWidth - oLisLength - sideWidth;
-      // console.log(maxTransform);
-      var deltaX;
+    this.$lis.each(function(index,value) {
 
-      var nowX = 0;
-
-      var movearr = [];
-
-      $unit[0].addEventListener('touchstart',function(event) {
-
-        event.preventDefault();
-
-        movearr = [];
-
-        $ul.css('transition', "none");
-
-        // console.log(1);
-        console.log(event)
-
-        // $('body').css({'background-color': 'blue'})
-
-        deltaX = event.touches[0].clientX - nowX;
+      self.oLisLength += parseInt(this.offsetWidth);
+    })
 
 
-        console.log(deltaX)
-      },false)
 
-      $unit[0].addEventListener('touchmove', function(event) {
+    console.log(this.windowWidth)
 
-        if(maxTransform > 0) return;
+    this.maxTransform = this.windowWidth - this.oLisLength - this.sideWidth;
+  }
+  Slide.prototype.bindEvent = function() {
+    var self = this;
 
-        event.preventDefault();
+    this.$unit[0].addEventListener('touchstart',function(event) {
 
-        
+      event.preventDefault();
 
-        nowX = event.touches[0].clientX - deltaX;
+      self.movearr = [];
 
-        // console.log(nowX);
+      self.$ul.css('transition', "none");
 
-        // $ul.css('transform', "translateX(" + nowX + "px)");
+      // console.log(1);
+      console.log(event)
 
-        if(nowX > 0) {
-          // console.log(nowX / 3)
-          $ul.css('transform', "translateX(" + (nowX / 3) + "px)");
+      // $('body').css({'background-color': 'blue'})
 
-          $ul.css('webkitTransform', "translateX(" + (nowX / 3) + "px)");
+      self.deltaX = event.touches[0].clientX - self.nowX;
 
-        } if(nowX < maxTransform) {
 
-          var slowX = nowX - maxTransform;
-          console.log(maxTransform);
-          $ul.css('transform', "translateX(" + (maxTransform + slowX / 2)+ "px)");
+      console.log(self.deltaX)
+    },false)
 
-          $ul.css('webkitTransform', "translateX(" +  (maxTransform + slowX / 2) + "px)");
-        } else if(nowX < 0 && nowX > maxTransform) {
+    this.$unit[0].addEventListener('touchend', function(event) {
 
-          $ul.css('transform', "translateX(" + nowX + "px)");
+      if(self.maxTransform > 0) return;
 
-          $ul.css('webkitTransform', "translateX(" + (nowX) + "px)");
-        }
+      event.preventDefault();
 
-        movearr.push(event.touches[0].clientX);
-      },false)
-      $unit[0].addEventListener('touchend', function(event) {
+      self.s = self.movearr[self.movearr.length - 1] - self.movearr[self.movearr.length - 2];
 
-        if(maxTransform > 0) return;
+      self.targetx = self.nowX + self.s;
+      //console.log(nowX,s,targetx);
+      if(self.targetx < self.maxTransform){
 
-        event.preventDefault();
+        self.targetx = self.maxTransform;
 
-        
+        //贝塞尔曲线有折返
+        self.$ul.css('transition', "all 0.6s cubic-bezier(0.21, -0.57, 0.18, 1.35) 0s");
 
-        var s = movearr[movearr.length - 1] - movearr[movearr.length - 2];
+      }else if(self.targetx > 0){
 
-        var targetx = nowX + s;
-        //console.log(nowX,s,targetx);
-        if(targetx < maxTransform){
+        self.targetx = 0;
 
-          targetx = maxTransform;
+        self.$ul.css('transition', "all 0.6s cubic-bezier(0.21, -0.57, 0.18, 1.35) 0s");
 
-          //贝塞尔曲线有折返
-          $ul.css('transition', "all 0.6s cubic-bezier(0.21, -0.57, 0.18, 1.35) 0s");
+      }else{
 
-        }else if(targetx > 0){
+        self.$ul.css('transition', "all 0.6s cubic-bezier(0.21, -0.57, 0.18, 1.35) 0s");
+      }
+      //用过渡来实现
+      self.$ul.css('transform', "translateX(" +  self.targetx + "px)");
 
-          targetx = 0;
+      self.$ul.css('webkitTransform', "translateX(" +  self.targetx + "px)");
 
-          $ul.css('transition', "all 0.6s cubic-bezier(0.21, -0.57, 0.18, 1.35) 0s");
+      //信号量的值就是目标x的值
+      self.nowX = self.targetx;
+    },false)
 
-        }else{
+    this.$unit[0].addEventListener('touchmove', function(event) {
 
-          $ul.css('transition', "all 0.6s cubic-bezier(0.21, -0.57, 0.18, 1.35) 0s");
-        }
-        //用过渡来实现
-        $ul.css('transform', "translateX(" +  targetx + "px)");
+      if(self.maxTransform > 0) return;
 
-        $ul.css('webkitTransform', "translateX(" +  targetx + "px)");
+      event.preventDefault();
 
-        //信号量的值就是目标x的值
-        nowX = targetx;
-      },false)
-    }
+      
 
-  })()
+      self.nowX = event.touches[0].clientX - self.deltaX;
+
+      // console.log(nowX);
+
+      // $ul.css('transform', "translateX(" + nowX + "px)");
+
+      if(self.nowX > 0) {
+        // console.log(nowX / 3)
+        self.$ul.css('transform', "translateX(" + (self.nowX / 3) + "px)");
+
+        self.$ul.css('webkitTransform', "translateX(" + (self.nowX / 3) + "px)");
+
+      } if(self.nowX < self.maxTransform) {
+
+        self.slowX = self.nowX - self.maxTransform;
+        console.log(self.maxTransform);
+        self.$ul.css('transform', "translateX(" + (self.maxTransform + self.slowX / 2)+ "px)");
+
+        self.$ul.css('webkitTransform', "translateX(" +  (self.maxTransform + self.slowX / 2) + "px)");
+      } else if(self.nowX < 0 && self.nowX > self.maxTransform) {
+
+        self.$ul.css('transform', "translateX(" + (self.nowX) + "px)");
+
+        self.$ul.css('webkitTransform', "translateX(" + (self.nowX) + "px)");
+      }
+
+      self.movearr.push(event.touches[0].clientX);
+    },false)
+  }
+})()
+
+
 
 //轮播
 //动态设置轮播的宽高
@@ -141,6 +152,8 @@ function liHeight() {
     $(this)[0].style.height = liHeights + 'px';
   })
 }
+
+
 //轮播业务
 $('#carousel-box')[0].addEventListener('touchstart', function() {
   $(this).css('transition','none');
@@ -233,14 +246,14 @@ function changeStyle() {
 }
 
 
-
-// (function() {
-//     //用模态框
-//     // if(confirm('是否同意获取地址信息')) {
-//       $('#header-area')[0].innerText = returnCitySN['cname'];
-//       $('.area-position-cont li').html(returnCitySN['cname']);
-//     // }
-// })()
+// 不知道为什么手机百度打不开。
+/*(function() {
+    //用模态框
+    if(confirm('是否同意获取地址信息')) {
+      $('#header-area')[0].innerText = returnCitySN['cname'];
+      $('.area-position-cont li').html(returnCitySN['cname']);
+    // }
+})()*/
 
 $('#header-area')[0].addEventListener('touchstart', function() {
   $('.L-area').show();
@@ -260,3 +273,52 @@ $('.L-area')[0].addEventListener('click', function(event) {
     $('.area-bc').hide();
   }
 })
+
+
+
+
+
+
+var nowDate = new Date();
+var nowDay = nowDate.getDay();
+var nowMon = nowDate.getMonth();
+var panicStart = true;
+var panicEnd = true;
+// var panicDate = new Date(2017,nowMon,nowDay,19,0,0);
+console.log(getOverTime(2017,nowDay,nowDay,19,0,0));
+function getOverTime(Year,Mon,Day,Hou,Min,Sec) {
+  var panicOver = new Date(Year,Mon,Day,Hou,Min,Sec);
+  panicDateTime = panicOver.getTime();
+  console.log(panicDateTime)
+  var panictimer = setInterval(function() {
+    var date = new Date();
+    var dateTime = date.getTime();
+    var allTime = (panicDateTime - dateTime) / 1000 / 60 / 60 / 24;
+    var Days = Math.floor(allTime);
+    var Hours = Math.floor((allTime - Days) * 24);
+    var Minutes = Math.floor(((allTime - Days) *24 - Hours) * 60);
+    // console.log(Minutes);
+    var Seconds = Math.floor(((((allTime - Days) * 24 - Hours) * 60 - Minutes) * 60))
+    console.log(Seconds);
+    // $('#panic-buying .pd-header em').eq(0).html('0' + Days);
+    Days = Days < 10 ? '0' + Days : Days;
+    Hours = Hours < 10 ? '0' + Hours : Hours;
+    Minutes = Minutes < 10 ? '0' + Minutes : Minutes;
+    Seconds = Seconds < 10 ? '0' + Seconds : Seconds;
+    if(Hours <= 3 && panicStart) {
+      panicEnd = true;
+      panicStart = false;
+      $('#panic-buying .pd-header i').html('16点快抢 · 距结束还有');
+    } else if(Hours > 3) {
+      Hours -= 3;
+      panicStart = true;
+      if(panicEnd) {
+        panicEnd = false;
+        $('#panic-buying .pd-header i').html('16点快抢 · 距开始还有');
+      }
+    }
+    $('#panic-buying .pd-header em').eq(0).html(Hours);
+    $('#panic-buying .pd-header em').eq(1).html(Minutes);
+    $('#panic-buying .pd-header em').eq(2).html(Seconds);
+  },1000)
+}

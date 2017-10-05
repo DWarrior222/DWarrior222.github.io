@@ -307,7 +307,59 @@ div.L-leave-header .search-box .go-back {
 }
 /* 抢购 */
 .panic-buying {
+  width: 100%;
+  padding: 20px 0;
+  overflow: hidden;
+}
+.panic-buying .pd-header {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  border-left: 10px solid #F25;
+  margin-bottom: 10px;
+}
+.panic-buying .pd-header em {
+  width: 20px;
+  margin: 0 5px;
+  height: 20px;
+  color: white;
+  background: black;
+  border-radius: 2px;
+  padding: 2px;
+}
+.panic-buying .pd-body {
+  width: 100%;
+  overflow: hidden;
+}
+.panic-buying .pd-body ul {
+  width: 2000px;
+  display: flex;
+  background: #ddb88c;
+}
+.pd-m-unit ul li {
+  width: 110px;
+  padding: 10px;
+  font-size: 0.85rem;
+  background: white;
+  margin: 1px;
+}
+.pd-m-unit ul li img {
+  width: 80%;
+  margin-left: 10%;
+}
+.pd-m-unit ul li figcaption {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 24px;
+  color: #666;
+}
+.pd-m-unit ul li figcaption:last-child {
   text-align: center;
+  font-size: 1.2rem;
+  color: #F25;
+}
+.pd-m-unit ul li figcaption:last-child {
 }
 
 
@@ -380,9 +432,9 @@ div.L-leave-header .search-box .go-back {
 .L-area .area-close {
   width: 25px;
   height: 25px;
-  position: absolute;
-  right: 10px;
-  top: 10px;
+  position: fixed;
+  right: 26px;
+  top: 33px;
   line-height: 25px;
   text-align: center;
   font-size: 1.5rem;
