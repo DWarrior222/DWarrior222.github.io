@@ -226,7 +226,7 @@ function changeStyle() {
   } else {
     rgba = [229, 105, 125, 1];
   }
-  console.log(rgba);
+  // console.log(rgba);
   var strRgba = rgba.toString();
   $('.L-header').css({'background': 'rgba(' + strRgba +')'})
   if(scrollTop != 0) {
@@ -253,9 +253,10 @@ function changeStyle() {
     // }
 })()*/
 
-$('#header-area')[0].addEventListener('touchstart', function() {
-  $('.L-area').show();
-  $('.area-bc').hide();
+// 解决上面的问题就是用时间委托。
+$('#header-area')[0].addEventListener('click', function() {
+  $('.L-area').show(200);
+  $('.area-bc').show(200);
 })
 
 $('.L-area')[0].addEventListener('click', function(event) {
@@ -297,7 +298,7 @@ function getOverTime(Year,Mon,Day,Hou,Min,Sec) {
     var Minutes = Math.floor(((allTime - Days) *24 - Hours) * 60);
     // console.log(Minutes);
     var Seconds = Math.floor(((((allTime - Days) * 24 - Hours) * 60 - Minutes) * 60))
-    console.log(Seconds);
+    // console.log(Seconds);
     // $('#panic-buying .pd-header em').eq(0).html('0' + Days);
     Days = Days < 10 ? '0' + Days : Days;
     Hours = Hours < 10 ? '0' + Hours : Hours;
@@ -309,6 +310,7 @@ function getOverTime(Year,Mon,Day,Hou,Min,Sec) {
       $('#panic-buying .pd-header i').html('16点快抢 · 距结束还有');
     } else if(Hours > 3) {
       Hours -= 3;
+      Hours = Hours < 10 ? '0' + Hours : Hours;
       panicStart = true;
       if(panicEnd) {
         panicEnd = false;
@@ -337,3 +339,68 @@ $('#model-comfirm').click(function(event) {
     $(this).hide();
   }
 })
+
+
+
+
+var page = 1;
+var addPageLock = true;
+window.addEventListener('scroll' , function(event) {
+  var scrollTop = document.body.scrollTop;
+  console.log(scrollTop)
+  console.log($('.L-body').css('height'))
+  var bodyHeight = parseInt($('.L-body').css('height'));
+  console.log(scrollTop / bodyHeight)
+  if(scrollTop / bodyHeight > 0.76) {
+    if(!addPageLock) return;
+    addPageLock = false;
+    setTimeout(function() {
+      addPageLock = true;
+    },200);
+    page++;
+    if(page > 5) return;
+    $.ajax({
+      url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=fun',
+      dataType: 'jsonp',
+      jsonpCallback: 'fun',
+      success: function(json) {
+        var json = json;
+        console.log(json);
+        var html = ejs.render(templateString, json)
+        $('.ts-body ul')[0].innerHTML += html;
+        $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
+        // $('body').css('background', 'red');
+      }
+    })
+  }
+})
+// 首页的商品
+var templateString = $('#tem').html();
+console.log(templateString);
+$.ajax({
+      url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=fun',
+      dataType: 'jsonp',
+      jsonpCallback: 'fun',
+      success: function(json) {
+        var json = json;
+        console.log(json);
+        var html = ejs.render(templateString, json)
+        $('.ts-body ul')[0].innerHTML += html;
+        $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
+        // $('body').css('background', 'red');
+      }
+    })
+
+
+
+
+
+// console.log(parseInt($('.ts-body li').css('width')));
+
+// footer-nav
+/*$('.footer-nav')[0].addEventListener('touchstart', function(event) {
+  var target = event.target;
+  if(target.className === 'iconhome') {
+    $(target).attr('src', )
+  }
+})*/
