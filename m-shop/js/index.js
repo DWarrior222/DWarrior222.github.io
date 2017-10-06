@@ -363,7 +363,7 @@ window.addEventListener('scroll' , function(event) {
     $.ajax({
       url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=fun',
       dataType: 'jsonp',
-      data: {page},
+      data: {page:page},
       jsonpCallback: 'fun',
       success: function(json) {
         var json = json;
@@ -371,6 +371,7 @@ window.addEventListener('scroll' , function(event) {
         var html = ejs.render(templateString, json)
         $('.ts-body ul')[0].innerHTML += html;
         $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
+        // $('body').css('background', 'red');
       }
     })
   }
@@ -382,7 +383,7 @@ $.ajax({
       url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=fun',
       dataType: 'jsonp',
       jsonpCallback: 'fun',
-      data: {page},
+      data: {page:page},
       success: function(json) {
         var json = json;
         console.log(json);
