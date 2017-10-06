@@ -346,15 +346,23 @@ $('#model-comfirm').click(function(event) {
 var page = 1;
 var templateString = $('#tem').html();
 console.log(templateString);
-$.get('http://h6.duchengjiu.top/shop/api_goods.php',
-  {page:page},
-  function(json) {
-    /*var json = json;
-    $('.ts-body ul').html(ejs.render(templateString, json));
-    $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')*/
-      $('body').css('background', 'red');
+$.ajax({
+      url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=fun',
+      dataType: 'jsonp',
+      jsonpCallback: 'fun',
+      success: function(json) {
+        $('body').css('background', 'red');
+      }
+    })
+// $.ajax('http://h6.duchengjiu.top/shop/api_goods.php',
+//   {page:page},
+//   function(json) {
+//     var json = json;
+//     $('.ts-body ul').html(ejs.render(templateString, json));
+//     $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
+      
 
-  })
+//   })
 var addPageLock = true;
 window.addEventListener('scroll' , function(event) {
   var scrollTop = document.body.scrollTop;
