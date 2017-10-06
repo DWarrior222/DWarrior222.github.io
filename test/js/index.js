@@ -349,7 +349,7 @@ window.addEventListener('scroll' , function(event) {
   $('body').css('background', 'red');
 })
 // 首页的商品
-var templateString = $('#tem').html();
+/*var templateString = $('#tem').html();
 console.log(templateString);
 $.get('http://h6.duchengjiu.top/shop/api_goods.php',
   {page},
@@ -357,7 +357,7 @@ $.get('http://h6.duchengjiu.top/shop/api_goods.php',
     var json = json;
     $('.ts-body ul').html(ejs.render(templateString, json));
     $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
-  })
+  })*/
 
 
 
