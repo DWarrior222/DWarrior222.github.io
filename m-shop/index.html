@@ -172,79 +172,8 @@
       </div>
       <div class="pd-body">
         <div class="pd-m-unit" id="pd-m-unit">
-          <ul>
-            <li>
-              <a href="javascript:;">
-                <figure>
-                  <img src="images/panic1.jpg" alt="水头足 润度高 光泽亮 玉质细腻  送人自带有面子">
-                  <figcaption>【买贵退双倍差价】天然蓝田玉手镯 女款阳绿玉镯子 赠珠宝证书 精美包装</figcaption>
-                  <figcaption>￥<span>11</span></figcaption>
-                </figure>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:;">
-                <figure>
-                  <img src="images/panic1.jpg" alt="水头足 润度高 光泽亮 玉质细腻  送人自带有面子">
-                  <figcaption>【买贵退双倍差价】天然蓝田玉手镯 女款阳绿玉镯子 赠珠宝证书 精美包装</figcaption>
-                  <figcaption>￥<span>11</span></figcaption>
-                </figure>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:;">
-                <figure>
-                  <img src="images/panic1.jpg" alt="水头足 润度高 光泽亮 玉质细腻  送人自带有面子">
-                  <figcaption>【买贵退双倍差价】天然蓝田玉手镯 女款阳绿玉镯子 赠珠宝证书 精美包装</figcaption>
-                  <figcaption>￥<span>11</span></figcaption>
-                </figure>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:;">
-                <figure>
-                  <img src="images/panic1.jpg" alt="水头足 润度高 光泽亮 玉质细腻  送人自带有面子">
-                  <figcaption>【买贵退双倍差价】天然蓝田玉手镯 女款阳绿玉镯子 赠珠宝证书 精美包装</figcaption>
-                  <figcaption>￥<span>11</span></figcaption>
-                </figure>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:;">
-                <figure>
-                  <img src="images/panic1.jpg" alt="水头足 润度高 光泽亮 玉质细腻  送人自带有面子">
-                  <figcaption>【买贵退双倍差价】天然蓝田玉手镯 女款阳绿玉镯子 赠珠宝证书 精美包装</figcaption>
-                  <figcaption>￥<span>11</span></figcaption>
-                </figure>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:;">
-                <figure>
-                  <img src="images/panic1.jpg" alt="水头足 润度高 光泽亮 玉质细腻  送人自带有面子">
-                  <figcaption>【买贵退双倍差价】天然蓝田玉手镯 女款阳绿玉镯子 赠珠宝证书 精美包装</figcaption>
-                  <figcaption>￥<span>11</span></figcaption>
-                </figure>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:;">
-                <figure>
-                  <img src="images/panic1.jpg" alt="水头足 润度高 光泽亮 玉质细腻  送人自带有面子">
-                  <figcaption>【买贵退双倍差价】天然蓝田玉手镯 女款阳绿玉镯子 赠珠宝证书 精美包装</figcaption>
-                  <figcaption>￥<span>11</span></figcaption>
-                </figure>
-              </a>
-            </li>
-            <li>
-              <a href="javascript:;">
-                <figure>
-                  <img src="images/panic1.jpg" alt="水头足 润度高 光泽亮 玉质细腻  送人自带有面子">
-                  <figcaption>【买贵退双倍差价】天然蓝田玉手镯 女款阳绿玉镯子 赠珠宝证书 精美包装</figcaption>
-                  <figcaption>￥<span>11</span></figcaption>
-                </figure>
-              </a>
-            </li>
+          <ul class="swiper-wrapper">
+            
           </ul>
         </div>
       </div>
@@ -402,6 +331,19 @@
       <% } %>
     </div>
   </script>
+  <script type="text/template" id="tem-panic">
+    <% for(var i = 0; i < data.length; i++ ) { %>
+    <li class="swiper-slide">
+      <a href="javascript:;">
+        <figure>
+          <img src="<%= data[i].goods_thumb %>" alt="">
+          <figcaption><%= data[i].goods_name %></figcaption>
+          <figcaption>￥<span><%= data[i].price %></span></figcaption>
+        </figure>
+      </a>
+    </li>
+    <% } %>
+  </script>
   <script type="text/javascript" src="js/node_modules/ejs/ejs.min.js"></script>
   <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
   <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
@@ -415,6 +357,10 @@
   <script type="text/javascript">
     new Slide(0,'#L-body','#unit');
     new Slide(0,'#L-body','#pd-m-unit');
+    // new Swiper('#pd-m-unit', {
+    //   freeMode : true,
+    //   width: 110
+    // })
     var mySwiper = new Swiper('.swiper-container', {
       autoplay: 5000,
       loop: true,

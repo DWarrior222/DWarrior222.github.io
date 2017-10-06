@@ -69,7 +69,7 @@
 
       self.s = self.movearr[self.movearr.length - 1] - self.movearr[self.movearr.length - 2];
 
-      self.targetx = self.nowX + self.s;
+      self.targetx = self.nowX + 2 *  self.s;
       //console.log(nowX,s,targetx);
       if(self.targetx < self.maxTransform){
 
@@ -103,7 +103,7 @@
 
       event.preventDefault();
 
-      
+      self.$ul.css('transition', "none");
 
       self.nowX = event.touches[0].clientX - self.deltaX;
 
@@ -380,21 +380,32 @@ window.addEventListener('scroll' , function(event) {
 var templateString = $('#tem').html();
 console.log(templateString);
 $.ajax({
-      url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=fun',
-      dataType: 'jsonp',
-      jsonpCallback: 'fun',
-      data: {page:page},
-      success: function(json) {
-        var json = json;
-        console.log(json);
-        var html = ejs.render(templateString, json)
-        $('.ts-body ul')[0].innerHTML += html;
-        $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
-        // $('body').css('background', 'red');
-      }
-    })
-
-
+  url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=fun',
+  dataType: 'jsonp',
+  jsonpCallback: 'fun',
+  data: {page:page},
+  success: function(json) {
+    var json = json;
+    console.log(json);
+    var html = ejs.render(templateString, json)
+    $('.ts-body ul')[0].innerHTML += html;
+    $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
+  }
+})
+var panicTem = $('#tem-panic').html();
+$.ajax({
+  url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=funpanic',
+  dataType: 'jsonp',
+  jsonpCallback: 'funpanic',
+  data: {page:11},
+  success: function(json) {
+    var json = json;
+    console.log(json);
+    var html = ejs.render(panicTem, json)
+    $('#panic-buying .swiper-wrapper').html(html);
+    new Slide(0,'#L-body','#pd-m-unit');
+  }
+})
 
 
 
