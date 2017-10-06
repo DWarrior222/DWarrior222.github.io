@@ -344,20 +344,44 @@ $('#model-comfirm').click(function(event) {
 
 
 var page = 1;
-var addPageLock = true;
-window.addEventListener('scroll' , function(event) {
-  $('body').css('background', 'red');
-})
-// 首页的商品
-/*var templateString = $('#tem').html();
+var templateString = $('#tem').html();
 console.log(templateString);
 $.get('http://h6.duchengjiu.top/shop/api_goods.php',
-  {page},
+  {page:page},
   function(json) {
-    var json = json;
+    /*var json = json;
     $('.ts-body ul').html(ejs.render(templateString, json));
-    $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
-  })*/
+    $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')*/
+      $('body').css('background', 'red');
+
+  })
+var addPageLock = true;
+window.addEventListener('scroll' , function(event) {
+  var scrollTop = document.body.scrollTop;
+  console.log(scrollTop)
+  console.log($('.L-body').css('height'))
+  var bodyHeight = parseInt($('.L-body').css('height'));
+  console.log(scrollTop / bodyHeight)
+  if(scrollTop / bodyHeight > 0.76) {
+    if(!addPageLock) return;
+    addPageLock = false;
+    setTimeout(function() {
+      addPageLock = true;
+    },200);
+    page++;
+    if(page > 5) return;
+    $.get('http://h6.duchengjiu.top/shop/api_goods.php',
+    {page},
+    function(json) {
+      var json = json;
+      console.log(json);
+      var html = ejs.render(templateString, json)
+      $('.ts-body ul')[0].innerHTML += html;
+      $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
+    })
+  }
+})
+// 首页的商品
 
 
 
