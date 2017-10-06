@@ -351,7 +351,12 @@ $.ajax({
       dataType: 'jsonp',
       jsonpCallback: 'fun',
       success: function(json) {
-        $('body').css('background', 'red');
+        var json = json;
+        console.log(json);
+        var html = ejs.render(templateString, json)
+        $('.ts-body ul')[0].innerHTML += html;
+        $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
+        // $('body').css('background', 'red');
       }
     })
 // $.ajax('http://h6.duchengjiu.top/shop/api_goods.php',
@@ -383,18 +388,14 @@ window.addEventListener('scroll' , function(event) {
       dataType: 'jsonp',
       jsonpCallback: 'fun',
       success: function(json) {
-        $('body').css('background', 'red');
+        var json = json;
+        console.log(json);
+        var html = ejs.render(templateString, json)
+        $('.ts-body ul')[0].innerHTML += html;
+        $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
+        // $('body').css('background', 'red');
       }
     })
-    /*$.get('http://h6.duchengjiu.top/shop/api_goods.php',
-    {page},
-    function(json) {
-      var json = json;
-      console.log(json);
-      var html = ejs.render(templateString, json)
-      $('.ts-body ul')[0].innerHTML += html;
-      $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
-    })*/
   }
 })
 // 首页的商品
