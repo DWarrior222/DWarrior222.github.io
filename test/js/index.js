@@ -378,7 +378,15 @@ window.addEventListener('scroll' , function(event) {
     },200);
     page++;
     if(page > 5) return;
-    $.get('http://h6.duchengjiu.top/shop/api_goods.php',
+    $.ajax({
+      url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=fun',
+      dataType: 'jsonp',
+      jsonpCallback: 'fun',
+      success: function(json) {
+        $('body').css('background', 'red');
+      }
+    })
+    /*$.get('http://h6.duchengjiu.top/shop/api_goods.php',
     {page},
     function(json) {
       var json = json;
@@ -386,7 +394,7 @@ window.addEventListener('scroll' , function(event) {
       var html = ejs.render(templateString, json)
       $('.ts-body ul')[0].innerHTML += html;
       $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
-    })
+    })*/
   }
 })
 // 首页的商品
