@@ -44,7 +44,7 @@
 
     this.$unit[0].addEventListener('touchstart',function(event) {
 
-      event.preventDefault();
+      // event.preventDefault();
 
       self.movearr = [];
 
@@ -65,7 +65,7 @@
 
       if(self.maxTransform > 0) return;
 
-      event.preventDefault();
+      // event.preventDefault();
 
       self.s = self.movearr[self.movearr.length - 1] - self.movearr[self.movearr.length - 2];
 
@@ -418,3 +418,19 @@ $.ajax({
     $(target).attr('src', )
   }
 })*/
+
+$.ajax({
+  url: 'http://h6.duchengjiu.top/shop/api_cat.php?format=jsonp&callback=navfun',
+  dataType: 'jsonp',
+  jsonpCallback: 'navfun',
+  success: function(json) {
+    var data = json.data;
+    console.log(json);
+    for(var i = 0; i < data.length; i++ ) {
+      console.log(data);
+      $('.nav-box .unit ul')[0].innerHTML += 
+      `<li><a href="classify.html?cat_id=${data[i].cat_id}"><span>${data[i].cat_name}</span></a></li>`
+    }
+    new Slide(0,'#L-body','#unit');
+  }
+})
