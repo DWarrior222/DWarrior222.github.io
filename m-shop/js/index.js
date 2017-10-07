@@ -44,7 +44,7 @@
 
     this.$unit[0].addEventListener('touchstart',function(event) {
 
-      event.preventDefault();
+      // event.preventDefault();
 
       self.movearr = [];
 
@@ -65,7 +65,7 @@
 
       if(self.maxTransform > 0) return;
 
-      event.preventDefault();
+      // event.preventDefault();
 
       self.s = self.movearr[self.movearr.length - 1] - self.movearr[self.movearr.length - 2];
 
@@ -418,3 +418,17 @@ $.ajax({
     $(target).attr('src', )
   }
 })*/
+
+var templatenav = $('#temnav').html();
+$.ajax({
+  url: 'http://h6.duchengjiu.top/shop/api_cat.php?format=jsonp&callback=navfun',
+  dataType: 'jsonp',
+  jsonpCallback: 'navfun',
+  success: function(json) {
+    var json = json;
+    console.log(json);
+    var html = ejs.render(templatenav, json);
+    $('.nav-box .unit ul')[0].innerHTML += html;
+    new Slide(0,'#L-body','#unit');
+  }
+})

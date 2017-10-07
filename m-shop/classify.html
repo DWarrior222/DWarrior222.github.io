@@ -63,7 +63,7 @@
     .class-nav .list-item .price-dropdown::after {
       content: '';
       position: absolute;
-      right: 0.75rem;
+      right: 0.45rem;
       top: 2px;
       width: 8px;
       height: 8px;
@@ -153,17 +153,7 @@
     <div class="nav-box">
       <div class="unit" id="unit">
         <ul>
-          <li><a href="#"><span class="cur">今日推荐</span></a></li>
-          <li><a href="#"><span>家居</span></a></li>
-          <li><a href="#"><span>家具</span></a></li>
-          <li><a href="#"><span>文具</span></a></li>
-          <li><a href="#"><span>数码</span></a></li>
-          <li><a href="#"><span>玩乐</span></a></li>
-          <li><a href="#"><span>厨卫</span></a></li>
-          <li><a href="#"><span>美食</span></a></li>
-          <li><a href="#"><span>男装</span></a></li>
-          <li><a href="#"><span>女装</span></a></li>
-          <li><a href="#"><span>童装</span></a></li>
+          <li><a href="index.html"><span class="cur">今日推荐</span></a></li>
         </ul>
       </div>
     </div>
@@ -203,7 +193,7 @@
         </ul>
       </div>
       <div class="self-custom">
-        <i>区间(元)</i>
+        <i>区间</i>
         <div class="input-min"><input type="number" class="min" name=""></div>
         <i>—</i>
         <div class="input-max"><input type="number" class="max" name=""></div>
@@ -221,7 +211,15 @@
     </div>
   </div>
   <div class="search-bc"></div>
-
+  <script type="text/template" id="temnav">
+  <% for(var i = 0; i < data.length; i++ ) { %>
+    <li>
+      <a href="classify.html?cat_id=<%= data[i].cat_id %>">
+        <span><%= data[i].cat_name %></span>
+      </a>
+    </li>
+  <% } %>
+  </script>
   <script type="text/template" id="tem">
     <div class="ts-page-container ts-page<%= page.page_count %>">
       <% for(var i = 0; i < data.length / 2; i++ ) { %>
@@ -295,7 +293,7 @@
 
         this.$unit[0].addEventListener('touchstart',function(event) {
 
-          event.preventDefault();
+          // event.preventDefault();
 
           self.movearr = [];
 
@@ -316,7 +314,7 @@
 
           if(self.maxTransform > 0) return;
 
-          event.preventDefault();
+          // event.preventDefault();
 
           self.s = self.movearr[self.movearr.length - 1] - self.movearr[self.movearr.length - 2];
 
@@ -386,7 +384,6 @@
         },false)
       }
     })()
-    new Slide(0,'.L-header','#unit'); 
     //搜索框
     // 两个锁，分别控制获取焦点和离开顶部时，元素的状态
     var focusLock = false;
@@ -584,6 +581,20 @@
         }
         // console.log(min,max);
         goodsInit();
+      }
+    })
+
+    var templatenav = $('#temnav').html();
+    $.ajax({
+      url: 'http://h6.duchengjiu.top/shop/api_cat.php?format=jsonp&callback=navfun',
+      dataType: 'jsonp',
+      jsonpCallback: 'navfun',
+      success: function(json) {
+        var json = json;
+        console.log(json);
+        var html = ejs.render(templatenav, json);
+        $('.nav-box .unit ul')[0].innerHTML += html;
+        new Slide(0,'.L-header','#unit'); 
       }
     })
   </script>
