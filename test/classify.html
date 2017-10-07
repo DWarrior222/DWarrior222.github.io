@@ -585,11 +585,15 @@
       success: function(json) {
         var data = json.data;
         console.log(json);
-        // for(var i = 0; i < data.length; i++ ) {
-        //   console.log(data);
-        //   $('.nav-box .unit ul')[0].innerHTML +=
-        //   `<li><a href="classify.html?cat_id=${data[i].cat_id}"><span>${data[i].cat_name}</span></a></li>`
-        // }
+        for(var i = 0; i < data.length; i++ ) {
+          console.log(data);
+          $('.nav-box .unit ul')[0].innerHTML +=
+          `<li>
+              <a href="classify.html?cat_id=${data[i].cat_id}">
+                <span>${data[i].cat_name}</span>
+              </a>
+          </li>`
+        }
         // new Slide(0,'#L-body','#unit');
       }
     })
