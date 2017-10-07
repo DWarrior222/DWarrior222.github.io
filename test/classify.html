@@ -384,7 +384,6 @@
         },false)
       }
     })()
-    new Slide(0,'.L-header','#unit'); 
     //搜索框
     // 两个锁，分别控制获取焦点和离开顶部时，元素的状态
     var focusLock = false;
@@ -595,7 +594,7 @@
         console.log(json);
         var html = ejs.render(templatenav, json);
         $('.nav-box .unit ul')[0].innerHTML += html;
-        new Slide(0,'#L-body','#unit');
+        new Slide(0,'.L-header','#unit'); 
       }
     })
   </script>
