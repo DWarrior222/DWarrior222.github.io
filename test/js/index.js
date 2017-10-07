@@ -419,18 +419,16 @@ $.ajax({
   }
 })*/
 
+var templatenav = $('#temnav').html();
 $.ajax({
   url: 'http://h6.duchengjiu.top/shop/api_cat.php?format=jsonp&callback=navfun',
   dataType: 'jsonp',
   jsonpCallback: 'navfun',
   success: function(json) {
-    var data = json.data;
+    var json = json;
     console.log(json);
-    for(var i = 0; i < data.length; i++ ) {
-      console.log(data);
-      $('.nav-box .unit ul')[0].innerHTML += 
-      `<li><a href="classify.html?cat_id=${data[i].cat_id}"><span>${data[i].cat_name}</span></a></li>`
-    }
+    var html = ejs.render(templatenav, json);
+    $('.nav-box .unit ul')[0].innerHTML += html;
     new Slide(0,'#L-body','#unit');
   }
 })
