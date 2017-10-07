@@ -153,7 +153,7 @@
     <div class="nav-box">
       <div class="unit" id="unit">
         <ul>
-          <li><a href="#"><span class="cur">今日推荐</span></a></li>
+          <li><a href="index.html"><span class="cur">今日推荐</span></a></li>
         </ul>
       </div>
     </div>
@@ -578,21 +578,21 @@
     })
 
 
-    $.ajax({
-      url: 'http://h6.duchengjiu.top/shop/api_cat.php?format=jsonp&callback=navfun',
-      dataType: 'jsonp',
-      jsonpCallback: 'navfun',
-      success: function(json) {
-        var data = json.data;
-        console.log(json);
-        for(var i = 0; i < data.length; i++ ) {
-          console.log(data);
-          $('.nav-box .unit ul')[0].innerHTML += 
-          `<li><a href="classify.html?cat_id=${data[i].cat_id}"><span>${data[i].cat_name}</span></a></li>`
-        }
-        new Slide(0,'#L-body','#unit');
-      }
-    })
+    // $.ajax({
+    //   url: 'http://h6.duchengjiu.top/shop/api_cat.php?format=jsonp&callback=navfun',
+    //   dataType: 'jsonp',
+    //   jsonpCallback: 'navfun',
+    //   success: function(json) {
+    //     var data = json.data;
+    //     console.log(json);
+    //     for(var i = 0; i < data.length; i++ ) {
+    //       console.log(data);
+    //       $('.nav-box .unit ul')[0].innerHTML += 
+    //       `<li><a href="classify.html?cat_id=${data[i].cat_id}"><span>${data[i].cat_name}</span></a></li>`
+    //     }
+    //     new Slide(0,'#L-body','#unit');
+    //   }
+    // })
   </script>
 </body>
 </html>
