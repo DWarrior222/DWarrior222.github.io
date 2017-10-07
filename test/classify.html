@@ -63,7 +63,7 @@
     .class-nav .list-item .price-dropdown::after {
       content: '';
       position: absolute;
-      right: 16px;
+      right: 0.45rem;
       top: 2px;
       width: 8px;
       height: 8px;
@@ -119,6 +119,7 @@
       font-size: 1rem;
     }
     .self-custom i{
+      white-space: nowrap;
       padding: 0 8px;
     }
     .self-custom span {
@@ -202,7 +203,7 @@
         </ul>
       </div>
       <div class="self-custom">
-        <i>区间(元)</i>
+        <i>区间</i>
         <div class="input-min"><input type="number" class="min" name=""></div>
         <i>—</i>
         <div class="input-max"><input type="number" class="max" name=""></div>
@@ -561,6 +562,8 @@
         maxprice = parseInt(maxObj[1]);
         if(maxprice < 300) {
           maxpage = 20;
+        } else {
+          maxpage = 10;
         }
         // console.log(min,max)
         goodsInit();
@@ -576,6 +579,8 @@
         }
         if(maxprice < 300) {
           maxpage = 50;
+        } else {
+          maxpage = 10;
         }
         // console.log(min,max);
         goodsInit();
