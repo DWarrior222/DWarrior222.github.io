@@ -433,7 +433,7 @@ div.L-leave-header .search-box .go-back {
   /* display: flex; */
 }
 .ts-body .style1 .ts-page-container li {
-  height: 17.5rem;
+  /* height: 17.5rem; */
   background: #f1eadf;
   margin-bottom: 4.416px;
   width: 49.5%;
@@ -540,7 +540,7 @@ div.L-leave-header .search-box .go-back {
   width: 100%;
   /* float: left; */
   padding: 10px;
-  height: 30rem;
+  /* height: 30rem; */
   background: rgb(249, 249, 249);
   box-sizing: border-box;
   border-bottom: 1px solid #dbdbdb;
