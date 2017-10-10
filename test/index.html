@@ -78,7 +78,7 @@
       <span class="header-area" id="header-area">北京</span>
       <span class="go-back iconfont icon-fanhui" id="go-back"></span>
       <div class="search-input iconfont icon-search">
-        <input type="text" name=""/>
+        <input type="text" name="" id="search-input" />
       </div>
       <span class="go-search" id="go-search">搜索</span>
       <span class="user iconfont icon-yonghu" id="user"></span>
@@ -364,7 +364,19 @@
       pagination : '.swiper-pagination'
     })
 
-    
+    $('#search-input')[0].onkeydown = function(e) {
+      e = e || window.event;
+      if(e.keyCode === 13) {
+        location.href = `search.html?search_text=${this.value}`;
+        this.value = '';
+      }
+    }
+    $('#go-search')[0].addEventListener('touchstart', function() {
+      if($('#search-input')[0].value != ''){
+        location.href = `search.html?search_text=${$('#search-input')[0].value}`
+        $('#search-input')[0].value = '';
+      }
+    })
 
     //太影响性能 放弃。
 
