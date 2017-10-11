@@ -224,8 +224,6 @@
       <% for(var i = 0; i < data.length / 2; i++ ) { %>
         <div class="row">
           <% for(var j = i * 2; j < i * 2 + 2; j++ ) { %>
-          <% if(data[j].price >= minprice) { %>
-          <% if(data[j].price <= maxprice) { %>
           <li>
             <a href="goods.html?goods_id=<%= data[j].goods_id %>">
               <div class="pic"><img src = '<%= data[j].goods_thumb %>'></div>
@@ -235,8 +233,6 @@
               </div>
             </a>
           </li>
-          <% } %>
-          <% } %>
           <% } %>
         </div>
       <% } %>
@@ -519,13 +515,13 @@
       }
     }
     // 首页的商品
-    var newdata = [];
+    var newjson = {}
+    newjson.data = [];
     var templateString = $('#tem').html();
     console.log(templateString);
     goodsInit();
     function goodsInit() {
       $('.ts-body ul')[0].innerHTML = '';
-      newdata = [];
       for(page = 1; page < maxpage; page++ ) {
         $.ajax({
           url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=initfun',
@@ -533,6 +529,7 @@
           jsonpCallback: 'initfun',
           data: {cat_id:cat_id,page:page},
           success: function(json) {
+            newjson.data = [];
             var json = json;
             console.log(json);
             // json.minprice = minprice;
@@ -540,11 +537,11 @@
             var data = json.data
             for(var i = 0; i < data.length; i++) {
               if((data[i].price >= minprice) && (data[i].price <= maxprice)) {
-                newdata.push(data[i]);
+                newjson.data.push(data[i]);
               }
             }
-            console.log(newdata);
-            var html = ejs.render(templateString, json)
+            console.log(newjson.data[0].goods_id);
+            var html = ejs.render(templateString, newjson)
             $('.ts-body ul')[0].innerHTML += html;
             $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
           }
