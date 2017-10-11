@@ -145,7 +145,7 @@
       <span class="go-back-home iconfont icon-fanhui" id="go-back-home"></span>
       <span class="go-back iconfont icon-fanhui" id="go-back"></span>
       <div class="search-input iconfont icon-search">
-        <input type="text" name="" id="search-input" />
+        <input type="text" name="" id="search-input"/>
       </div>
       <span class="go-search" id="go-search">搜索</span>
       <span class="user iconfont icon-yonghu" id="user"></span>
@@ -201,8 +201,10 @@
     </div>
   </div>
   <div class="search-bc"></div>
+  
 
   <script type="text/template" id="temsearch">
+
     <% for(var i = 0; i < data.length / 3; i++ ) { %>
       <ul>
         <% for(var j = i * 3; j < i * 3 + 3; j++ ) { %>
@@ -215,7 +217,7 @@
   <% for(var i = 0; i < data.length; i++ ) { %>
     <li>
       <a href="classify.html?cat_id=<%= data[i].cat_id %>">
-        <span class="<%= data[i].cat_id %>"><%= data[i].cat_name %></span>
+        <span><%= data[i].cat_name %></span>
       </a>
     </li>
   <% } %>
@@ -384,16 +386,6 @@
         },false)
       }
     })()
-
-
-    searchPrompt();
-    function searchPrompt() {
-      var searchObject = JSON.parse(localStorage.searchObject);
-      var templateSearch = $('#temsearch').html();
-      var html = ejs.render(templateSearch, searchObject)
-      $('#search-prompt')[0].innerHTML = html;
-    }
-
     //搜索框
     // 两个锁，分别控制获取焦点和离开顶部时，元素的状态
     var focusLock = false;
@@ -410,10 +402,10 @@
       $('.search-prompt').show(100);
     })
 
-    // $('.search-input input').blur(function() {
-    //   focusLock = false;
-    //   changeStyle();
-    // })
+    $('.search-input input').blur(function() {
+      focusLock = false;
+      changeStyle();
+    })
     $(document).click(function(event) {
       var target = event.target;
       if(target.className === 'search-bc' || target.id === 'go-back') {
@@ -466,7 +458,6 @@
 
 
 
-
     function getQueryString(name) {
       var search = location.search.substr(1);
       //abc=123&a=&ccc=abc
@@ -479,8 +470,33 @@
       return result === null ? null : decodeURIComponent(result[2]);
     }
 
-    var cat_id = parseInt(getQueryString('cat_id'));
-    console.log(cat_id);
+
+    var searchObject = {"data": []};
+    var search_text = getQueryString('search_text');
+    searchPrompt();
+    function searchPrompt() {
+      if(localStorage.searchObject) {
+        searchObject = JSON.parse(localStorage.searchObject);
+        if(searchObject.data.length >= 6) {
+          searchObject.data.shift();
+        }
+      }
+      searchObject.data.push(search_text);
+      // localStorage.searchObject = JSON.stringify(searchObject);
+      localStorage.setItem('searchObject', JSON.stringify(searchObject));
+      console.log(localStorage.searchObject);
+      // var searchArray = JSON.parse(localStorage.searchArray);
+      // searchArray 删掉第一个，
+      // 从后往前遍历
+      var templateSearch = $('#temsearch').html();
+      var html = ejs.render(templateSearch, searchObject)
+      $('#search-prompt')[0].innerHTML = html;
+    }
+
+
+
+
+    console.log(search_text);
     var minprice = 0;
     var maxprice = 1000000000;
     var page = 1;
@@ -504,7 +520,7 @@
         $.ajax({
           url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=againfun',
           dataType: 'jsonp',
-          data: {cat_id:cat_id,page:page},
+          data: {search_text:search_text,page:page},
           jsonpCallback: 'againfun',
           success: function(json) {
             var json = json;
@@ -530,7 +546,7 @@
           url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=initfun',
           dataType: 'jsonp',
           jsonpCallback: 'initfun',
-          data: {cat_id:cat_id,page:page},
+          data: {search_text:search_text,page:page},
           success: function(json) {
             var json = json;
             console.log(json);
@@ -637,7 +653,7 @@
         var html = ejs.render(templatenav, json);
         $('.nav-box .unit ul')[0].innerHTML += html;
         new Slide(0,'.L-header','#unit');
-        $('.nav-box .unit ul li span.'+ cat_id).addClass('cur');
+        // $('.nav-box .unit ul li span.'+ cat_id).addClass('cur');
       }
     })
 

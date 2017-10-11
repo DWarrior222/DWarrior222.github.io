@@ -78,7 +78,7 @@
       <span class="header-area" id="header-area">北京</span>
       <span class="go-back iconfont icon-fanhui" id="go-back"></span>
       <div class="search-input iconfont icon-search">
-        <input type="text" name=""/>
+        <input type="text" name="" id="search-input" />
       </div>
       <span class="go-search" id="go-search">搜索</span>
       <span class="user iconfont icon-yonghu" id="user"></span>
@@ -90,17 +90,7 @@
         </ul>
       </div>
     </div>
-    <div class="search-prompt">
-      <ul>
-        <li><a href="">1</a></li>
-        <li><a href="">2</a></li>
-        <li><a href="">3</a></li>
-      </ul>
-      <ul>
-        <li><a href="">1</a></li>
-        <li><a href="">2</a></li>
-        <li><a href="">3</a></li>
-      </ul>
+    <div class="search-prompt" id="search-prompt">
     </div>
   </div>
   <div class="L-body" id="L-body">
@@ -282,7 +272,7 @@
     <span class="icon iconhome">首页</span>
     <span class="icon iconstore">购物车</span>
     <span class="iconfont icon-xinchangtai">我的收藏</span>
-    <span class="icon iconyonghu">我的</span>
+    <span class="icon iconyonghu">我的订单</span>
   </div>
 
 
@@ -316,7 +306,7 @@
         <div class="row">
           <% for(var j = i * 2; j < i * 2 + 2; j++ ) { %>
           <li>
-            <a href="javascript:;">
+            <a href="goods.html?goods_id=<%= data[j].goods_id %>">
               <div class="pic"><img src = '<%= data[j].goods_thumb %>'></div>
               <div class="intro">
                 <div class="infor"><%= data[j].goods_desc %></div>
@@ -332,7 +322,7 @@
   <script type="text/template" id="tem-panic">
     <% for(var i = 0; i < data.length; i++ ) { %>
     <li class="swiper-slide">
-      <a href="javascript:;">
+      <a href="goods.html?goods_id=<%= data[i].goods_id %>">
         <figure>
           <img src="<%= data[i].goods_thumb %>" alt="">
           <figcaption><%= data[i].goods_name %></figcaption>
@@ -340,6 +330,16 @@
         </figure>
       </a>
     </li>
+    <% } %>
+  </script>
+  <script type="text/template" id="temsearch">
+
+    <% for(var i = 0; i < data.length / 3; i++ ) { %>
+      <ul>
+        <% for(var j = i * 3; j < i * 3 + 3; j++ ) { %>
+        <li><a href="search.html?search_text=<%= data[j] %>"><%= data[j] %></a></li>
+        <% } %>
+      </ul>
     <% } %>
   </script>
   <script type="text/javascript" src="js/node_modules/ejs/ejs.min.js"></script>
@@ -364,7 +364,31 @@
       pagination : '.swiper-pagination'
     })
 
-    
+    $('#search-input').keydown(function(event) {
+      var event = event || window.event;
+      if(event.keyCode === 13) {
+        location.href = 'search.html?search_text=' + this.value;
+        this.value = '';
+      }
+    })
+    $('#go-search')[0].addEventListener('touchstart', function() {
+      $('#search-input').focus();
+      if($('#search-input')[0].value != ''){
+        location.href = 'search.html?search_text=' + $('#search-input')[0].value;
+        $('#search-input')[0].value = '';
+      }
+    })
+
+    searchPrompt();
+    function searchPrompt() {
+      var searchObject = JSON.parse(localStorage.searchObject);
+      var templateSearch = $('#temsearch').html();
+      var html = ejs.render(templateSearch, searchObject)
+      $('#search-prompt')[0].innerHTML = html;
+    }
+
+
+
 
     //太影响性能 放弃。
 
