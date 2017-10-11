@@ -504,9 +504,16 @@
           data: {cat_id:cat_id,page:page},
           jsonpCallback: 'againfun',
           success: function(json) {
+            newjson.data = [];
             var json = json;
+            var data = json.data;
+            for(var i = 0; i < data.length; i++) {
+              if((data[i].price >= minprice) && (data[i].price <= maxprice)) {
+                newjson.data.push(data[i]);
+              }
+            }
             console.log(json);
-            var html = ejs.render(templateString, json)
+            var html = ejs.render(templateString, newjson)
             $('.ts-body ul')[0].innerHTML += html;
             $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
             // $('body').css('background', 'red');
@@ -540,7 +547,7 @@
                 newjson.data.push(data[i]);
               }
             }
-            console.log(newjson.data[0].goods_id);
+            // console.log(newjson.data[0].goods_id);
             var html = ejs.render(templateString, newjson)
             $('.ts-body ul')[0].innerHTML += html;
             $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
