@@ -536,7 +536,8 @@
       }
     }
     // 首页的商品
-    var newdata = [];
+    var newjson = {}
+    newjson.data = [];
     var templateString = $('#tem').html();
     console.log(templateString);
     goodsInit();
@@ -550,6 +551,7 @@
           jsonpCallback: 'initfun',
           data: {search_text:search_text,page:page},
           success: function(json) {
+            newjson.data = [];
             var json = json;
             console.log(json);
             // json.minprice = minprice;
@@ -557,17 +559,18 @@
             var data = json.data
             for(var i = 0; i < data.length; i++) {
               if((data[i].price >= minprice) && (data[i].price <= maxprice)) {
-                newdata.push(data[i]);
+                newjson.data.push(data[i]);
               }
             }
-            console.log(newdata);
-            var html = ejs.render(templateString, json)
+            console.log(newjson.data[0].goods_id);
+            var html = ejs.render(templateString, newjson)
             $('.ts-body ul')[0].innerHTML += html;
             $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
           }
         })
       }
     }
+
 
     $('#list-style')[0].addEventListener('touchstart', function() {
       console.log($(this).attr('class'))
