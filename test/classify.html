@@ -396,17 +396,13 @@
     })()
 
 
-    // var obj = {'data': ['1','2','3','4','5','6']}
-    // var searchObject = JSON.parse(localStorage.searchObject);
-    // console.log(searchObject);
-    // // var searchArray = JSON.parse(localStorage.searchArray);
-    // // searchArray 删掉第一个，
-    // // 从后往前遍历
-    // var templateSearch = $('#temsearch').html();
-    // var searchhtml = ejs.render(templateSearch, obj)
-    // console.log(searchhtml);
-    // $('#search-prompt')[0].innerHTML = searchhtml;
-
+    searchPrompt();
+    function searchPrompt() {
+      var searchObject = JSON.parse(localStorage.searchObject);
+      var templateSearch = $('#temsearch').html();
+      var html = ejs.render(templateSearch, searchObject)
+      $('#search-prompt')[0].innerHTML = html;
+    }
 
     //搜索框
     // 两个锁，分别控制获取焦点和离开顶部时，元素的状态

@@ -479,12 +479,17 @@
       // return decodeURIComponent(result[2]);
       return result === null ? null : decodeURIComponent(result[2]);
     }
-    var search_text = getQueryString('search_text');
 
-    (function() {
-      var searchObject = JSON.parse(localStorage.searchObject);
-      if(searchObject.data.length >= 6) {
-        searchObject.data.shift()
+
+    var searchObject = {"data": []};
+    var search_text = getQueryString('search_text');
+    searchPrompt();
+    function searchPrompt() {
+      if(localStorage.searchObject) {
+        searchObject = JSON.parse(localStorage.searchObject);
+        if(searchObject.data.length >= 6) {
+          searchObject.data.shift();
+        }
       }
       searchObject.data.push(search_text);
       // localStorage.searchObject = JSON.stringify(searchObject);
@@ -496,7 +501,7 @@
       var templateSearch = $('#temsearch').html();
       var html = ejs.render(templateSearch, searchObject)
       $('#search-prompt')[0].innerHTML = html;
-    })()
+    }
 
 
 

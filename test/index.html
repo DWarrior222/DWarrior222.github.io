@@ -282,7 +282,7 @@
     <span class="icon iconhome">首页</span>
     <span class="icon iconstore">购物车</span>
     <span class="iconfont icon-xinchangtai">我的收藏</span>
-    <span class="icon iconyonghu">我的</span>
+    <span class="icon iconyonghu">我的订单</span>
   </div>
 
 
@@ -344,13 +344,13 @@
   </script>
   <script type="text/template" id="temsearch">
 
-    <!-- <% for(var i = 0; i < data.length / 3; i++ ) { %>
+    <% for(var i = 0; i < data.length / 3; i++ ) { %>
       <ul>
         <% for(var j = i * 3; j < i * 3 + 3; j++ ) { %>
         <li><a href="search.html?search_text=<%= data[j] %>"><%= data[j] %></a></li>
         <% } %>
       </ul>
-    <% } %> -->
+    <% } %>
   </script>
   <script type="text/javascript" src="js/node_modules/ejs/ejs.min.js"></script>
   <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
@@ -389,13 +389,13 @@
       }
     })
 
-    // var searchObject = JSON.parse(localStorage.searchObject);
-    // // var searchArray = JSON.parse(localStorage.searchArray);
-    // // searchArray 删掉第一个，
-    // // 从后往前遍历
-    // var templateSearch = $('#temsearch').html();
-    // var html = ejs.render(templateSearch, searchObject)
-    // $('#search-prompt')[0].innerHTML = html;
+    searchPrompt();
+    function searchPrompt() {
+      var searchObject = JSON.parse(localStorage.searchObject);
+      var templateSearch = $('#temsearch').html();
+      var html = ejs.render(templateSearch, searchObject)
+      $('#search-prompt')[0].innerHTML = html;
+    }
 
 
 
