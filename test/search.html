@@ -543,7 +543,7 @@
     goodsInit();
     function goodsInit() {
       $('.ts-body ul')[0].innerHTML = '';
-      newdata = [];
+      // newdata = [];
       for(page = 1; page < maxpage; page++ ) {
         $.ajax({
           url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=initfun',
@@ -562,7 +562,7 @@
                 newjson.data.push(data[i]);
               }
             }
-            console.log(newjson.data[0].goods_id);
+            // console.log(newjson.data[0].goods_id);
             var html = ejs.render(templateString, newjson)
             $('.ts-body ul')[0].innerHTML += html;
             $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
