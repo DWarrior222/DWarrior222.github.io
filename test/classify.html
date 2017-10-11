@@ -158,7 +158,6 @@
       </div>
     </div>
     <div class="search-prompt" id="search-prompt">
-      
     </div>
   </div>
   <div class="class-nav">
@@ -196,7 +195,6 @@
     <div class="L-today-sale">
       <div class="ts-body">
         <ul class="style2">
-          
         </ul>
       </div>
     </div>
@@ -390,7 +388,7 @@
     searchPrompt();
     function searchPrompt() {
       var searchObject = JSON.parse(localStorage.searchObject);
-      // $('#search-input').attr('placeholder', 
+      // $('#search-input').attr('placeholder',
       //   searchObject.data[parseInt(Math.random()*(searchObject.data.length))]);
       var templateSearch = $('#temsearch').html();
       var html = ejs.render(templateSearch, searchObject)
