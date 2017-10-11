@@ -78,7 +78,7 @@
       <span class="header-area" id="header-area">北京</span>
       <span class="go-back iconfont icon-fanhui" id="go-back"></span>
       <div class="search-input iconfont icon-search">
-        <input type="text" name="" id="search-input" />
+        <input type="text" name="" id="search-input" placeholder="相机" />
       </div>
       <span class="go-search" id="go-search">搜索</span>
       <span class="user iconfont icon-yonghu" id="user"></span>
@@ -91,6 +91,16 @@
       </div>
     </div>
     <div class="search-prompt" id="search-prompt">
+      <ul>
+        <li>椅子</li>
+        <li>动物</li>
+        <li>零食</li>
+      </ul>
+      <ul>
+        <li>水杯</li>
+        <li>相机</li>
+        <li>鞋子</li>
+      </ul>
     </div>
   </div>
   <div class="L-body" id="L-body">
@@ -333,6 +343,7 @@
     <% } %>
   </script>
   <script type="text/template" id="temsearch">
+
     <% for(var i = 0; i < data.length / 3; i++ ) { %>
       <ul>
         <% for(var j = i * 3; j < i * 3 + 3; j++ ) { %>
@@ -375,12 +386,16 @@
       if($('#search-input')[0].value != ''){
         location.href = 'search.html?search_text=' + $('#search-input')[0].value;
         $('#search-input')[0].value = '';
+      } else {
+        location.href = 'search.html?search_text=' + $('#search-input').attr('placeholder');
+        // $('#search-input')[0].value = '';
       }
     })
-
     searchPrompt();
     function searchPrompt() {
       var searchObject = JSON.parse(localStorage.searchObject);
+      // $('#search-input').attr('placeholder', 
+      //   searchObject.data[parseInt(Math.random()*(searchObject.data.length))]);
       var templateSearch = $('#temsearch').html();
       var html = ejs.render(templateSearch, searchObject)
       $('#search-prompt')[0].innerHTML = html;
