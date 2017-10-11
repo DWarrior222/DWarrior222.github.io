@@ -213,7 +213,6 @@
   <div class="search-bc"></div>
 
   <script type="text/template" id="temsearch">
-
     <% for(var i = 0; i < data.length / 3; i++ ) { %>
       <ul>
         <% for(var j = i * 3; j < i * 3 + 3; j++ ) { %>
@@ -396,13 +395,17 @@
       }
     })()
 
-    var searchObject = JSON.parse(localStorage.searchObject);
-      // var searchArray = JSON.parse(localStorage.searchArray);
-      // searchArray 删掉第一个，
-      // 从后往前遍历
-    var templateSearch = $('#temsearch').html();
-    var html = ejs.render(templateSearch, searchObject)
-    $('#search-prompt')[0].innerHTML = html;
+
+    // var obj = {'data': ['1','2','3','4','5','6']}
+    // var searchObject = JSON.parse(localStorage.searchObject);
+    // console.log(searchObject);
+    // // var searchArray = JSON.parse(localStorage.searchArray);
+    // // searchArray 删掉第一个，
+    // // 从后往前遍历
+    // var templateSearch = $('#temsearch').html();
+    // var searchhtml = ejs.render(templateSearch, obj)
+    // console.log(searchhtml);
+    // $('#search-prompt')[0].innerHTML = searchhtml;
 
 
     //搜索框
@@ -421,10 +424,10 @@
       $('.search-prompt').show(100);
     })
 
-    $('.search-input input').blur(function() {
-      focusLock = false;
-      changeStyle();
-    })
+    // $('.search-input input').blur(function() {
+    //   focusLock = false;
+    //   changeStyle();
+    // })
     $(document).click(function(event) {
       var target = event.target;
       if(target.className === 'search-bc' || target.id === 'go-back') {
