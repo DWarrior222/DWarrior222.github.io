@@ -145,7 +145,7 @@
       <span class="go-back-home iconfont icon-fanhui" id="go-back-home"></span>
       <span class="go-back iconfont icon-fanhui" id="go-back"></span>
       <div class="search-input iconfont icon-search">
-        <input type="text" name="" id="search-input" />
+        <input type="text" name="" id="search-input" placeholder="杯子" />
       </div>
       <span class="go-search" id="go-search">搜索</span>
       <span class="user iconfont icon-yonghu" id="user"></span>
@@ -195,7 +195,6 @@
     <div class="L-today-sale">
       <div class="ts-body">
         <ul class="style2">
-          
         </ul>
       </div>
     </div>
@@ -389,6 +388,8 @@
     searchPrompt();
     function searchPrompt() {
       var searchObject = JSON.parse(localStorage.searchObject);
+      // $('#search-input').attr('placeholder',
+      //   searchObject.data[parseInt(Math.random()*(searchObject.data.length))]);
       var templateSearch = $('#temsearch').html();
       var html = ejs.render(templateSearch, searchObject)
       $('#search-prompt')[0].innerHTML = html;
@@ -656,6 +657,8 @@
       if($('#search-input')[0].value != ''){
         location.href = 'search.html?search_text=' + $('#search-input')[0].value;
         $('#search-input')[0].value = '';
+      } else {
+        location.href = 'search.html?search_text=' + $('#search-input').attr('placeholder');
       }
     })
   </script>

@@ -21,7 +21,6 @@ https://m.vip.com
 问题：为什么很多地方都会用form表单呢，用一个input框也可以实现功能啊？
 头部：
 13.研究一下阮一峰的flex布局，
-14.改变价格范围时：高度混乱，style1布局混乱(将符合条件的放入一个数组，重新遍历)，
 
 
 搜索框：
@@ -35,13 +34,14 @@ https://m.vip.com
 ```
 ### 2.search.html
 ### 3.classify.html
-
-
+```
+1.改变价格范围时：style1布局混乱(将符合条件的放入一个数组，重新遍历)，
+```
 
 
 ### 4.register.html
+朱军
 ```
-
 ```
 ### 5.login.html
 李智超
@@ -49,8 +49,8 @@ https://m.vip.com
 ```
 ```
 ### 6.goods.html
+路锴
 ```
-
 ```
 ### 7.cart.html
 李世军
