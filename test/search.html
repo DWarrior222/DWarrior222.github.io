@@ -240,7 +240,7 @@
           <% if(data[j].price >= minprice) { %>
           <% if(data[j].price <= maxprice) { %>
           <li>
-            <a href="javascript:;">
+            <a href="goods.html?goods_id=<%= data[j].goods_id %>">
               <div class="pic"><img src = '<%= data[j].goods_thumb %>'></div>
               <div class="intro">
                 <div class="infor"><%= data[j].goods_desc %></div>
@@ -481,22 +481,22 @@
     }
     var search_text = getQueryString('search_text');
 
-    // (function() {
-    //   var searchObject = JSON.parse(localStorage.getItem(searchObject));
-    //   if(searchObject.data.length >= 6) {
-    //     searchObject.data.shift()
-    //   }
-    //   searchObject.data.push(search_text);
-    //   // localStorage.searchObject = JSON.stringify(searchObject);
-    //   localStorage.setItem(searchObject, JSON.stringify(searchObject));
-    //   console.log(localStorage.searchObject);
-    //   // var searchArray = JSON.parse(localStorage.searchArray);
-    //   // searchArray 删掉第一个，
-    //   // 从后往前遍历
-    //   var templateSearch = $('#temsearch').html();
-    //   var html = ejs.render(templateSearch, searchObject)
-    //   $('#search-prompt')[0].innerHTML = html;
-    // })()
+    (function() {
+      var searchObject = JSON.parse(localStorage.searchObject);
+      if(searchObject.data.length >= 6) {
+        searchObject.data.shift()
+      }
+      searchObject.data.push(search_text);
+      // localStorage.searchObject = JSON.stringify(searchObject);
+      localStorage.setItem('searchObject', JSON.stringify(searchObject));
+      console.log(localStorage.searchObject);
+      // var searchArray = JSON.parse(localStorage.searchArray);
+      // searchArray 删掉第一个，
+      // 从后往前遍历
+      var templateSearch = $('#temsearch').html();
+      var html = ejs.render(templateSearch, searchObject)
+      $('#search-prompt')[0].innerHTML = html;
+    })()
 
 
 

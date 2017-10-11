@@ -238,7 +238,7 @@
           <% if(data[j].price >= minprice) { %>
           <% if(data[j].price <= maxprice) { %>
           <li>
-            <a href="javascript:;">
+            <a href="goods.html?goods_id=<%= data[j].goods_id %>">
               <div class="pic"><img src = '<%= data[j].goods_thumb %>'></div>
               <div class="intro">
                 <div class="infor"><%= data[j].goods_desc %></div>

@@ -316,7 +316,7 @@
         <div class="row">
           <% for(var j = i * 2; j < i * 2 + 2; j++ ) { %>
           <li>
-            <a href="javascript:;">
+            <a href="goods.html?goods_id=<%= data[j].goods_id %>">
               <div class="pic"><img src = '<%= data[j].goods_thumb %>'></div>
               <div class="intro">
                 <div class="infor"><%= data[j].goods_desc %></div>
@@ -332,7 +332,7 @@
   <script type="text/template" id="tem-panic">
     <% for(var i = 0; i < data.length; i++ ) { %>
     <li class="swiper-slide">
-      <a href="javascript:;">
+      <a href="goods.html?goods_id=<%= data[i].goods_id %>">
         <figure>
           <img src="<%= data[i].goods_thumb %>" alt="">
           <figcaption><%= data[i].goods_name %></figcaption>
