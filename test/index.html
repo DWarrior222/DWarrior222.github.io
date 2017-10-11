@@ -90,7 +90,7 @@
         </ul>
       </div>
     </div>
-    <div class="search-prompt">
+    <div class="search-prompt" id="search-prompt">
       <ul>
         <li><a href="">1</a></li>
         <li><a href="">2</a></li>
@@ -342,6 +342,16 @@
     </li>
     <% } %>
   </script>
+  <script type="text/template" id="temsearch">
+
+    <% for(var i = 0; i < data.length / 3; i++ ) { %>
+      <ul>
+        <% for(var j = i * 3; j < i * 3 + 3; j++ ) { %>
+        <li><a href="search.html?search_text=<%= data[j] %>"><%= data[j] %></a></li>
+        <% } %>
+      </ul>
+    <% } %>
+  </script>
   <script type="text/javascript" src="js/node_modules/ejs/ejs.min.js"></script>
   <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
   <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
@@ -378,6 +388,17 @@
         $('#search-input')[0].value = '';
       }
     })
+
+    var searchObject = JSON.parse(localStorage.searchObject);
+    // var searchArray = JSON.parse(localStorage.searchArray);
+    // searchArray 删掉第一个，
+    // 从后往前遍历
+    var templateSearch = $('#temsearch').html();
+    var html = ejs.render(templateSearch, searchObject)
+    $('#search-prompt')[0].innerHTML = html;
+
+
+
 
     //太影响性能 放弃。
 
