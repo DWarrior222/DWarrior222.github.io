@@ -40,8 +40,8 @@ https://m.vip.com
 
 
 ### 4.register.html
+朱军
 ```
-
 ```
 ### 5.login.html
 李智超
@@ -49,8 +49,8 @@ https://m.vip.com
 ```
 ```
 ### 6.goods.html
+路锴
 ```
-
 ```
 ### 7.cart.html
 李世军
