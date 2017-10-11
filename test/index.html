@@ -364,16 +364,17 @@
       pagination : '.swiper-pagination'
     })
 
-    $('#search-input')[0].onkeydown = function(e) {
-      e = e || window.event;
-      if(e.keyCode === 13) {
-        location.href = `search.html?search_text=${this.value}`;
+    $('#search-input').keydown(function(event) {
+      var event = event || window.event;
+      if(event.keyCode === 13) {
+        location.href = 'search.html?search_text=' + this.value;
         this.value = '';
       }
-    }
+    })
     $('#go-search')[0].addEventListener('touchstart', function() {
+      $('#search-input').focus();
       if($('#search-input')[0].value != ''){
-        location.href = `search.html?search_text=${$('#search-input')[0].value}`
+        location.href = 'search.html?search_text=' + $('#search-input')[0].value;
         $('#search-input')[0].value = '';
       }
     })

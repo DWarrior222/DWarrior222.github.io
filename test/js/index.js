@@ -191,10 +191,10 @@ $('.search-input input').focus(function() {
   $('.search-prompt').show(100);
 })
 
-$('.search-input input').blur(function() {
-  focusLock = false;
-  changeStyle();
-})
+// $('.search-input input').blur(function() {
+//   focusLock = false;
+//   changeStyle();
+// })
 $(document).click(function(event) {
   var target = event.target;
   if(target.className === 'search-bc' || target.id === 'go-back') {
