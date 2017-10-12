@@ -404,19 +404,28 @@ $('.back-top')[0].addEventListener('touchend', function() {
 // 首页的商品
 var templateString = $('#tem').html();
 console.log(templateString);
-$.ajax({
-  url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=fun',
-  dataType: 'jsonp',
-  jsonpCallback: 'fun',
-  data: {page:page},
-  success: function(json) {
-    var json = json;
-    console.log(json);
-    var html = ejs.render(templateString, json)
-    $('.ts-body ul')[0].innerHTML += html;
-    $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
-  }
+recommendGoods();
+function recommendGoods() {
+  $.ajax({
+    url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=fun',
+    dataType: 'jsonp',
+    jsonpCallback: 'fun',
+    data: {page:page},
+    success: function(json) {
+      var json = json;
+      console.log(json);
+      var html = ejs.render(templateString, json)
+      $('.ts-body ul')[0].innerHTML += html;
+      $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
+    }
+  })
+}
+$('.again-load')[0].addEventListener('touchstart', function() {
+  page++;
+  recommendGoods();
 })
+
+
 var panicTem = $('#tem-panic').html();
 $.ajax({
   url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=funpanic',
