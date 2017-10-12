@@ -1,5 +1,46 @@
 window.oMshop = {};
-window.shopAjax = {};
+window.shopAjax = {
+  config: {
+    API_PREFIX: "http://h6.duchengjiu.top/shop/",
+    PAGESIZE: 10,
+    USER_TOKEN: 'token',
+    CART_PREFIX: 'cart_',//在本地存储商品ID和对应数量的时候使用
+  },
+  api: {
+    fetchGoodsCategory: function(callback){
+      // $.get(shop.config.API_PREFIX + 'api_cat.php', callback, 'json');
+      $.ajax({
+        url: shop.config.API_PREFIX + 'api_cat.php?format=jsonp',
+        dataType: 'jsonp',
+        jsonpCallback: "getCategory",
+        success: callback
+      });
+    },
+    fetchGoodsListByCatId: function(cat_id, page, pagesize, callback){
+      var data = {
+        "cat_id": cat_id,
+        "page": page,
+        "pagesize": pagesize
+      };
+      $.get(shop.config.API_PREFIX + 'api_goods.php', data, callback, 'json');
+    },
+    fetchGoodsDetail: function(goods_id, callback) {
+      $.get(shop.config.API_PREFIX + 'api_goods.php', "goods_id="+goods_id, callback, 'json');
+    },
+    fetchHotGoods: function(page, pagesize, callback){
+      $.get(shop.config.API_PREFIX + 'api_goods.php?page='+page+'&pagesize='+pagesize, callback, 'json');
+    },
+    searchGoods: function(opts){
+      var data = {};
+      data.search_text = opts.search_text;
+      data.page = opts.page || 1;
+      data.pagesize = opts.pagesize || shop.config.PAGESIZE;
+      var callback = opts.callback;
+
+      $.get(shop.config.API_PREFIX + 'api_goods.php', data, callback, 'json');
+    }
+  }
+};
 // 滑动构造函数
 oMshop.InitSlide = function(sideWidth,selector,mUnit) {
   return new Slide(sideWidth,selector,mUnit)
