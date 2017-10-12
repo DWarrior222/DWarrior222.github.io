@@ -391,6 +391,15 @@ window.addEventListener('scroll' , function(event) {
       }
     })
   }
+  if(scrollTop > 200) {
+    $('.back-top').show()
+  } else {
+    $('.back-top').hide()
+  }
+})
+// 回到顶部
+$('.back-top')[0].addEventListener('touchstart', function() {
+  $('body')[0].scrollTop = 0;
 })
 // 首页的商品
 var templateString = $('#tem').html();
