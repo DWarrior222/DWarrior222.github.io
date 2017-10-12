@@ -214,7 +214,9 @@ oMshop.requestAjax = function() {
     }
   })
 }
-
+$('#user').on('touchstart',function() {
+  location.href = 'login.html'
+})
 
 // 导航条内容
 oMshop.navBar = function() {
