@@ -357,52 +357,36 @@
   <script type="text/javascript" src="js/velocity.min.js"></script>
   <script type="text/javascript" src="js/swiper-3.4.2.min.js"></script>
   <script type="text/javascript" src="js/toast.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
 
 
 
   <script type="text/javascript">
 
-    // new Swiper('#pd-m-unit', {
-    //   freeMode : true,
-    //   width: 110
-    // })
-    var mySwiper = new Swiper('.swiper-container', {
-      autoplay: 5000,
-      loop: true,
-      pagination : '.swiper-pagination'
-    })
+    oMshop.requestAjax();
+    oMshop.navBar();
+    oMshop.backToTop();
+    oMshop.panicCountdown();
 
-    $('#search-input').keydown(function(event) {
-      var event = event || window.event;
-      if(event.keyCode === 13) {
-        location.href = 'search.html?search_text=' + this.value;
-        this.value = '';
-      }
-    })
-    $('#go-search')[0].addEventListener('touchstart', function() {
-      $('#search-input').focus();
-      if($('#search-input')[0].value != ''){
-        location.href = 'search.html?search_text=' + $('#search-input')[0].value;
-        $('#search-input')[0].value = '';
-      } else {
-        location.href = 'search.html?search_text=' + $('#search-input').attr('placeholder');
-        // $('#search-input')[0].value = '';
-      }
-    })
-    searchPrompt();
-    function searchPrompt() {
-      if(!localStorage.searchObject) return;
-      var searchObject = JSON.parse(localStorage.searchObject);
-      // $('#search-input').attr('placeholder', 
-      //   searchObject.data[parseInt(Math.random()*(searchObject.data.length))]);
-      var templateSearch = $('#temsearch').html();
-      var html = ejs.render(templateSearch, searchObject)
-      $('#search-prompt')[0].innerHTML = html;
-    }
-    document.addEventListener("DOMContentLoaded", function(event) {
-      $('.prestrain').hide();
-    })
+    //轮播
+    //动态设置轮播的宽高
+    //轮播业务
+    oMshop.setCarousel();
+
+    oMshop.prestrain()
+
+
+    //搜索框
+    // 两个锁，分别控制获取焦点和离开顶部时，元素的状态
+    oMshop.searchContainer();
+
+    //头部地区选择
+    oMshop.setHeaderArea();
+    oMshop.goSearch();
+    // console.log(searchPrompt);
+
+
     //太影响性能 放弃。
 
     /*interval(function() {

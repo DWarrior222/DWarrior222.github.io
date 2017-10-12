@@ -719,7 +719,8 @@ body,html {
   background: antiquewhite;
   text-align: center;
   font-size: 0.8rem;
-  border-bottom: 57px solid #ccc;
+  margin-bottom: 57px;
+  border-bottom: 1px solid #ccc;
 }
 
 

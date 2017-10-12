@@ -270,229 +270,26 @@
   </script>
   <script type="text/javascript" src="js/node_modules/ejs/ejs.min.js"></script>
   <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
-  <!-- <script type="text/javascript" src="js/index.js"></script> -->
+  <script type="text/javascript" src="js/common.js"></script>
   <script type="text/javascript">
-    (function() {
-      window.Slide = Slide;
-
-      function Slide(sideWidth,selector,mUnit) {
-
-        this.selector = selector || 'body';
-
-        this.sideWidth = sideWidth;
-
-        this.$unit = $(mUnit);
-
-        this.$ul = $(mUnit +' ul');
-
-        this.$lis = $(mUnit + ' ul li');
-
-        this.oLisLength = 0;
-        // console.log(maxTransform);
-        this.deltaX = 0;
-
-        this.windowWidth = document.querySelector(selector).clientWidth;
-
-        this.nowX = 0;
-
-        this.movearr = [];
-
-        this.handleData()
-
-        this.bindEvent();
-      }
-      Slide.prototype.handleData = function() {
-        var self = this;
-
-        this.$lis.each(function(index,value) {
-
-          self.oLisLength += parseInt(this.offsetWidth);
-        })
-
-        console.log(this.windowWidth)
-
-        this.maxTransform = this.windowWidth - this.oLisLength - this.sideWidth;
-      }
-      Slide.prototype.bindEvent = function() {
-        var self = this;
-
-        this.$unit[0].addEventListener('touchstart',function(event) {
-
-          // event.preventDefault();
-
-          self.movearr = [];
-
-          self.$ul.css('transition', "none");
-
-          // console.log(1);
-          console.log(event)
-
-          // $('body').css({'background-color': 'blue'})
-
-          self.deltaX = event.touches[0].clientX - self.nowX;
-
-
-          console.log(self.deltaX)
-        },false)
-
-        this.$unit[0].addEventListener('touchend', function(event) {
-
-          if(self.maxTransform > 0) return;
-
-          // event.preventDefault();
-
-          self.s = self.movearr[self.movearr.length - 1] - self.movearr[self.movearr.length - 2];
-
-          self.targetx = self.nowX + 2 *  self.s;
-          //console.log(nowX,s,targetx);
-          if(self.targetx < self.maxTransform){
-
-            self.targetx = self.maxTransform;
-
-            //贝塞尔曲线有折返
-            self.$ul.css('transition', "all 0.6s cubic-bezier(0.21, -0.57, 0.18, 1.35) 0s");
-
-          }else if(self.targetx > 0){
-
-            self.targetx = 0;
-
-            self.$ul.css('transition', "all 0.6s cubic-bezier(0.21, -0.57, 0.18, 1.35) 0s");
-
-          }else{
-
-            self.$ul.css('transition', "all 0.6s cubic-bezier(0.21, -0.57, 0.18, 1.35) 0s");
-          }
-          //用过渡来实现
-          self.$ul.css('transform', "translateX(" +  self.targetx + "px)");
-
-          self.$ul.css('webkitTransform', "translateX(" +  self.targetx + "px)");
-
-          //信号量的值就是目标x的值
-          self.nowX = self.targetx;
-        },false)
-
-        this.$unit[0].addEventListener('touchmove', function(event) {
-
-          if(self.maxTransform > 0) return;
-
-          event.preventDefault();
-
-          self.$ul.css('transition', "none");
-
-          self.nowX = event.touches[0].clientX - self.deltaX;
-
-          if(self.nowX > 0) {
-            // console.log(nowX / 3)
-            self.$ul.css('transform', "translateX(" + (self.nowX / 3) + "px)");
-
-            self.$ul.css('webkitTransform', "translateX(" + (self.nowX / 3) + "px)");
-
-          } if(self.nowX < self.maxTransform) {
-
-            self.slowX = self.nowX - self.maxTransform;
-            console.log(self.maxTransform);
-            self.$ul.css('transform', "translateX(" + (self.maxTransform + self.slowX / 2)+ "px)");
-
-            self.$ul.css('webkitTransform', "translateX(" +  (self.maxTransform + self.slowX / 2) + "px)");
-          } else if(self.nowX < 0 && self.nowX > self.maxTransform) {
-
-            self.$ul.css('transform', "translateX(" + (self.nowX) + "px)");
-
-            self.$ul.css('webkitTransform', "translateX(" + (self.nowX) + "px)");
-          }
-
-          self.movearr.push(event.touches[0].clientX);
-        },false)
-      }
-    })()
-
-
-    searchPrompt();
-    function searchPrompt() {
-      if(!localStorage.searchObject) return;
-      var searchObject = JSON.parse(localStorage.searchObject);
-      // $('#search-input').attr('placeholder',
-      //   searchObject.data[parseInt(Math.random()*(searchObject.data.length))]);
-      var templateSearch = $('#temsearch').html();
-      var html = ejs.render(templateSearch, searchObject)
-      $('#search-prompt')[0].innerHTML = html;
+    oMshop.changeNavClass = function() {
+      var cat_id = parseInt(oMshop.getQueryString('cat_id'));
+      var templatenav = $('#temnav').html();
+      $.ajax({
+        url: 'http://h6.duchengjiu.top/shop/api_cat.php?format=jsonp&callback=navfun',
+        dataType: 'jsonp',
+        jsonpCallback: 'navfun',
+        success: function(json) {
+          var json = json;
+          console.log(json);
+          var html = ejs.render(templatenav, json);
+          $('.nav-box .unit ul')[0].innerHTML += html;
+          oMshop.InitSlide(0,'.L-header','#unit');
+          $('.nav-box .unit ul li span.'+ cat_id).addClass('cur');
+        }
+      })
     }
-
-    //搜索框
-    // 两个锁，分别控制获取焦点和离开顶部时，元素的状态
-    var focusLock = false;
-    var scrollLock = false;
-    $('.search-input input').focus(function() {
-      focusLock = true;
-      $('#logo').hide();
-      $('#header-area').hide();
-      $('#user').hide();
-      $('.go-back-home').hide();
-      $('#go-search').show(300);
-      $('#go-back').show(300);
-      $('.search-bc').fadeIn(300);
-      $('.search-prompt').show(100);
-    })
-    $(document).click(function(event) {
-      var target = event.target;
-      if(target.className === 'search-bc' || target.id === 'go-back') {
-        $('#go-search').hide(200);
-        $('#go-back').hide(200);
-        $('.search-bc').fadeOut(300);
-        $('.search-prompt').hide(100);
-        $('.go-back-home').show(300);
-        $('#user').show(300);
-        if(scrollLock) return;
-        $('#logo').show(300);
-        $('#header-area').show(300);
-      }
-    })
-
-    window.onscroll = changeStyle;
-    var rgba = [0,0,0,0.6];
-    function changeStyle() {
-      var scrollTop = document.body.scrollTop;
-      console.log(scrollTop)
-      if(scrollTop > 0 && scrollTop <= 100) {
-        rgba[0] = parseInt(scrollTop * 2.29);
-        rgba[1] = parseInt(scrollTop * 1.05);
-        rgba[2] = parseInt(scrollTop * 1.25);
-        rgba[3] = 0.6 + scrollTop * 0.004;
-      } else if(scrollTop === 0) {
-        rgba = [0,0,0,0.6];
-      } else {
-        rgba = [229, 105, 125, 1];
-      }
-      // console.log(rgba);
-      var strRgba = rgba.toString();
-      $('.L-header').css({'background': 'rgba(' + strRgba +')'})
-      if(scrollTop != 0) {
-        scrollLock = true;
-        $('#logo').hide();
-        $('#header-area').hide();
-        $('.L-header').addClass('L-leave-header');
-      } else {
-        scrollLock = false;
-        if(focusLock) return;
-        $('#logo').show(300);
-        $('#header-area').show(300);
-        $('.L-header').removeClass('L-leave-header');
-      }
-    }
-
-
-
-
-
-    function getQueryString(name) {
-      var search = location.search.substr(1);
-      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-      var result = search.match(reg);
-      return result === null ? null : decodeURIComponent(result[2]);
-    }
-
-    var cat_id = parseInt(getQueryString('cat_id'));
-    console.log(cat_id);
+    var cat_id = parseInt(oMshop.getQueryString('cat_id'));
     var minprice = 0;
     var maxprice = 1000000000;
     var page = 1;
@@ -506,7 +303,7 @@
       var bodyHeight = parseInt($('.L-body').css('height'));
       console.log(scrollTop / bodyHeight)
       if(scrollTop / bodyHeight > 0.3) {
-        
+        requestAjax();
       }
       if(scrollTop > 200) {
         $('.back-top').fadeIn()
@@ -547,10 +344,7 @@
         }
       })
     }
-    // 回到顶部
-    $('.back-top')[0].addEventListener('touchend', function() {
-      $('body')[0].scrollTop = 0;
-    })
+
     // 首页的商品
     var newjson = {}
     newjson.data = [];
@@ -583,9 +377,6 @@
         })
       }
     }
-    document.addEventListener("DOMContentLoaded", function(event) {
-      $('.prestrain').hide();
-    })
     $('.again-load')[0].addEventListener('touchstart', function() {
       page++;
       requestAjax(overCallback);
@@ -594,115 +385,15 @@
       $('#model-comfirm').fadeIn(400);
       $('#model-comfirm').delay(400).fadeOut(500);
     }
-    $('#list-style')[0].addEventListener('touchstart', function() {
-      console.log($(this).attr('class'))
-      var nowClass = $(this).attr('class');
-      var nowStyle = $('.ts-body ul').attr('class');
-      if(nowClass.match(/icon-box1$/g)) {
-        $(this).removeClass(nowClass).addClass('iconfont icon-list');
-        $('.ts-body ul').removeClass(nowStyle).addClass('style2');
-        goodsInit();
-      }
-      if(nowClass.match(/icon-list$/g)) {
-        $(this).removeClass(nowClass).addClass('iconfont icon-box')
-        $('.ts-body ul').removeClass(nowStyle).addClass('style3')
-        goodsInit();
-      }
-      if(nowClass.match(/icon-box$/g)) {
-        $(this).removeClass(nowClass).addClass('iconfont icon-box1')
-        $('.ts-body ul').removeClass(nowStyle).addClass('style1')
-        goodsInit();
-      }
-    })
-    $('#price-dropdown')[0].plag = true;
-    $('#price-dropdown')[0].addEventListener('touchstart', function(event) {
-      this.plag ? $('.price-container').fadeIn(400) : $('.price-container').hide()
-      this.plag = this.plag ? false : true;
+    oMshop.goSearch()
+    oMshop.lesser();
+    oMshop.backToTop();
+    oMshop.changeStyle();
+    oMshop.prestrain()
+    oMshop.backHome();
+    oMshop.priceRange();
+    oMshop.changeNavClass();
 
-      // $('.price-container').show();
-    })
-
-    $('.price-container')[0].addEventListener('touchstart', function(event) {
-      var target = event.target;
-      console.log(target)
-      if( target.id === 'list-style') {
-
-      }
-      if(target.nodeName === 'LI') {
-        console.log('li')
-        var data = target.innerText;
-        console.log(data)
-        var minObj = data.match(/(\d+)-/);
-        var maxObj = data.match(/-(\d+)/);
-        minprice = parseInt(minObj[1]);
-        maxprice = parseInt(maxObj[1]);
-        if(maxprice < 300) {
-          maxpage = 20;
-        } else {
-          maxpage = 20;
-        }
-        // console.log(min,max)
-        goodsInit();
-      }
-      if(target.className === 'confirm') {
-        minprice = parseInt($('.self-custom .input-min input')[0].value);
-        maxprice = parseInt($('.self-custom .input-max input')[0].value);
-        if(isNaN(maxprice)) {
-          maxprice = 10000000;
-        }
-        if(isNaN(minprice)) {
-          minprice = 0
-        }
-        console.log(minprice);
-        if(maxprice < 300) {
-          maxpage = 50;
-        } else {
-          maxpage = 20;
-        }
-        // console.log(min,max);
-        goodsInit();
-      }
-    })
-    $('#alexa-rank')[0].addEventListener('touchstart', function() {
-      minprice = 0;
-      maxprice = 1000000000;
-      goodsInit();
-    })
-
-    var templatenav = $('#temnav').html();
-    $.ajax({
-      url: 'http://h6.duchengjiu.top/shop/api_cat.php?format=jsonp&callback=navfun',
-      dataType: 'jsonp',
-      jsonpCallback: 'navfun',
-      success: function(json) {
-        var json = json;
-        console.log(json);
-        var html = ejs.render(templatenav, json);
-        $('.nav-box .unit ul')[0].innerHTML += html;
-        new Slide(0,'.L-header','#unit');
-        $('.nav-box .unit ul li span.'+ cat_id).addClass('cur');
-      }
-    })
-
-    $('#go-back-home')[0].addEventListener('touchstart', function() {
-      location.href = 'index.html'
-    })
-
-    $('#search-input').keydown(function(event) {
-      var event = event || window.event;
-      if(event.keyCode === 13) {
-        location.href = 'search.html?search_text=' + this.value;
-        this.value = '';
-      }
-    })
-    $('#go-search')[0].addEventListener('touchstart', function() {
-      if($('#search-input')[0].value != ''){
-        location.href = 'search.html?search_text=' + $('#search-input')[0].value;
-        $('#search-input')[0].value = '';
-      } else {
-        location.href = 'search.html?search_text=' + $('#search-input').attr('placeholder');
-      }
-    })
   </script>
 </body>
 </html>
