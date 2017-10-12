@@ -260,6 +260,8 @@
         <ul class="style1">
           
         </ul>
+        <div class="again-load">
+        </div>
       </div>
     </div>
 
@@ -295,7 +297,9 @@
       </div>
     </div>
   </div>
+  <div class="prestrain">
 
+  </div>
   <script type="text/template" id="temnav">
   <% for(var i = 0; i < data.length; i++ ) { %>
     <li>
@@ -396,10 +400,9 @@
       var html = ejs.render(templateSearch, searchObject)
       $('#search-prompt')[0].innerHTML = html;
     }
-
-
-
-
+    document.addEventListener("DOMContentLoaded", function(event) {
+      $('.prestrain').hide();
+    })
     //太影响性能 放弃。
 
     /*interval(function() {

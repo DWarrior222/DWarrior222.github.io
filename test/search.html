@@ -137,6 +137,10 @@
     .self-custom .max {
       margin-left: 2px;
     } */
+    .model-comfirm .wrap {
+      height: 52px;
+  /* display: none; */
+    }
   </style>
 </head>
 <body>
@@ -196,6 +200,8 @@
       <div class="ts-body">
         <ul class="style2">
         </ul>
+        <div class="again-load">
+        </div>
       </div>
     </div>
     <div class="L-body-footer">
@@ -213,6 +219,18 @@
   </div>
   <div class="search-bc"></div>
 
+  <div class="model-comfirm" id="model-comfirm">
+    <div class="wrap" id="wrap">
+      <div class="box" id="box">
+        <!-- <div class="hd"><span class="close" id="close">关闭</span></div> -->
+        <h1>商品已全部加载完成</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="prestrain">
+
+  </div>
   <script type="text/template" id="temsearch">
 
     <% for(var i = 0; i < data.length / 3; i++ ) { %>
@@ -524,33 +542,39 @@
       var bodyHeight = parseInt($('.L-body').css('height'));
       console.log(scrollTop / bodyHeight)
       if(scrollTop / bodyHeight > 0.3) {
-        if(!addPageLock) return;
-        addPageLock = false;
-        setTimeout(function() {
-          addPageLock = true;
-        },200);
-        page++;
-        console.log('page:'+page);
-        $.ajax({
-          url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=againfun'+page,
-          dataType: 'jsonp',
-          data: {search_text:search_text,page:page},
-          jsonpCallback: 'againfun'+page,
-          success: function(json) {
-            var json = json;
-            console.log(json);
-            var html = ejs.render(templateString, json)
-            $('.ts-body ul')[0].innerHTML += html;
-            $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
-            // $('body').css('background', 'red');
-          }
-        })
+        requestAjax();
       }
       if(scrollTop > 200) {
         $('.back-top').fadeIn()
       } else {
         $('.back-top').fadeOut(1000)
       }
+    }
+    function requestAjax(callback) {
+      if(!addPageLock) return;
+      addPageLock = false;
+      setTimeout(function() {
+        addPageLock = true;
+      },200);
+      page++;
+      console.log('page:'+page);
+      $.ajax({
+        url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=againfun'+page,
+        dataType: 'jsonp',
+        data: {search_text:search_text,page:page},
+        jsonpCallback: 'againfun'+page,
+        success: function(json) {
+          var json = json;
+          console.log(json);
+          if(json.code === 1) {
+            callback && callback();
+          }
+          var html = ejs.render(templateString, json)
+          $('.ts-body ul')[0].innerHTML += html;
+          $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
+          // $('body').css('background', 'red');
+        }
+      })
     }
     $('.back-top')[0].addEventListener('touchend', function() {
       $('body')[0].scrollTop = 0;
@@ -577,6 +601,10 @@
             // json.minprice = minprice;
             // json.maxprice = maxprice;
             var data = json.data
+            // if(json.code === 1) {
+            //   $('#model-comfirm').fadeIn(200);
+            //   $('#model-comfirm').delay(200).fadeOut(500);
+            // }
             for(var i = 0; i < data.length; i++) {
               if((data[i].price >= minprice) && (data[i].price <= maxprice)) {
                 newjson.data.push(data[i]);
@@ -589,6 +617,17 @@
           }
         })
       }
+    }
+    document.addEventListener("DOMContentLoaded", function(event) {
+      $('.prestrain').hide();
+    })
+    $('.again-load')[0].addEventListener('touchstart', function() {
+      page++;
+      requestAjax(overCallback);
+    })
+    function overCallback() {
+      $('#model-comfirm').fadeIn(400);
+      $('#model-comfirm').delay(400).fadeOut(500);
     }
 
 

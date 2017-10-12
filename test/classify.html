@@ -137,6 +137,10 @@
     .self-custom .max {
       margin-left: 2px;
     } */
+    .model-comfirm .wrap {
+      height: 52px;
+  /* display: none; */
+    }
   </style>
 </head>
 <body>
@@ -196,6 +200,8 @@
       <div class="ts-body">
         <ul class="style2">
         </ul>
+        <div class="again-load">
+        </div>
       </div>
     </div>
     <div class="L-body-footer">
@@ -213,6 +219,18 @@
   </div>
   <div class="search-bc"></div>
 
+  <div class="model-comfirm" id="model-comfirm">
+    <div class="wrap" id="wrap">
+      <div class="box" id="box">
+        <!-- <div class="hd"><span class="close" id="close">关闭</span></div> -->
+        <h1>商品已全部加载完成</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="prestrain">
+
+  </div>
   <script type="text/template" id="temsearch">
     <% for(var i = 0; i < data.length / 3; i++ ) { %>
       <ul>
@@ -363,10 +381,6 @@
 
           self.nowX = event.touches[0].clientX - self.deltaX;
 
-          // console.log(nowX);
-
-          // $ul.css('transform', "translateX(" + nowX + "px)");
-
           if(self.nowX > 0) {
             // console.log(nowX / 3)
             self.$ul.css('transform', "translateX(" + (self.nowX / 3) + "px)");
@@ -419,11 +433,6 @@
       $('.search-bc').fadeIn(300);
       $('.search-prompt').show(100);
     })
-
-    // $('.search-input input').blur(function() {
-    //   focusLock = false;
-    //   changeStyle();
-    // })
     $(document).click(function(event) {
       var target = event.target;
       if(target.className === 'search-bc' || target.id === 'go-back') {
@@ -439,10 +448,8 @@
       }
     })
 
-    // document.addEventListener('touchmove', changeStyle)
     window.onscroll = changeStyle;
     var rgba = [0,0,0,0.6];
-    // rgba(229, 105, 125, 1);
     function changeStyle() {
       var scrollTop = document.body.scrollTop;
       console.log(scrollTop)
@@ -479,13 +486,8 @@
 
     function getQueryString(name) {
       var search = location.search.substr(1);
-      //abc=123&a=&ccc=abc
-      //(^|&)   (&|$)
-      //abc=([^&]*)
       var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
       var result = search.match(reg);
-      // if (result === null) return null;
-      // return decodeURIComponent(result[2]);
       return result === null ? null : decodeURIComponent(result[2]);
     }
 
@@ -497,47 +499,53 @@
     var maxpage = 5;
     var addPageLock = true;
     window.addEventListener('scroll' , addGoods)
-    function addGoods(event) {
+    function addGoods(event,callback) {
       var scrollTop = document.body.scrollTop;
       console.log(scrollTop)
       console.log($('.L-body').css('height'))
       var bodyHeight = parseInt($('.L-body').css('height'));
       console.log(scrollTop / bodyHeight)
       if(scrollTop / bodyHeight > 0.3) {
-        if(!addPageLock) return;
-        addPageLock = false;
-        setTimeout(function() {
-          addPageLock = true;
-        },200);
-        page++;
-        console.log('page:'+page);
-        $.ajax({
-          url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=againfun'+page,
-          dataType: 'jsonp',
-          data: {cat_id:cat_id,page:page},
-          jsonpCallback: 'againfun'+page,
-          success: function(json) {
-            newjson.data = [];
-            var json = json;
-            var data = json.data;
-            for(var i = 0; i < data.length; i++) {
-              if((data[i].price >= minprice) && (data[i].price <= maxprice)) {
-                newjson.data.push(data[i]);
-              }
-            }
-            console.log(json);
-            var html = ejs.render(templateString, newjson)
-            $('.ts-body ul')[0].innerHTML += html;
-            $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
-            // $('body').css('background', 'red');
-          }
-        })
+        
       }
       if(scrollTop > 200) {
         $('.back-top').fadeIn()
       } else {
         $('.back-top').fadeOut(1000)
       }
+    }
+    function requestAjax(callback) {
+      if(!addPageLock) return;
+      addPageLock = false;
+      setTimeout(function() {
+        addPageLock = true;
+      },200);
+      page++;
+      console.log('page:'+page);
+      $.ajax({
+        url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=againfun'+page,
+        dataType: 'jsonp',
+        data: {cat_id:cat_id,page:page},
+        jsonpCallback: 'againfun'+page,
+        success: function(json) {
+          newjson.data = [];
+          var json = json;
+          var data = json.data;
+          for(var i = 0; i < data.length; i++) {
+            if((data[i].price >= minprice) && (data[i].price <= maxprice)) {
+              newjson.data.push(data[i]);
+            }
+          }
+          if(json.code === 1) {
+            callback && callback();
+          }
+          console.log(json);
+          var html = ejs.render(templateString, newjson)
+          $('.ts-body ul')[0].innerHTML += html;
+          $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
+          // $('body').css('background', 'red');
+        }
+      })
     }
     // 回到顶部
     $('.back-top')[0].addEventListener('touchend', function() {
@@ -562,15 +570,12 @@
             newjson.data = [];
             var json = json;
             console.log(json);
-            // json.minprice = minprice;
-            // json.maxprice = maxprice;
             var data = json.data
             for(var i = 0; i < data.length; i++) {
               if((data[i].price >= minprice) && (data[i].price <= maxprice)) {
                 newjson.data.push(data[i]);
               }
             }
-            // console.log(newjson.data[0].goods_id);
             var html = ejs.render(templateString, newjson)
             $('.ts-body ul')[0].innerHTML += html;
             $('.ts-body .style1 li').css('height', parseInt($('.ts-body li').css('width')) + 72 + 'px')
@@ -578,7 +583,17 @@
         })
       }
     }
-
+    document.addEventListener("DOMContentLoaded", function(event) {
+      $('.prestrain').hide();
+    })
+    $('.again-load')[0].addEventListener('touchstart', function() {
+      page++;
+      requestAjax(overCallback);
+    })
+    function overCallback() {
+      $('#model-comfirm').fadeIn(400);
+      $('#model-comfirm').delay(400).fadeOut(500);
+    }
     $('#list-style')[0].addEventListener('touchstart', function() {
       console.log($(this).attr('class'))
       var nowClass = $(this).attr('class');
