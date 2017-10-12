@@ -198,6 +198,18 @@
         </ul>
       </div>
     </div>
+    <div class="L-body-footer">
+      ©2017 优享乐购
+    </div>
+  </div>
+  <div class="back-top-box">
+    <div class="back-top iconfont icon-fanhui"></div>
+  </div>
+  <div class="footer-nav">
+    <span class="icon iconhome">首页</span>
+    <span class="icon iconstore">购物车</span>
+    <span class="iconfont icon-xinchangtai">我的收藏</span>
+    <span class="icon iconyonghu">我的订单</span>
   </div>
   <div class="search-bc"></div>
 
@@ -222,7 +234,7 @@
   </script>
   <script type="text/template" id="tem">
     <div class="ts-page-container ts-page<%= page.page_count %>">
-      <% for(var i = 0; i < data.length / 2; i++ ) { %>
+      <% for(var i = 0; i < data.length / 2 - 1; i++ ) { %>
         <div class="row">
           <% for(var j = i * 2; j < i * 2 + 2; j++ ) { %>
           <% if(data[j].price >= minprice) { %>
@@ -520,10 +532,10 @@
         page++;
         console.log('page:'+page);
         $.ajax({
-          url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=againfun',
+          url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=againfun'+page,
           dataType: 'jsonp',
           data: {search_text:search_text,page:page},
-          jsonpCallback: 'againfun',
+          jsonpCallback: 'againfun'+page,
           success: function(json) {
             var json = json;
             console.log(json);
@@ -534,7 +546,15 @@
           }
         })
       }
+      if(scrollTop > 200) {
+        $('.back-top').fadeIn()
+      } else {
+        $('.back-top').fadeOut(1000)
+      }
     }
+    $('.back-top')[0].addEventListener('touchend', function() {
+      $('body')[0].scrollTop = 0;
+    })
     // 首页的商品
     var newjson = {}
     newjson.data = [];
@@ -546,9 +566,9 @@
       // newdata = [];
       for(page = 1; page < maxpage; page++ ) {
         $.ajax({
-          url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=initfun',
+          url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=initfun'+page,
           dataType: 'jsonp',
-          jsonpCallback: 'initfun',
+          jsonpCallback: 'initfun'+page,
           data: {search_text:search_text,page:page},
           success: function(json) {
             newjson.data = [];

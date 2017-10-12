@@ -198,6 +198,18 @@
         </ul>
       </div>
     </div>
+    <div class="L-body-footer">
+      ©2017 优享乐购
+    </div>
+  </div>
+  <div class="back-top-box">
+    <div class="back-top iconfont icon-fanhui"></div>
+  </div>
+  <div class="footer-nav">
+    <span class="icon iconhome">首页</span>
+    <span class="icon iconstore">购物车</span>
+    <span class="iconfont icon-xinchangtai">我的收藏</span>
+    <span class="icon iconyonghu">我的订单</span>
   </div>
   <div class="search-bc"></div>
 
@@ -221,7 +233,7 @@
   </script>
   <script type="text/template" id="tem">
     <div class="ts-page-container ts-page<%= page.page_count %>">
-      <% for(var i = 0; i < data.length / 2; i++ ) { %>
+      <% for(var i = 0; i < data.length / 2 - 1; i++ ) { %>
         <div class="row">
           <% for(var j = i * 2; j < i * 2 + 2; j++ ) { %>
           <li>
@@ -383,6 +395,7 @@
 
     searchPrompt();
     function searchPrompt() {
+      if(!localStorage.searchObject) return;
       var searchObject = JSON.parse(localStorage.searchObject);
       // $('#search-input').attr('placeholder',
       //   searchObject.data[parseInt(Math.random()*(searchObject.data.length))]);
@@ -499,10 +512,10 @@
         page++;
         console.log('page:'+page);
         $.ajax({
-          url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=againfun',
+          url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=againfun'+page,
           dataType: 'jsonp',
           data: {cat_id:cat_id,page:page},
-          jsonpCallback: 'againfun',
+          jsonpCallback: 'againfun'+page,
           success: function(json) {
             newjson.data = [];
             var json = json;
@@ -520,7 +533,16 @@
           }
         })
       }
+      if(scrollTop > 200) {
+        $('.back-top').fadeIn()
+      } else {
+        $('.back-top').fadeOut(1000)
+      }
     }
+    // 回到顶部
+    $('.back-top')[0].addEventListener('touchend', function() {
+      $('body')[0].scrollTop = 0;
+    })
     // 首页的商品
     var newjson = {}
     newjson.data = [];
@@ -531,9 +553,10 @@
       $('.ts-body ul')[0].innerHTML = '';
       for(page = 1; page < maxpage; page++ ) {
         $.ajax({
-          url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=initfun',
+          type: 'GET',
+          url: 'http://h6.duchengjiu.top/shop/api_goods.php?format=jsonp&callback=initfun'+page,
           dataType: 'jsonp',
-          jsonpCallback: 'initfun',
+          jsonpCallback: 'initfun'+page,
           data: {cat_id:cat_id,page:page},
           success: function(json) {
             newjson.data = [];

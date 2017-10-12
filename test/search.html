@@ -547,12 +547,12 @@
         })
       }
       if(scrollTop > 200) {
-        $('.back-top').show()
+        $('.back-top').fadeIn()
       } else {
-        $('.back-top').hide()
+        $('.back-top').fadeOut(1000)
       }
     }
-    $('.back-top')[0].addEventListener('touchstart', function() {
+    $('.back-top')[0].addEventListener('touchend', function() {
       $('body')[0].scrollTop = 0;
     })
     // 首页的商品
