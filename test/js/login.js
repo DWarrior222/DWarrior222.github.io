@@ -93,14 +93,12 @@
             },
             function(json){
                 if(json.code===0){
+                    localStorage.setItem('token', json.data.token);
+                    localStorage.setItem('username', json.data.username);
                     if(goods_id) {
                         location.href = 'goods.html?goods_id=' + goods_id;
-                        localStorage.token = json.data.token;
-                        localStorage.username = json.data.username;
                     } else {
                         location.href="index.html";
-                        localStorage.token = json.data.token;
-                        localStorage.username = json.data.username;
                     }
                 }else if(json.code===1000){
                     $(".error").show();
