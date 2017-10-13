@@ -326,7 +326,7 @@
 	<script>
 		if(!localStorage.token) location.href = 'login.html';
 		$.get({
-			url: 'http://h6.duchengjiu.top/shop/api_cart.php?token=localStorage.token',
+			url: 'http://h6.duchengjiu.top/shop/api_cart.php?token='+localStorage.token,
 			type: 'get',
 			dataType: 'json',
 			data: {},
@@ -377,7 +377,7 @@
 							var goods_id = $('.checked').data('id');
             	var number = 0;
             	$.post({
-            		url: 'http://h6.duchengjiu.top/shop/api_cart.php?token=localStorage.token',
+            		url: 'http://h6.duchengjiu.top/shop/api_cart.php?token='+localStorage.token,
             		type: 'post',
 								dataType: 'json',
 								data: {goods_id,number},

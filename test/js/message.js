@@ -3,13 +3,17 @@
         var a = localStorage.username;
         $(".name").html(a+" 您好");
     });
-  
+    // document.addEventListener("touchmove",function(){
+    //     this.preventDefault();
+    // })
     var orderForm = document.querySelector(".order-form");
         orderForm.addEventListener("touchstart",function(){
             this.style.background = "#858585";
         });
         orderForm.addEventListener("touchend",function(){
             this.style.background = "white";
+        });
+        orderForm.addEventListener("click",function(){
             location.href = "checkout.html";
         });
     var cart = document.querySelector(".cart");
@@ -18,6 +22,8 @@
         });
         cart.addEventListener("touchend",function(){
             this.style.background = "white";
+        });
+        cart.addEventListener("click",function(){
             location.href = "cart.html";
         });
     var search = document.querySelector(".search");
@@ -26,7 +32,9 @@
         });
         search.addEventListener("touchend",function(){
             this.style.background = "white";
-            location.href = "cart.html";
+        });
+        search.addEventListener("click",function(){
+            location.href = "search.html";
         });
         var enterBtn=document.querySelector(".enter-btn");
         enterBtn.addEventListener("click",function(){
