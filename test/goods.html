@@ -256,7 +256,7 @@
         success: function(json) {
           console.log(json);
           var data = json.data[0];
-          if(json.code === 1002) {
+          if(!json.code === 1002) {
             var html = data.province +' ' + data.city + ' ' + data.district;
             $('#now-address').html(html);
           }
