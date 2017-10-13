@@ -29,12 +29,34 @@
 }
 @media all and (min-width:768px) and (max-width:1023px){
     html{
+<<<<<<< HEAD
+        font-size:29px;
+        background: white;
+    }
+    body{
+        width: 83.33%;
+        height: 35.69rem;
+        margin: 0 auto;
+        background: #f0f0f0;
+=======
         font-size:30px;
+>>>>>>> b6f15328eec36d3c8e53a9ac06609e2277dedff9
     }
 }
 @media all and (min-width:1024px) and (max-width:1199px){
     html{
+<<<<<<< HEAD
+        font-size:29px;
+        background: white;
+    }
+    body{
+        width:62.5%;
+        height: 47.69rem;
+        margin: 0 auto;
+        background: #f0f0f0;
+=======
         font-size:32px;
+>>>>>>> b6f15328eec36d3c8e53a9ac06609e2277dedff9
     }
 }
 html{
