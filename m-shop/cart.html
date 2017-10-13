@@ -204,7 +204,7 @@
   		border-top: 1px solid lightgray;
   		border-bottom: 1px solid lightgray;
   	}
-  	.all-check {
+  	.all-check{
   		flex: 4;
   		background: url(images/icon/icon_radio1.png) no-repeat center left;
   		background-size: 20px 20px;
@@ -267,12 +267,6 @@
   		border-top: 1px solid lightgray;
   		border-bottom: 1px solid lightgray;
   	}
-  	/*.all-checks {
-  		flex: 4;
-  		background: url(images/icon/icon_radio1.png) no-repeat center left;
-  		background-size: 20px 20px;
-  		padding-right: 5px;
-  	}*/
   	.all-check span {
   		font-size: 1rem;
   		margin-left: 25px;
@@ -315,7 +309,7 @@
 		<ul>
 			<li class="all-check"><span>全选</span></li>
 			<li><i>总价：</i><span>￥</span><span class="totall-price"></span></li>
-			<li><a href="javascript:;">结算</a></li>
+			<li><a href="order.html">结算</a></li>
 		</ul>
 	</div>
 	
@@ -330,8 +324,9 @@
 	
 	<script src="js/jquery-3.2.1.js"></script>
 	<script>
+		if(!localStorage.token) location.href = 'login.html';
 		$.get({
-			url: 'http://h6.duchengjiu.top/shop/api_cart.php?token=628ec0c39026f598cb49d6f5cf2d7779',
+			url: 'http://h6.duchengjiu.top/shop/api_cart.php?token='+localStorage.token,
 			type: 'get',
 			dataType: 'json',
 			data: {},
@@ -346,7 +341,7 @@
 																			<div class="cart-goods">
 																				<div class="cart-goods-content">
 																					<ul>
-																						<li class="check"></li>
+																						<li class="check" data-id="${obj.goods_id}"></li>
 																						<li><img src="${obj.goods_thumb}" alt=""/></li>
 																						<li>
 																							<p>${obj.goods_name}</p>
@@ -365,67 +360,133 @@
 																				`;
 				}
 				$('.settlement span.totall-price')[0].innerText = sum; //结算
+	
+				//调用单选、添加类名
+				check();
 				
-				//选择信号量
-				var lock = false;
-				//选择、添加类名
-				$('.check').on('touchstart', function() {
-					if(!lock) {
-						$(this).addClass('checked');
-						lock = true;
-					}else {
-						$(this).removeClass('checked');
-						lock = false;
-					}
-				});
-				
-				//删除
-//				$('.delete-goods').on('touchstart', function(event) {
-//					if(!confirm('确认要删除吗？')) {
-//						return;
-//					}
-						
-//				});
-				$('.all-check').on('touchstart', function() {
-					if (!lock) {
-						$(this).addClass('all-checked');
-						$('.check').addClass('checked');
-						lock = true;
-					}else {
-						$(this).removeClass('all-checked');
-						$('.check').removeClass('checked');					
-						lock = false;
-					}
-				});
+				//调用全选
+				allCheck();
 				
 				$('.delete-goods').on('touchstart', function() {
-					if (!confirm('确认？')) {
-						return;
-					}
-					$('.checked').parent().parent().parent().remove();
+					$('#model-comfirm').show();
+					$('#model-comfirm').on('touchstart', function(event){
+						var target = event.target;
+						if (target.id === 'yes') {
+							$(this).hide();
+//							console.log($('.checked').data('id'));
+							var goods_id = $('.checked').data('id');
+            	var number = 0;
+            	$.post({
+            		url: 'http://h6.duchengjiu.top/shop/api_cart.php?token='+localStorage.token,
+            		type: 'post',
+								dataType: 'json',
+								data: {goods_id,number},
+								success: function(json) {
+									console.log(json);
+									if (json.code === 0){
+										$('.checked').parent().parent().parent().remove();//删除
+									}
+								}
+            	});
+						}else if(target.id === 'no'){
+							$(this).hide();
+						}
+						
+					});
+					
 				});
-				//编辑
-				$('#editor').on('touchstart', function() {
-					if (!lock) {
-						$(this).html('完成');
-						$('#delete').css('display','block');
-						lock = true;
-					}else {
-						$(this).html('编辑');
-						$('#delete').css('display','none');
-						lock = false;
-					}
-				});
-				//删除
-//				function delete() {
+				
+				//先点选择再删除
+//				$('.check').on('touchstart', function(event) {
+//					var $target = $(event.target);
+//					if ($target.attr('class') === 'check') {
+//						$(this).addClass('checked');
+//					}else if($target.attr('class') === 'check checked') {
+//						$(this).removeClass('checked');
+//						$('.all-check').removeClass('all-checked');
+//					}
+//					
+//					//开始
 //					$('.delete-goods').on('touchstart', function() {
-//						if (lock) {
-//							$('.checked').css('display', 'none');
-//						}
-//					});
-//				}
+//						$('#model-comfirm').show();
+//						$('#model-comfirm').on('touchstart', function(event){
+//							var target = event.target;
+//							if (target.id === 'yes') {
+//								$(this).hide();
+//	//							console.log($('.checked').data('id'));
+//								var goods_id = $('.checked').data('id');
+//	            	var number = 0;
+//	            	$.post({
+//	            		url: 'http://h6.duchengjiu.top/shop/api_cart.php?token=8568f93f4e9141deee577b7881af5f96',
+//	            		type: 'post',
+//									dataType: 'json',
+//									data: {goods_id,number},
+//									success: function(json) {
+//										console.log(json);
+//										if (json.code === 0){
+//											$('.checked').parent().parent().parent().remove();//删除
+//										}
+//									}
+//	            	});
+//							}else if(target.id === 'no'){
+//								$(this).hide();
+//							}
+//							
+//						});
+//						
+//					});				
+//					//结束
+//					
+//				});
+				
+				editor();//调用编辑
+				
 			}//callback
-		});
+		});//$.get结束
+		
+		//编辑
+		function editor(lock) {
+			$('#editor').on('touchstart', function() {
+				if (!lock) {
+					$(this).html('完成');
+					$('#delete').css('display','block');
+					lock = true;
+				}else {
+					$(this).html('编辑');
+					$('#delete').css('display','none');
+					lock = false;
+				}
+			});
+		}
+		
+		//单选
+		function check() {
+			$('.check').on('touchstart', function(event) {
+				var $target = $(event.target);
+				if ($target.attr('class') === 'check') {
+					$(this).addClass('checked');
+				}else if($target.attr('class') === 'check checked') {
+					$(this).removeClass('checked');
+					$('.all-check').removeClass('all-checked');
+				}
+			});
+		}
+		
+		//全选
+		function allCheck() {
+			$('.all-check').on('touchstart', function() {
+				var $target = $(event.target);
+				if ($target.attr('class') === 'all-check') {
+					$(this).addClass('all-checked');
+					$('.check').addClass('checked');
+				}else if ($target.attr('class') === 'all-check all-checked') {
+					$(this).removeClass('all-checked');
+					$('.check').removeClass('checked');
+				}
+			});
+		}
+				
+				
 		
 		//个数变化、总价
 		$('.cart-goods-all')[0].addEventListener('touchstart', function(event) {
@@ -454,17 +515,27 @@
 		});
 	</script>
 	
-	<script>
-		
-	</script>
-	
 	
 	<!-- 底部-->
 	<div class="footer-nav">
-    <span class="icon iconhome">首页</span>
+    <span class="icon iconhome"><a href="index.html">首页</a></span>
     <span class="icon iconstore">购物车</span>
     <span class="iconfont icon-xinchangtai">我的收藏</span>
     <span class="icon iconyonghu">我的</span>
   </div>
+  
+  
+  <div class="model-comfirm" id="model-comfirm">
+    <div class="wrap" id="wrap">
+      <div class="box" id="box">
+        <h1>确认要删除该商品吗？</h1>
+        <div class="yn">
+          <span class="yes" id="yes">是</span>
+          <span class="no" id="no">否</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </body>
 </html>
