@@ -131,7 +131,7 @@ function overCallback() {
   $('#model-comfirm').delay(400).fadeOut(500);
 }
 
-oMshop.changeStyle();
+ oMshop.changeStyle();
 oMshop.priceRange();
 oMshop.goSearch()
 oMshop.searchContainer();
@@ -139,4 +139,3 @@ oMshop.lesser();
 oMshop.backToTop();
 oMshop.prestrain()
 oMshop.backHome();
-oMshop.footerNav();

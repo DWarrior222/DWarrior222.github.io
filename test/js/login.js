@@ -79,29 +79,22 @@
                 $(".password").attr("type","password");
             }
         })
-        var goods_id = oMshop.getQueryString('goods_id');
-        console.log(goods_id);
+        
         enterBtn.addEventListener("touchstart",function(){
             $(".enter-btn").css("background","#bcbcbc");
         },false);
         enterBtn.addEventListener("touchend",function(){
             $.post("http://h6.duchengjiu.top/shop/api_user.php",
-               {
+               { 
                    username:$(".username").val(),
                    password:$(".password").val(),
                    status : "login"
             },
             function(json){
                 if(json.code===0){
-                    if(goods_id) {
-                        location.href = 'goods.html?goods_id=' + goods_id;
-                        localStorage.token = json.data.token;
-                        localStorage.username = json.data.username;
-                    } else {
-                        location.href="index.html";
-                        localStorage.token = json.data.token;
-                        localStorage.username = json.data.username;
-                    }
+                    location.href="index.html";
+                    localStorage.token = json.data.token;
+                    localStorage.username = json.data.username;
                 }else if(json.code===1000){
                     $(".error").show();
                     $(".error").html("请输入账号");
