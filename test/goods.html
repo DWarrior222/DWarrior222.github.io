@@ -248,7 +248,7 @@
     oMshop.prestrain();
     oMshop.backHome();
     oMshop.backToTop();
-    oMshop.getLocalStorage = function() {
+    oMshop.getLocalStorageAddresss = function() {
       if(!localStorage.token) return;
       $.ajax({
         url: 'http://h6.duchengjiu.top/shop/api_useraddress.php?token=' + localStorage.token,
@@ -263,7 +263,7 @@
         }
       })
     }
-    oMshop.getLocalStorage();
+    oMshop.getLocalStorageAddresss();
     oMshop.goodsDetail = function() {
       var goods_id = oMshop.getQueryString('goods_id')
       $.ajax({
@@ -382,11 +382,12 @@
       }
     }
     oMshop.confirmBox = function() {
+      var goods_id = oMshop.getQueryString('goods_id')
       $('#model-comfirm').click(function(event) {
         var target = event.target;
         if(target.id === 'yes') {
           // getAddress = returnCitySN['cname'];
-          location.href = 'login.html'
+          location.href = 'login.html?goods_id=' + goods_id;
           $(this).hide();
         }
         if(target.id === 'no') {
