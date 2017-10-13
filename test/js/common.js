@@ -317,7 +317,11 @@ oMshop.backHome = function() {
     location.href = 'index.html'
   })
 }
-
+oMshop.modalPrompt = function(text) {
+  $('#model-comfirm h1').html(text);
+  $('#model-comfirm').fadeIn(400);
+  $('#model-comfirm').delay(400).fadeOut(500);
+}
 // 回到顶部
 oMshop.backToTop = function() {
   window.addEventListener('scroll' , backToTop)

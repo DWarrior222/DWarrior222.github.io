@@ -8,54 +8,38 @@
 @media all and (max-width:219px){
     html{
         font-size:26px;
-        background: #f0f0f0;
     }
 }
 /*媒体查询兼容各种设备max-width意思是最大的宽度不能超过219像素*/
 @media all and (min-width:220px) and (max-width:320px){
       html{
         font-size:27.2px;
-        background: #f0f0f0;
     }
 }
 /* 设备最小宽大于220像素最大宽不超过320像素 */
 @media all and (min-width:321px) and (max-width:399px){
      html{
         font-size:27.2px;
-        background: #f0f0f0;
     }
 }
 @media all and (min-width:400px) and (max-width:767px){
     html{
         font-size:29px;
-        background: #f0f0f0;
     }
 }
 @media all and (min-width:768px) and (max-width:1023px){
     html{
-        font-size:29px;
-        background: white;
-    }
-    body{
-        width: 83.33%;
-        height: 32.69rem;
-        margin: 0 auto;
-        background: #f0f0f0;
+        font-size:30px;
     }
 }
 @media all and (min-width:1024px) and (max-width:1199px){
     html{
-        font-size:29px;
-        background: white;
-    }
-    body{
-        width:62.5%;
-        height: 32.69rem;
-        margin: 0 auto;
-        background: #f0f0f0;
+        font-size:32px;
     }
 }
-
+html{
+    background: #f0f0f0;
+}
 .header{
     width: 100%;
     height: 50px;
