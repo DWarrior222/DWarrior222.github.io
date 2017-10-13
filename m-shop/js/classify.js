@@ -114,3 +114,4 @@ oMshop.prestrain()
 oMshop.backHome();
 oMshop.priceRange();
 oMshop.changeNavClass();
+oMshop.footerNav();
