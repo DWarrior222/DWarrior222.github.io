@@ -60,11 +60,6 @@ function addGoods(event) {
   if(scrollTop / bodyHeight > 0.3) {
     requestAjax();
   }
-  if(scrollTop > 200) {
-    $('.back-top').fadeIn()
-  } else {
-    $('.back-top').fadeOut(1000)
-  }
 }
 function requestAjax(callback) {
   if(!addPageLock) return;

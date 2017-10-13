@@ -207,14 +207,11 @@ oMshop.requestAjax = function() {
         }
       })
     }
-    if(scrollTop > 200) {
-      $('.back-top').fadeIn()
-    } else {
-      $('.back-top').fadeOut(1000)
-    }
   })
 }
-
+$('#user').on('touchstart',function() {
+  location.href = 'login.html'
+})
 
 // 导航条内容
 oMshop.navBar = function() {
