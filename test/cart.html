@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+  <link rel="stylesheet" type="text/css" href="css/font/iconfont.css">
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/swiper-3.4.2.min.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <title>Document</title>
+  <style>
+  	html {
+  		font-size: 16px;
+  	}
+  	.header {
+  		width: 100%;
+  		height: 44px;
+  		position: fixed;
+  		text-align: center;
+  		border-bottom: 1px solid lightgray;
+  		z-index: 99999; 
+  		background: rgb(229, 105, 125);
+  	}
+  	.header h1 {
+  		height: 44px;
+  		line-height: 44px;
+  		color: #333;
+  		font-size: 1rem;
+  	}
+  	.header a {
+  		position: absolute;
+  		width: 25px;
+  		height: 25px;
+  		background: url(images/icon/icon-back.png) no-repeat;
+  		background-size: contain;
+  		top: 22px;
+  		left: 5px;
+  		transform: translateY(-50%);
+  	}
+  	.header-blank {
+  		width: 100%;
+  		height: 44px;
+  	}
+  	
+  	.cart {
+  		width: 100%;
+  	}
+  	.cart-shop {
+  		height: 35px;
+  		width: 100%;
+  		position: fixed;
+  		border-bottom: 1px solid lightgray;
+  		z-index: 99999;
+  		background: white;
+  	}
+  	.cart-shop-blank {
+  		height: 35px;
+  		width: 100%;
+  	}
+  	.cart-shop-content {
+  		width: 95%;
+  		height: 35px;
+  		display: flex;
+  		margin-left: 2.5%;
+  		border-bottom: 1px solid lightgray;
+  	}
+  	.cart-shop-content .cart-check {
+  		flex: 1;
+  		background: url(images/icon/icon_radio1.png) no-repeat center left;
+  		background-size: 20px 20px;
+  		padding-right: 5px;
+  	}
+  	.cart-shop-content a {
+  		flex: 7;
+  		color: #666;
+  		font-size: .875rem;
+  		background: url(images/icon/icon-logo.png) no-repeat center left;
+  		background-size: 20px 20px;
+  	}
+  	.cart-shop-content a span {
+  		line-height: 35px;
+  		padding-left: 25px;
+  	}
+  	.cart-shop-content ul {
+  		flex: 12;
+  	}
+  	.cart-shop-content ul li {
+  		font-size: .875rem;
+  		color: #666;
+  		float: right;
+  		line-height: 35px;
+  		padding: 0 5px;
+  	}
+  	
+  	.cart-goods-all {
+  		width: 100%;
+  	}
+  	.cart-goods {
+  		width: 100%;
+  		height: 120px;
+  		box-sizing: border-box;
+  		margin-bottom: 5px;
+  		background-color: #F5F5F5;
+  	}
+  	.cart-goods-content ul{
+  		width: 95%;
+  		height: 120px;
+  		display: flex;
+  		margin-left: 2.5%;
+  		border-bottom: 1px solid darkgoldenrod;
+  	}
+ 		.check {
+ 			flex: 1;
+ 			background: url(images/icon/icon_radio1.png) no-repeat center left;
+  		background-size: 20px 20px;
+  		padding-right: 5px;
+ 		}
+ 		.checked {
+ 			flex: 1;
+ 			background: url(images/icon/icon_radio2.png) no-repeat center left;
+ 			background-size: 20px 20px;
+  		padding-right: 5px;
+ 		}
+  	.cart-goods-content ul li:nth-child(2) {
+  		flex: 4;
+  		text-align: center;
+  	}
+  	.cart-goods-content ul li:nth-child(2) img {
+  		width: 80%;
+  		height: 60%;
+  		margin-top: 60px;
+  		transform: translateY(-50%);
+  	}
+  	.cart-goods-content ul li:nth-child(3) {
+  		flex: 12;
+  		box-sizing: border-box;
+  		border-left: 10px solid #F5F5F5;
+  	}
+  	.cart-goods-content ul li:nth-child(3) p {
+  		font-size: .875rem;
+  		padding: 10px 0 0 5px;
+  		line-height: 1rem;
+  		height: 2rem;
+  	}
+  	.goods-price-number {
+  		width: 100%;
+  		height: 30px;
+  		margin-top: 30px;
+  	}
+  	.goods-price-number .goods-price {
+  		float: left;
+  		color: red;
+  		line-height: 30px;
+  	}
+  	.goods-price-number .goods-number {
+  		float: right;
+  		width: 70px;
+  		height: 20px;
+  		display: flex;
+  		border: 1px solid orange;
+  		margin-top: 15px;
+  		transform: translateY(-50%);
+  		/*background: pink;*/
+  	}
+  	.goods-number a.minus {
+  		flex: 1;
+  		font-size: 1rem;
+  		text-align: center;
+  		line-height: 20px;
+  		display: inline-block;
+  		box-sizing: border-box;
+  		border-right: 1px solid orange;
+  	}
+  	.goods-number span.number {
+  		flex: 1.5;
+  		font-size: 1rem;
+  		text-align: center;
+  		line-height: 20px;
+  		box-sizing: border-box;
+  	}
+  	.goods-number a.plus {
+  		flex: 1;
+  		font-size: 1rem;
+  		text-align: center;
+  		line-height: 20px;
+  		box-sizing: border-box;
+  		border-left: 1px solid orange;
+  	}
+  	
+  	.settlement {
+  		position: fixed;
+  		width: 100%;
+  		height: 55px;
+  		bottom: 55px;
+  		background: white;
+  		z-index: 999;
+  	}
+  	.settlement ul {
+  		width: 95%;
+  		height: 55px;
+  		display: flex;
+  		margin-left: 2.5%;
+  		box-sizing: border-box;
+  		border-top: 1px solid lightgray;
+  		border-bottom: 1px solid lightgray;
+  	}
+  	.all-check {
+  		flex: 4;
+  		background: url(images/icon/icon_radio1.png) no-repeat center left;
+  		background-size: 20px 20px;
+  		padding-right: 5px;
+  	}
+		.all-checked {
+			background: url(images/icon/icon_radio2.png) no-repeat center left;
+			background-size: 20px 20px;
+			padding-right: 5px;
+		}
+  	.settlement ul li:nth-child(1) span {
+  		font-size: 1rem;
+  		margin-left: 25px;
+  		line-height: 55px;
+  	}
+  	.settlement ul li:nth-child(2) {
+  		flex: 11;
+  		text-align: center;
+  	}
+  	.settlement ul li:nth-child(2) i {
+  		font-size: 1rem;
+  		line-height: 55px;
+  	}
+  	.settlement ul li:nth-child(2) span {
+  		font-size: 1rem;
+  		line-height: 55px;
+  		color: red;
+  	}
+  	.settlement ul li:nth-child(3) {
+  		flex: 5;
+  		background: rgb(229, 105, 125);
+  		text-align: center;
+  	}
+ 		.settlement ul li:nth-child(3) a {
+  		color: white;
+  		line-height: 55px;
+  		font-size: 1.2rem;
+  	}
+  	 	
+  	.settlement-blank {
+  		width: 100%;
+  		height: 110px;
+  	}
+  	
+  	.delete {
+  		position: fixed;
+  		width: 100%;
+  		height: 55px;
+  		bottom: 55px;
+  		background: white;
+  		z-index: 9999;
+  		display: none;
+  	}
+  	.delete-box {
+  		width: 95%;
+  		height: 100%;
+  		display: flex;
+  		margin-left: 2.5%;
+  		box-sizing: border-box;
+  		border-top: 1px solid lightgray;
+  		border-bottom: 1px solid lightgray;
+  	}
+  	/*.all-checks {
+  		flex: 4;
+  		background: url(images/icon/icon_radio1.png) no-repeat center left;
+  		background-size: 20px 20px;
+  		padding-right: 5px;
+  	}*/
+  	.all-check span {
+  		font-size: 1rem;
+  		margin-left: 25px;
+  		line-height: 55px;
+  	}
+  	.delete .delete-goods {
+  		flex: 16;
+  		text-align: center;
+  		line-height: 55px;
+  		font-size: 1.2rem;
+  		background: rgb(229, 105, 125);
+  		color: white;
+  	}
+  </style>
+</head>
+<body>
+	<div class="header">
+		<a href="javascript:;"></a>
+		<h1>购物车</h1>
+	</div>
+	<div class="header-blank"></div>
+	
+	<div class="cart">
+		<div class="cart-shop">
+			<div class="cart-shop-content">
+				<i class="cart-check"></i>
+				<a href="javascript:;"><span>乐购商城</span></a>
+				<ul>
+					<li id="editor">编辑</li>
+					<li>|</li>
+					<li>领券</li>
+				</ul>
+			</div>
+		</div>
+		<div class="cart-shop-blank"></div>
+		<div class="cart-goods-all"></div>
+	</div>
+	
+	<div class="settlement">
+		<ul>
+			<li class="all-check"><span>全选</span></li>
+			<li><i>总价：</i><span>￥</span><span class="totall-price"></span></li>
+			<li><a href="javascript:;">结算</a></li>
+		</ul>
+	</div>
+	
+	<div class="delete" id="delete">
+		<div class="delete-box">
+			<div class="all-check"><span>全选</span></div>
+			<div class="delete-goods">删除</div>
+		</div>
+	</div>
+	
+	<div class="settlement-blank"></div>
+	
+	<script src="js/jquery-3.2.1.js"></script>
+	<script>
+		$.get({
+			url: 'http://h6.duchengjiu.top/shop/api_cart.php?token=628ec0c39026f598cb49d6f5cf2d7779',
+			type: 'get',
+			dataType: 'json',
+			data: {},
+			success: function(json) {
+				console.log(json);
+				var data = json.data;
+				var sum = 0;
+				for (var i = 0; i < data.length; i++) {
+					var obj = data[i];
+					sum += (obj.goods_price * obj.goods_number);
+					$('.cart-goods-all')[0].innerHTML += `
+																			<div class="cart-goods">
+																				<div class="cart-goods-content">
+																					<ul>
+																						<li class="check"></li>
+																						<li><img src="${obj.goods_thumb}" alt=""/></li>
+																						<li>
+																							<p>${obj.goods_name}</p>
+																							<div class="goods-price-number">
+																								<div class="goods-price">￥<i>${obj.goods_price}</i></div>
+																								<div class="goods-number">
+																									<a href="javascript:;" class="minus" name="minus">-</a>
+																									<span class="number" name="number">${obj.goods_number}</span>
+																									<a href="javascript:;" class="plus" name="plus">+</a>
+																								</div>
+																							</div>
+																						</li>
+																					</ul>
+																				</div>
+																			</div>	
+																				`;
+				}
+				$('.settlement span.totall-price')[0].innerText = sum; //结算
+				
+				//选择信号量
+				var lock = false;
+				//选择、添加类名
+				$('.check').on('touchstart', function() {
+					if(!lock) {
+						$(this).addClass('checked');
+						lock = true;
+					}else {
+						$(this).removeClass('checked');
+						lock = false;
+					}
+				});
+				
+				//删除
+//				$('.delete-goods').on('touchstart', function(event) {
+//					if(!confirm('确认要删除吗？')) {
+//						return;
+//					}
+						
+//				});
+				$('.all-check').on('touchstart', function() {
+					if (!lock) {
+						$(this).addClass('all-checked');
+						$('.check').addClass('checked');
+						lock = true;
+					}else {
+						$(this).removeClass('all-checked');
+						$('.check').removeClass('checked');					
+						lock = false;
+					}
+				});
+				
+				$('.delete-goods').on('touchstart', function() {
+					if (!confirm('确认？')) {
+						return;
+					}
+					$('.checked').parent().parent().parent().remove();
+				});
+				//编辑
+				$('#editor').on('touchstart', function() {
+					if (!lock) {
+						$(this).html('完成');
+						$('#delete').css('display','block');
+						lock = true;
+					}else {
+						$(this).html('编辑');
+						$('#delete').css('display','none');
+						lock = false;
+					}
+				});
+				//删除
+//				function delete() {
+//					$('.delete-goods').on('touchstart', function() {
+//						if (lock) {
+//							$('.checked').css('display', 'none');
+//						}
+//					});
+//				}
+			}//callback
+		});
+		
+		//个数变化、总价
+		$('.cart-goods-all')[0].addEventListener('touchstart', function(event) {
+			event = event || window.event;
+			var target = event.target || event.srcElement;
+			var priceFirst = parseInt($('.settlement span.totall-price')[0].innerText);
+			if (target.name === "minus") {
+				var numbers = target.parentNode.childNodes[3].innerText;
+				var price = parseInt(target.parentNode.parentNode.childNodes[1].childNodes[1].innerText);
+				target.parentNode.childNodes[3].innerText = parseInt(numbers) - 1;
+				var newNumbers = parseInt(target.parentNode.childNodes[3].innerText);
+				if (target.parentNode.childNodes[3].innerText <= 1) {
+					target.parentNode.childNodes[3].innerText = 1;
+					newNumbers = 1;
+				}
+				var totallPrice = priceFirst - price * numbers + price * newNumbers;
+				$('.settlement span.totall-price')[0].innerText = totallPrice;
+			}else if (target.name === "plus") {
+				var numbers = target.parentNode.childNodes[3].innerText;
+				var price = parseInt(target.parentNode.parentNode.childNodes[1].childNodes[1].innerText);
+				target.parentNode.childNodes[3].innerText = parseInt(numbers) + 1;
+				var newNumbers = parseInt(target.parentNode.childNodes[3].innerText);
+				var totallPrice = priceFirst - price * numbers + price * newNumbers;
+				$('.settlement span.totall-price')[0].innerText = totallPrice;
+			}
+		});
+	</script>
+	
+	<script>
+		
+	</script>
+	
+	
+	<!-- 底部-->
+	<div class="footer-nav">
+    <span class="icon iconhome">首页</span>
+    <span class="icon iconstore">购物车</span>
+    <span class="iconfont icon-xinchangtai">我的收藏</span>
+    <span class="icon iconyonghu">我的</span>
+  </div>
+</body>
+</html>
