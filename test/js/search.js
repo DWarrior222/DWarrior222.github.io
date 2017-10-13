@@ -140,3 +140,4 @@ oMshop.backToTop();
 oMshop.prestrain()
 oMshop.backHome();
 oMshop.footerNav();
+oMshop.afterLoginSkip();

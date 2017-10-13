@@ -302,7 +302,29 @@ oMshop.searchContainer = function() {
     }
   }
 }
-
+oMshop.afterLoginSkip = function() {
+  $('#user').on('touchstart',function() {
+    if(localStorage.token) {
+      checkCart();
+    } else {
+      location.href = 'login.html'
+    }
+  })
+  function checkCart() {
+    $.ajax({
+      url: 'http://h6.duchengjiu.top/shop/api_cart.php?token=' + localStorage.token,
+      type: 'GET',
+      success: function(json) {
+        console.log(json);
+        if(json.code === 0) {
+          location.href = 'message.html';
+        } else {
+          location.href = 'login.html';
+        }
+      }
+    })
+  }
+}
 
 
 // DOM加载完成让prestrain这个盒子消失；

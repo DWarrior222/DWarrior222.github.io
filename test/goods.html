@@ -307,6 +307,7 @@
         if(target.className === 'add-to-cart') {
           if(localStorage.token) {
             updateCart();
+            // location.reload();
           } else {
             $('#model-comfirm #wrap').removeClass('wrap-prompt')
             $('#model-comfirm h1').html('您还未登陆，是否去登陆？');

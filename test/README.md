@@ -52,6 +52,7 @@ https://m.vip.com
 ### 6.goods.html
 路锴
 ```
+登录失效时：无法加载地址，会有问题
 ```
 ### 7.cart.html
 李世军
