@@ -757,10 +757,6 @@ body,html {
   background: url(images/home1.png) center no-repeat;
   background-size: cover;
 }
-.footer-nav span a {
-	font-size: 0.9rem;
-	color: black;
-}
 .footer-nav span.iconhome::before {
   content: '';
   background-image: url(../images/home1.png);

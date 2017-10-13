@@ -311,6 +311,21 @@ oMshop.prestrain = function() {
     $('.prestrain').hide();
   })
 }
+//footer-nav
+oMshop.footerNav = function() {
+  $('#footer-nav').on('touchstart', function(event) {
+    var target = event.target;
+    if(target.id === 'L-home') {
+      location.href = 'index.html';
+    }
+    if(target.id === 'L-cart') {
+      location.href = 'cart.html';
+    }
+    if(target.id === 'L-order') {
+      location.href = 'order.html';
+    }
+  })
+}
 //搜索页面返回主页
 oMshop.backHome = function() {
   $('#go-back-home')[0].addEventListener('touchstart', function() {
@@ -324,7 +339,7 @@ oMshop.modalPrompt = function(text) {
 }
 // 回到顶部
 oMshop.backToTop = function() {
-  window.addEventListener('scroll' , backToTop)
+  window.addEventListener('scroll', backToTop)
   function backToTop() {
     var scrollTop = document.body.scrollTop;
     if(scrollTop > 200) {
