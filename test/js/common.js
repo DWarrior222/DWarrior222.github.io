@@ -324,9 +324,9 @@ oMshop.backToTop = function() {
   function backToTop() {
     var scrollTop = document.body.scrollTop;
     if(scrollTop > 200) {
-      $('.back-top').fadeIn()
+      $('.back-top').stop(true).fadeIn()
     } else {
-      $('.back-top').fadeOut(1000)
+      $('.back-top').stop(true).fadeOut(1000)
     }
   }
 
