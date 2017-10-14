@@ -196,5 +196,5 @@ if(!localStorage.token) location.href = 'login.html';
 		
 //返回上一页
 $('.back').on('touchstart', function() {
-			window.history.back(-1);
+			window.history.back();
 		});
