@@ -127,7 +127,7 @@ $('.yes')[0].addEventListener('touchstart',function(){
         },
         'success': function (responseText) {
 
-            location.href='index.html';
+            location.href='order.html';
         }
     })
 },false);

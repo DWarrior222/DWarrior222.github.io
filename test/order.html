@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" type="text/css" href="css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <title>我的订单</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        a{
+
+            -webkit-tap-highlight-color:rgba(0,0,0,0);
+            -webkit-tap-highlight-color: transparent;
+            outline:none;
+            background: none;
+            text-decoration: none;
+        }
+        p{
+            list-style: none ;
+        }
+        html,body{
+            font-size: 16px;
+            background-color:lightgray;
+        }
+        .order-header,a{
+            font-family: "PingHei","Lucida Grande", "Lucida Sans Unicode", "STHeiti", "Helvetica","Arial","Verdana","sans-serif";
+            color: #252525;
+            text-decoration: none;
+            font-size: 16px;
+            height: 2.75rem;
+        }
+        .order-header-bar{
+
+            position: relative;
+            background: #efefef url(https://st.360buyimg.com/common/commonH_B/images/2015/header-bg.png?v=2) repeat-x 0 0;
+            background-size: 100% 44px;
+            height: 2.75rem;
+            border-bottom: 1px solid #bfbfbf;
+            border-width: 0 0 1px 0;
+        }
+        .order-back{
+            background: url("images/icon/back.png");
+            background-size: 100%;
+            height: 2.19rem;
+            width: 2.19rem;
+            margin-top: 0.31rem;
+            position: absolute;
+
+        }
+        .order-title{
+            margin: 0 50px;
+            text-align: center;
+            height: 44px;
+            line-height: 44px;
+            font-size: 16px;
+
+
+        }
+        .order-list{
+            margin-top: 9px;
+            margin-bottom: 60px;
+
+        }
+        .order-logo{
+            background-color: white;
+            position: relative;
+            height: 2.13rem;
+            margin-top: 5px;
+
+        }
+
+        .order-logo span{
+
+
+
+           font-family:  'Helvetica Neue';
+
+        }
+        .order-logo img{
+            width: 30px;
+            height: 30px;
+            margin-top: 2px;
+            margin-left: 5px;
+
+        }
+        .order-delete{
+            float: right;
+        }
+        .order-goods{
+            background-color: gray;
+        }
+        .order-goodsMessage{
+            padding:.133rem .32rem; ;
+            display: -webkit-box;
+
+        }
+        .order-goodsMessage-img{
+            width: 3.75rem;
+            height:3.75rem;
+            margin-right: .63rem;
+            -webkit-box-flex: 1;
+        }
+        .order-goodsMessage-img img{
+            width: 3.75rem;
+            height:3.75rem;
+            display: -webkit-box;
+        }
+        .order-goodsMessage-title{
+            -webkit-box-flex: 40;
+
+        }
+        .order-goodsMessage-pay{
+            -webkit-box-flex: 1;
+        }
+        .i-complete{
+            width: 15px;
+            height: 15px;
+            display: block;
+            float: right;
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAeCAYAAADU8sWcAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4QTMwNkE0M0NFMTUxMUU0OUQ1Nzk0RkM4RUYzODQ0RiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo4QTMwNkE0NENFMTUxMUU0OUQ1Nzk0RkM4RUYzODQ0RiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjhBMzA2QTQxQ0UxNTExRTQ5RDU3OTRGQzhFRjM4NDRGIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjhBMzA2QTQyQ0UxNTExRTQ5RDU3OTRGQzhFRjM4NDRGIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+F9qc6AAAATFJREFUeNpizMjIYCACqAJxBxC7ADEfHnWfgHgPEFdMnz79NiFDmYiwWB2ITwFxEAGLGaDyIHWnMjMz1QkZzEKE5W1ALADE24E4GYifI0sCfQhnAy2UBFJzgdgTqi+YUp+7QGkMi9EB0CHPoepAwI0awQ4L6lcMxIG3UJqHkEJGYII7DKRtGOgPjjAxDBxgBCU4W0pMQE5wpIKB9PngsvwwFOMCOOWBefwwCOPSiE0eWyHDiMdyGzLlsJrNQoYB5AKb0QQ3avmo5SPPchYS1R/BUwIeIVA6Umy5LZ6q1XY0zoek5Z+gtCQ1LQHW4xJQ5hd8lu+B0nOAWIJKFktDOxIgsAtfaq8GYicg9iLUQUAynFh3fICaj9PnN4DYAojXAfFnKoX6Z6h5FsDseANZAiDAALQXQU1agCEoAAAAAElFTkSuQmCC) no-repeat;
+            background-size: 15px 15px;
+            margin-top:9px;
+            margin-right: 9px;
+
+        }
+        .footer-nav {
+            min-width: 320px;
+            max-width: 640px;
+            height: 55px;
+            width: 100%;
+            position: fixed;
+            z-index: 999;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            display: flex;
+            background: white;
+        }
+        .footer-nav span {
+            flex: 1;
+            text-align: center;
+            padding-top: 36px;
+            position: relative;
+            font-size: 0.9rem;
+        }
+        .footer-nav span::before {
+            position: absolute;
+            top: 5px;
+            width: 27px;
+            height: 27px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: url(images/home1.png) center no-repeat;
+            background-size: cover;
+        }
+        .footer-nav span.iconhome::before {
+            content: '';
+            background-image: url(images/home1.png);
+        }
+        .footer-nav span.iconstore::before {
+            content: '';
+            background-image: url(images/cart1.png);
+        }
+        .footer-nav span.iconyonghu::before  {
+            content: '';
+            background-image: url(images/me1.png);
+        }
+        .footer-nav span.iconfont::before {
+            font-size: 31px;
+            color: #b2b2b2;
+            background: transparent;
+        }
+        .title{
+            font-weight: 400;
+            font-size: 12px;
+            padding-right: 5px;
+        }
+        .order-price{
+
+            font-weight: 700;
+            float: right;
+
+
+
+
+        }
+        .order-nums{
+            font-size: 12px;
+            color: #999;
+            text-align: right;
+
+
+        }
+        .order-modules-statistics{
+            background-color: white;
+            margin-top: 1px;
+        }
+        .order-totalPrice{
+            min-height:2.25rem;
+            padding: .16rem .75rem .16rem 0;
+            line-height: 40px;
+        }
+        .order-cont{
+            width: 100%;
+            word-break: break-all;
+            text-align: right;
+            font-size: 14px;
+            font-family: 'Helvetica Neue';
+        }
+        .order-totalPrice ul li{
+            height:1.62rem;
+            line-height: 1.62rem;
+            text-align: center;
+            border: 1px solid #999;
+            border-radius: .053rem;
+            float: right;
+            padding: 0 .63rem;
+            margin: .133rem 0 .133rem .133rem;
+        }
+        .checkout-header{
+
+            position: relative;
+
+            background-size: 100% 44px;
+            min-height: 44px;
+            border-bottom: 1px solid #bfbfbf;
+            border-width: 0 0 1px 0;
+            background-color: white;
+        }
+        .checkout-header-back{
+            position: absolute;
+            width: 40px;
+            height: 44px;
+        }
+
+        .checkout-header-back span{
+            width: 20px;
+            height: 20px;
+            background-position: -20px 0;
+            margin: 12px 0 0 10px;
+            text-indent: -100px;
+            overflow: hidden;
+            display: block;
+            background: url(https://st.360buyimg.com/order/misc/skin/i/jd-sprites.png?v=12) no-repeat -20px top;
+            background-size: 200px 200px;
+        }
+        .checkout-header-title{
+            margin: 0 50px;
+            text-align: center;
+            height: 44px;
+            line-height: 44px;
+            font-size: 16px;
+            color: #252525;
+
+        }
+        .model-comfirm {
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            z-index: 2000;
+            display: none;
+        }
+        .model-comfirm .wrap {
+            width: 80%;
+            height: 100px;
+            background: rgba(0,0,0,0.6);
+            position: absolute;
+            margin: auto;
+            border-radius: 15px;
+            overflow: hidden;
+            left: 0px;
+            top: 0px;
+            bottom: 0px;
+            right: 0px;
+            /* display: none; */
+        }
+        .model-comfirm .box {
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            position: absolute;
+            margin: auto;
+            left: 0px;
+            top: 0px;
+            bottom: 0px;
+            right: 0px;
+        }
+        .model-comfirm .box h1 {
+            text-align: center;
+            color: white;
+            margin: 10px;
+            line-height: 35px;
+        }
+        .model-comfirm .box .yn {
+            text-align: center;
+        }
+        .model-comfirm .box .yn span {
+            width: 56px;
+            height: 25px;
+            line-height: 25px;
+            color: white;
+            display: inline-block;
+            background: red;
+            text-align: center;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<header class="checkout-header">
+    <div class="checkout-header-back">
+        <a href="javascript:history.go(-1)"><span></span></a>
+    </div>
+    <div class="checkout-header-title">我的订单</div>
+</header>
+<div class="order-list">
+
+    </div>
+
+<div class="footer-nav">
+    <span class="icon iconhome">首页</span>
+    <span class="icon iconstore">购物车</span>
+    <span class="iconfont icon-xinchangtai">我的收藏</span>
+    <span class="icon iconyonghu">我的订单</span>
+</div>
+<div class="model-comfirm" id="model-comfirm">
+    <div class="wrap" id="wrap">
+        <div class="box" id="box">
+            <h1>是否取消订单</h1>
+            <div class="yn">
+                <span class="yes" id="yes">是</span>
+                <span class="no" id="no">否</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-1.12.3.min.js"></script>
+<script src="js/order.js"></script>
+</body>
+
+</html>
