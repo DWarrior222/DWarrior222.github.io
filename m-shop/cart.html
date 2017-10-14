@@ -321,7 +321,7 @@
 	</div>
 	
 	<div class="settlement-blank"></div>
-	
+	<script type="text/javascript" src="js/common.js"></script>
 	<script src="js/jquery-3.2.1.js"></script>
 	<script>
 		if(!localStorage.token) location.href = 'login.html';
@@ -517,14 +517,17 @@
 	
 	
 	<!-- 底部-->
-	<div class="footer-nav">
-    <span class="icon iconhome"><a href="index.html">首页</a></span>
-    <span class="icon iconstore">购物车</span>
+	<div class="footer-nav" id="footer-nav">
+    <span class="icon iconhome" id="L-home">首页</span>
+    <span class="icon iconstore" id="L-cart">购物车</span>
     <span class="iconfont icon-xinchangtai">我的收藏</span>
-    <span class="icon iconyonghu">我的</span>
+    <span class="icon iconyonghu" id="L-order">我的订单</span>
   </div>
   
-  
+  <script type="text/javascript">
+    oMshop.footerNav();
+  </script>
+
   <div class="model-comfirm" id="model-comfirm">
     <div class="wrap" id="wrap">
       <div class="box" id="box">
