@@ -97,6 +97,7 @@
   .add-goods {
     position: fixed;
     bottom: 0px;
+    background: white;
     left: 50%;
     border-top: 1px solid #ccc;
     transform: translateX(-50%);
@@ -179,7 +180,7 @@
 </head>
 <body>
   <div class="L-header">
-    <span class="go-back-home iconfont icon-fanhui" id="go-back-home"></span>
+    <span class="go-back-home iconfont icon-fanhui" id="go-back-history"></span>
     <i>商品详情</i>
   </div>
   <div class="L-body">
@@ -246,8 +247,8 @@
   <!-- <script type="text/javascript" src="js"></script> -->
   <script type="text/javascript">
     oMshop.prestrain();
-    oMshop.backHome();
     oMshop.backToTop();
+    oMshop.backHistory();
     oMshop.getLocalStorageAddresss = function() {
       if(!localStorage.token) return;
       $.ajax({

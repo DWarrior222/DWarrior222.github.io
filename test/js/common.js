@@ -349,9 +349,9 @@ oMshop.footerNav = function() {
   })
 }
 //搜索页面返回主页
-oMshop.backHome = function() {
-  $('#go-back-home')[0].addEventListener('touchstart', function() {
-    location.href = 'index.html'
+oMshop.backHistory = function() {
+  $('#go-back-history').on('touchstart', function() {
+    location.href = history.back()
   })
 }
 oMshop.modalPrompt = function(text) {
