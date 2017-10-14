@@ -50,7 +50,7 @@ a{
     color: #252525;
 }
 .checkout-address{
-    padding: .94rem .56rem;
+    padding: .94rem 0;
     margin-bottom: .56rem;
     background-color: #fff;
     display: -webkit-box;
