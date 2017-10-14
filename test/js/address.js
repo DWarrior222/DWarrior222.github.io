@@ -1,4 +1,4 @@
-localStorage.token = '99bfff02c56723f80edefe176c11ea1a';
+
 document.onreadystatechange = function() {
     // console.log(document.readyState);
     if(document.readyState == 'interactive'){
