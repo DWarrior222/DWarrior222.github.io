@@ -158,7 +158,7 @@ a{
     float: right;
 }
 .order-goodsMessage{
-    padding:.133rem .32rem; ;
+    padding:.133rem 0;
     display: -webkit-box;
 
 }
