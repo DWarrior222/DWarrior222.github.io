@@ -202,7 +202,7 @@ a{
     background-color: white;
 }
 .checkout-quantity-row{
-    padding: .63rem .56rem;
+    padding: .63rem 0;
 }
 .checkout-quantity-row-nums{
     color: #666;
