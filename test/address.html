@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>address</title>
+    <link rel="stylesheet" href="css/address.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/swiper-3.4.2.min.css">
+</head>
+<body>
+    <div class="modle">
+        <table class="box">
+            <tr>
+                <td>收件人</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>电话</td>
+                <td><input type="text"></td>
+            </tr>            
+            <tr>
+                <td>省:</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>市:</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>县:</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>详细地址:</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="change" colspan="2">确定更改</td>
+            </tr>
+            <td class="delete" colspan="2">删除地址</td>            
+        </table>
+    </div>
+    
+    <div class="header">
+        <div class="col-xs-2 back-icon-wrapper">
+            <img src="images/address-left.png" alt="" class='back-icon'>
+        </div>
+        <div class="col-xs-8  manage">管理收货地址</div>
+    </div>
+    <div class="swiper-container swiper-containerV">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide page1 swiper-no-swiping">
+                <div class="container address">
+                </div>
+            </div>
+            <div class="swiper-slide vertical-page swiper-no-swiping">
+                <div class="modle-eare">
+                    
+                </div>
+                <div class="container">
+
+                    <form>
+
+                        <div class="row ">
+                            <div class="col-xs-3 item">
+                                <span>收货人:</span>
+                            </div>
+                            <div class="col-xs-7">
+                               <input type="text" name="consignee" class="newConsignee">
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-xs-3 item">
+                                手机号码:
+                            </div>
+                            <div class="col-xs-7">
+                                <input type="text" name="mobile" class="newMobile">
+                            </div>
+                        </div>
+
+
+
+                        <div class="row chooseEare">
+                            <div class="col-xs-3 item">
+                                所在地区
+                            </div>
+                            <div class="col-xs-2 col-xs-offset-7 eare">
+                                <img src="images/address-right.png" class="eare-icon">
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-xs-3 item">
+                                详细地址:
+                            </div>
+                            <div class="col-xs-7">
+                                <input type="text" placeholder="请输入街道、楼牌号等" name="address" class="newAddress">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row save">
+                        <div class="col-xs-4 col-xs-offset-4 save-use">保存并使用</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">新建收货地址</div>  
+
+
+
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/swiper-3.4.2.min.js"></script>
+    <script src="js/swiper.animate1.0.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/address.js"></script>
+</body>
+</html>

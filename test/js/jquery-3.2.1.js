@@ -356,14 +356,14 @@ jQuery.extend( {
 	each: function( obj, callback ) {
 		var length, i = 0;
 
-		if ( isArrayLike( obj ) ) {
+		if ( isArrayLike( obj ) ) {//判断是不是数组或者类数组
 			length = obj.length;
 			for ( ; i < length; i++ ) {
-				if ( callback.call( obj[ i ], i, obj[ i ] ) === false ) {
-					break;
+				if ( callback.call( obj[ i ], i, obj[ i ] ) === false ) {  //这里的false是哪来的呢？
+					break;		//这里是为了供开发者跳出循环用的   当开发者调用each  想break的时候  return false  想continue时 return true
 				}
 			}
-		} else {
+		} else {//对象
 			for ( i in obj ) {
 				if ( callback.call( obj[ i ], i, obj[ i ] ) === false ) {
 					break;
