@@ -351,7 +351,7 @@ oMshop.footerNav = function() {
 //搜索页面返回主页
 oMshop.backHistory = function() {
   $('#go-back-history').on('touchstart', function() {
-    location.href = history.back()
+    window.history.back(-1)
   })
 }
 oMshop.modalPrompt = function(text) {
