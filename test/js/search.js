@@ -133,11 +133,11 @@ function overCallback() {
 
 oMshop.changeStyle();
 oMshop.priceRange();
-oMshop.goSearch();
+oMshop.goSearch()
 oMshop.searchContainer();
 oMshop.lesser();
 oMshop.backToTop();
-oMshop.prestrain();
-oMshop.backHistory();
+oMshop.prestrain()
+oMshop.backHome();
 oMshop.footerNav();
 oMshop.afterLoginSkip();

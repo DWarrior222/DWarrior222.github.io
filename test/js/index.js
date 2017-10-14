@@ -38,26 +38,26 @@ oMshop.setCarousel = function() {
 
 // 头部的地区选择
 oMshop.setHeaderArea = function() {
-  if(localStorage.nowAddressIndex != returnCitySN['cname']) {
+  if(localStorage.nowAddress != returnCitySN['cname']) {
     $('#model-comfirm #wrap #box h1').html('地址发生变化，是否重新获取地址');
     $('#model-comfirm').show();
   } else {
-    $('#header-area').html(localStorage.nowAddressIndex);
-    $('.area-position-cont li').html(localStorage.nowAddressIndex);
+    $('#header-area').html(localStorage.nowAddress);
+    $('.area-position-cont li').html(localStorage.nowAddress);
   }
-  if(!localStorage.nowAddressIndex) {
-    $('#model-comfirm #wrap #box h1').html('受否同意获取地址');
+  if(!localStorage.nowAddress) {
+    $('#model-comfirm #wrap #box h1').html('是否同意获取地址');
     $('#model-comfirm').show();
   } else {
-    $('#header-area').html(localStorage.nowAddressIndex);
-    $('.area-position-cont li').html(localStorage.nowAddressIndex);
+    $('#header-area').html(localStorage.nowAddress);
+    $('.area-position-cont li').html(localStorage.nowAddress);
   }
   // $('#model-comfirm').show();
   $('#model-comfirm').click(function(event) {
     var target = event.target;
     if(target.id === 'yes') {
       // getAddress = returnCitySN['cname'];
-      localStorage.nowAddressIndex = returnCitySN['cname']
+      localStorage.nowAddress = returnCitySN['cname']
       $('#header-area').html(returnCitySN['cname']);
       $('.area-position-cont li').html(returnCitySN['cname']);
       toast('当前定位城市:' + returnCitySN['cname'] ,2000);

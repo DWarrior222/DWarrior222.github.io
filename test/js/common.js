@@ -309,7 +309,7 @@ oMshop.afterLoginSkip = function() {
     } else {
       location.href = 'login.html'
     }
-  })
+  });
   function checkCart() {
     $.ajax({
       url: 'http://h6.duchengjiu.top/shop/api_cart.php?token=' + localStorage.token,
@@ -349,9 +349,9 @@ oMshop.footerNav = function() {
   })
 }
 //搜索页面返回主页
-oMshop.backHistory = function() {
-  $('#go-back-history').on('touchstart', function() {
-    window.history.back(-1)
+oMshop.backHome = function() {
+  $('#go-back-home')[0].addEventListener('touchstart', function() {
+    location.href = 'index.html'
   })
 }
 oMshop.modalPrompt = function(text) {

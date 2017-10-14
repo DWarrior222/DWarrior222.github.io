@@ -1,4 +1,3 @@
-
 var sum = 0;
 var num=0;
 $.ajax({
@@ -127,7 +126,7 @@ $('.yes')[0].addEventListener('touchstart',function(){
         },
         'success': function (responseText) {
 
-            location.href='order.html';
+            location.href='index.html';
         }
     })
 },false);
