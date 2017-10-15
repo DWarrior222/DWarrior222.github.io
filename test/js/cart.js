@@ -1,4 +1,4 @@
-//if(!localStorage.token) location.href = 'login.html';
+if(!localStorage.token) location.href = 'login.html';
 
 $.ajax({
       url: 'http://h6.duchengjiu.top/shop/api_cart.php?token=' + localStorage.token,
