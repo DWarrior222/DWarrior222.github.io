@@ -246,7 +246,7 @@
   <!-- <script type="text/javascript" src="js"></script> -->
   <script type="text/javascript">
     oMshop.prestrain();
-    oMshop.backHome();
+    oMshop.backHistory();
     oMshop.backToTop();
     oMshop.getLocalStorageAddresss = function() {
       if(!localStorage.token) return;
@@ -374,8 +374,7 @@
               $('#model-comfirm #wrap').removeClass('wrap-prompt')
               $('#model-comfirm h1').html('登录失效，请您重新登陆');
               $('#model-comfirm').show();
-            }
-            if(json.code === 0) {
+            } else {
               location.href = 'cart.html';
             }
           }

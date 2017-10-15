@@ -1,4 +1,4 @@
-localStorage.token = '99bfff02c56723f80edefe176c11ea1a';
+// localStorage.token = 'f6978c4e243bedeb8d629d4cd60c9ac7';
 document.onreadystatechange = function() {
     // console.log(document.readyState);
     if(document.readyState == 'interactive'){
@@ -10,6 +10,8 @@ document.onreadystatechange = function() {
 }
 window.onload = function() {
     var token = localStorage.token;
+    var toTop = null;
+    var allJson = null;
     //ajax 请求并生成地信息
     $.ajax('http://h6.duchengjiu.top/shop/api_useraddress.php',{
         'type':'get',
@@ -45,7 +47,7 @@ window.onload = function() {
                       
                 address_item.innerHTML = 
                 `
-                <div class="col-xs-10" id="toCheckout" data-address_id=${address_id} data-consignee=${consignee} data-province=${province} data-city=${city} data-district=${district} data-address=${address} data-mobile=${mobile} data-zip_code=${zip_code}>
+                <div class="col-xs-10" id="toCheckout" data-address_id=${address_id} data-consignee=${consignee} data-province=${province}  data-city=${city}  data-district=${district}  data-address=${address}  data-mobile=${mobile}  data-zip_code=${zip_code}>
                     <div class="row " data-address_id=${address_id} data-consignee=${consignee} data-province=${province} data-city=${city} data-district=${district} data-address=${address} data-mobile=${mobile} data-zip_code=${zip_code}>
                         <div class="col-xs-6 name" data-address_id=${address_id} data-consignee=${consignee} data-province=${province} data-city=${city} data-district=${district} data-address=${address} data-mobile=${mobile} data-zip_code=${zip_code}>收货人:${consignee}</div>
                         <div class="col-xs-6 phone" data-address_id=${address_id} data-consignee=${consignee} data-province=${province} data-city=${city} data-district=${district} data-address=${address} data-mobile=${mobile} data-zip_code=${zip_code}>${mobile}</div>
@@ -61,16 +63,19 @@ window.onload = function() {
                 var oWrite = document.querySelectorAll('.write')[i];
                 oWrite.addEventListener('click',function(){
                     console.log(localStorage.nowAddress_id);                    
-                    localStorage.nowAddress_id = this.dataset.address_id
-                    $('.modle').css({'display':'flex'});
+                    localStorage.nowAddress_id = this.dataset.address_id;
+                    var timer = setTimeout(function() {
+                        $('.modle').css({'display':'flex'});
                         var mobleInputs = document.querySelectorAll('.modle input');
 
-                        mobleInputs[0].value = this.dataset.consignee;
-                        mobleInputs[1].value = this.dataset.mobile;
-                        mobleInputs[2].value = this.dataset.province;
-                        mobleInputs[3].value = this.dataset.city;
-                        mobleInputs[4].value = this.dataset.district;
-                        mobleInputs[5].value = this.dataset.address;
+                        mobleInputs[0].value = localStorage.nowConsignee;
+                        mobleInputs[1].value = localStorage.nowMobile;
+                        mobleInputs[2].value = localStorage.nowProvince;
+                        mobleInputs[3].value = localStorage.nowCity;
+                        mobleInputs[4].value = localStorage.nowDistrict;
+                        mobleInputs[5].value = localStorage.nowAddress;
+                    }, 300);
+                    
                                                
                 });
             }   
@@ -105,10 +110,10 @@ window.onload = function() {
     var swiperV = new Swiper('.swiper-containerV',{
         direction:'vertical',
         nextButton:'.footer',
-        prevButton: '.save-use',
+        prevButton: toTop,
     })
-
-
+    swiperV.disableTouchControl();
+    swiperV.disableMousewheelControl();
 
     //click
 
@@ -119,6 +124,9 @@ window.onload = function() {
     document.querySelector('.footer').addEventListener('click', function(){
         this.style.display = 'none';
         $('.manage').html('新建收货地址');
+        localStorage.removeItem('provinceSwiper_realIndex');
+        localStorage.removeItem('districtSwiper_realIndex');
+        localStorage.removeItem('citySwiper_realIndex');
     })
 
     // document.querySelector('.modle').addEventListener('click',(function(){
@@ -129,21 +137,16 @@ window.onload = function() {
     //     $(this).css('display','table');
     // })
 
-    document.querySelector('.save-use').addEventListener('click',function(){
-        $('.footer').css({'display':'flex'});
-        $('.manage').html('管理收货地址');
-    })
     
     document.querySelector('.change').addEventListener('click', function(){
         $('.modle').css({'display':'none'});
         var modleInputs = document.querySelectorAll('.modle input');
-        var changeConsinee = modleInputs[0].value;
-        var changeMobile = modleInputs[1].value;
-        var changeProvince = modleInputs[2].value;
-        var changeCity = modleInputs[3].value;
-        var changeDistrict = modleInputs[4].value;
-        var changeAddress = modleInputs[5].value;
-        console.log(modleInputs);
+        var changeConsinee = localStorage.nowConsignee = modleInputs[0].value;
+        var changeMobile = localStorage.nowMobile = modleInputs[1].value;
+        var changeProvince = localStorage.nowProvince = modleInputs[2].value;
+        var changeCity = localStorage.nowCity =modleInputs[3].value;
+        var changeDistrict = localStorage.nowDistrict = modleInputs[4].value;
+        var changeAddress = localStorage.nowAddress = modleInputs[5].value;
         $.ajax(`http://h6.duchengjiu.top/shop/api_useraddress.php?status=add&token=${localStorage.token}`,{
             'type':'post',
             'data':{
@@ -188,24 +191,38 @@ window.onload = function() {
     })
     $('.save-use').click(function(){
         console.log($('form').serialize());
+        
+        
         var newConsignee = document.querySelector('.newConsignee').value;
-        console.log(newConsignee);
+        // console.log('newConsignee'+newConsignee);
         var newMobile = $('.newMobile').val();
-        console.log(newMobile);
+        // console.log(newMobile);
         var newAddress = $('.newAddress').val();
-        // if(!newConsignee && !newMobile && !newAddress){
-        //     alert('请输入完整信息');
-        //     return
-        // }
+
+        // var wheelAddress = $('.wheelAddress').html();
+        // console.log(newAddress);
+        console.log(localStorage.json);
+        if(!newConsignee || !newMobile || !newAddress || !localStorage.provinceSwiper_realIndex){
+            alert('请输入完整信息');
+            return
+        }
+        else{
+            toTop = '.save-use';
+            // localStorage.nowProvince = localStorage.json[localStorage.provinceSwiper_realIndex].name;
+            // localStorage.nowCity = localStorage.json[localStorage.provinceSwiper_realIndex].city[]
+        }
+        $('.footer').css({'display':'flex'});
+        $('.manage').html('管理收货地址');
         console.log(newAddress);
         $.ajax(`http://h6.duchengjiu.top/shop/api_useraddress.php?status=add&token=${localStorage.token}`, {
             'type':'post',
             'data':{
-                // 'status':'add',
-                // 'token':localStorage.token,
                 'consignee': newConsignee,
                 'mobile': newMobile,
                 'address':newAddress,
+                'province' : allJson[localStorage.provinceSwiper_realIndex].name,
+                'city' : allJson[localStorage.provinceSwiper_realIndex].city[localStorage.citySwiper_realIndex].name,
+                'district' : allJson[localStorage.provinceSwiper_realIndex].city[localStorage.citySwiper_realIndex].area[localStorage.districtSwiper_realIndex],
             },
             headers:{'Content-Type':'application/x-www-form-urlencoded'},
             'success':function(){
@@ -234,7 +251,133 @@ window.onload = function() {
     }
     document.querySelector('.chooseEare').addEventListener('click',function(){
         console.log('jump');
-        location.href = 'three-level-area.html'
+        $('.modle-eare').css({'display':'flex'});
+        $.ajax({
+            url:'json/json.txt?format=jsonp&callback=fun',
+            dataType:'json',
+            jsonpCallback:'fun',
+            success:function(json) {
+                console.log(json);
+                provinceObj = json;
+                // localStorage.json = json;
+                allJson = json;
+                province_wheel();
+                city_wheel();
+                district_wheel();
+                function province_wheel(){
+                    for(var i = 0; i < json.length; i++) {
+                        document.querySelector('.province-wrapper').innerHTML += `<div class="swiper-slide">${json[i].name}</div>`
+                    }
+                    var provinceSwiper = new Swiper('.province-swiper',{
+                        direction:'vertical',
+                        loop:'loop',
+                        // autoplayDisableOnInteraction : false,
+                        initialSlide: 3,
+                        mousewheelControl : true,
+                        onTransitionEnd:function(provinceSwiper){
+                        localStorage.provinceSwiper_realIndex = provinceSwiper.realIndex;
+              
+                            
+                            city_wheel();
+                            district_wheel();
+                    
+                            
+                        }
+                    })
+                    localStorage.provinceSwiper_realIndex = provinceSwiper.realIndex;
+                   
+                    // provinceSwiper.wrapper.transtionEnd(function(){
+                    //     console.log(provinceSwiper.realIndex);
+                    // })
+                    // var provinceTimer = window.setInterval(function(){
+                    //     if(provinceSwiper.animating){
+                    //         localStorage.provinceSwiper_realIndex = provinceSwiper.realIndex;
+                    //         console.log('省懂了')
+                    //         city_wheel();
+                    //         district_wheel();
+                    //     }
+                    // },100)
+                    
+                }
+                function city_wheel(){
+                    document.querySelector('.city-wrapper').innerHTML = '';
+                    for(var j = 0 ; j < json[localStorage.provinceSwiper_realIndex].city.length; j++){
+                        document.querySelector('.city-wrapper').innerHTML +=  `<div class="swiper-slide">${json[localStorage.provinceSwiper_realIndex].city[j].name}</div>`;
+                    }
+    
+                    var citySwiper = new Swiper('.city-swiper',{
+                        direction:'vertical',
+                        loop:'loop',
+                        // autoplayDisableOnInteraction : false,
+                        initialSlide: 0,
+                        mousewheelControl : true,
+                        onTransitionEnd:function(citySwiper){
+                            localStorage.citySwiper_realIndex = citySwiper.realIndex;
+                            // document.querySelector('.district-wrapper').innerHTML = '';                
+                            district_wheel();
+                    
+                        }
+                    })
+
+                    localStorage.citySwiper_realIndex = citySwiper.realIndex;
+                    
+                    // clearInterval(cityTimer);
+                    // var cityTimer = window.setInterval(function(){
+                    //     if(citySwiper.animating){
+                    //         localStorage.citySwiper_realIndex = citySwiper.realIndex;
+                    //         console.log('市动了')
+                    //         district_wheel();
+                    //     }
+                    // },500)
+                }
+                
+                function district_wheel(){
+                    document.querySelector('.district-wrapper').innerHTML = '';
+                    for(var k = 0; k < json[localStorage.provinceSwiper_realIndex].city[localStorage.citySwiper_realIndex].area.length; k++) {
+                        // console.log(json[provinceSwiper.realIndex].city[citySwiper.realIndex].area[k]);
+                        document.querySelector('.district-wrapper').innerHTML += `<div class="swiper-slide">${json[localStorage.provinceSwiper_realIndex].city[localStorage.citySwiper_realIndex].area[k]}</div>`
+                    }
+    
+                    var districtSwiper = new Swiper('.district-swiper',{
+                        direction:'vertical',
+                        loop:'loop',
+                        autoplayDisableOnInteraction : false,
+                        initialSlide: 0,
+                        mousewheelControl : true,
+                        onTransitionEnd:function(districtSwiper){
+                            localStorage.districtSwiper_realIndex = districtSwiper.realIndex;
+                    
+                        }
+                    })
+
+                    localStorage.districtSwiper_realIndex = districtSwiper.realIndex;
+
+                    
+                    // var districtTimer= window.setInterval(function(){
+                    //     if(district_wheel.animating){
+                    //         console.log('县动了')
+                    //         localStorage.districtSwiper_realIndex = districtSwiper.realIndex;
+                    
+                    //     }
+                    // },500);
+                }
+                    
+
+                $('.cancel').click(function(){
+                    // console.log('cancel')
+                    $('.modle-eare').css({'display':'none'});
+                });
+                $('.confirm').click(function(){
+                    $('.modle-eare').css({'display':'none'});
+                    // console.log('confirm');
+                    $('.wheelAddress').html(json[localStorage.provinceSwiper_realIndex].name + ',' + json[localStorage.provinceSwiper_realIndex].city[localStorage.citySwiper_realIndex].name + ',' + json[localStorage.provinceSwiper_realIndex].city[localStorage.citySwiper_realIndex].area[localStorage.districtSwiper_realIndex]);                    
+                })
+
+                
+            }
+        })
+
+
     })
     
     

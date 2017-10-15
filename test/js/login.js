@@ -92,6 +92,7 @@
                    status : "login"
             },
             function(json){
+                console.log(json);
                 if(json.code===0){
                     localStorage.setItem('token', json.data.token);
                     localStorage.setItem('username', json.data.username);

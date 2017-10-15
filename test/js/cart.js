@@ -5,9 +5,9 @@ $.ajax({
       type: 'GET',
       success: function(json) {
         console.log(json);
-        if(json.code != 0) {
+        if(json.code === 1002) {
           location.href = 'login.html';
-        } 
+        }
       }
    });
 

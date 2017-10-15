@@ -79,6 +79,7 @@ function requestAjax(callback) {
       console.log(json);
       if(json.code === 1) {
         callback && callback();
+        $('.again-load').html('商品已加载完成').css('background', 'white');
       }
       var html = ejs.render(templateString, json)
       $('.ts-body ul')[0].innerHTML += html;
@@ -138,6 +139,6 @@ oMshop.searchContainer();
 oMshop.lesser();
 oMshop.backToTop();
 oMshop.prestrain()
-oMshop.backHome();
+oMshop.backHistory();
 oMshop.footerNav();
 oMshop.afterLoginSkip();
