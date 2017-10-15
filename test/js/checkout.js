@@ -1,3 +1,4 @@
+
 var sum = 0;
 var num=0;
 $.ajax({
@@ -112,8 +113,14 @@ $('.checkout-fix-submit')[0].addEventListener('touchstart',function(){
     if(sum===0){
         return
     }
+    else if(localStorage.nowConsignee==undefined){
+        $('.model-comfirm')[1].style.display='block'
+
+        return
+    }
     $('.model-comfirm')[0].style.display='block'
 },false);
+
 $('.yes')[0].addEventListener('touchstart',function(){
 //       location.href='order.html'
     $.ajax({
@@ -126,12 +133,19 @@ $('.yes')[0].addEventListener('touchstart',function(){
         },
         'success': function (responseText) {
 
-            location.href='index.html';
+            location.href='order.html';
         }
     })
 },false);
 $('.no')[0].addEventListener('touchstart',function(){
     $('.model-comfirm')[0].style.display='none'
 },false);
+$('.no')[1].addEventListener('touchstart',function(){
+    $('.model-comfirm')[1].style.display='none'
+},false);
+$('.yes')[1].addEventListener('touchstart',function(){
+    $('.model-comfirm')[1].style.display='none'
+},false);
+
 console.log(localStorage.Address_data)
 console.log(localStorage.nowAddressAll);

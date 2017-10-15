@@ -1,15 +1,18 @@
-if(!localStorage.token) location.href = 'login.html';
-
-$.ajax({
-      url: 'http://h6.duchengjiu.top/shop/api_cart.php?token=' + localStorage.token,
-      type: 'GET',
-      success: function(json) {
-        console.log(json);
-        if(json.code === 1002) {
-          location.href = 'login.html';
-        }
+if(localStorage.token) {
+	$.ajax({
+    url: 'http://h6.duchengjiu.top/shop/api_cart.php?token=' + localStorage.token,
+    type: 'GET',
+    success: function(json) {
+      console.log(json);
+      if(json.code === 1002) {
+        location.href = 'login.html';
       }
-   });
+    }
+ });
+} else {
+ 	location.href = 'login.html';
+}
+
 
 
 

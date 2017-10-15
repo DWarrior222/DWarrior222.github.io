@@ -7,6 +7,10 @@ $.ajax({
     'success': function (responseText) {
         var data = responseText.data;
         console.log(data);
+        if(data.length===0){
+            $('.order-list')[0].innerHTML=`<div style="text-align: center;margin-top: 100px;font-size: 18px">您还没有添加商品</div>`
+
+        }
         var goodsHTML='';
         for(var i=0;i<data.length;i++){
             var obj = data[i];
@@ -37,13 +41,13 @@ $.ajax({
             $('.order-list')[0].innerHTML+=`<div class="order-position">
     <div class="order-logo">
         <img src="images/logo1.png">
-        <span style="margin-top: 6.5px;position: absolute;margin-left: 35px">收货人:${obj.consignee}</span>
+        <span style="position: absolute;margin-left: 35px;height:2.13rem;line-height: 2.13rem ">收货人:${obj.consignee}</span>
         <span class="order-delete">
                 <p style="color: #ff5000;line-height: 2.13rem;margin-right:0.75rem;font-size: 14px">交易成功</p>
             </span>
     </div>
 </div>
-<div>${goodsHTML}</div>
+<div style="padding: 10px 0">${goodsHTML}</div>
 <div class="order-modules-statistics">
         <div class="order-totalPrice">
             <div class="order-cont">
