@@ -56,6 +56,7 @@ function requestAjax(callback) {
       }
       if(json.code === 1) {
         callback && callback();
+        $('.again-load').html('商品已加载完成').css('background', 'white');
       }
       console.log(json);
       var html = ejs.render(templateString, newjson)

@@ -46,7 +46,7 @@ oMshop.setHeaderArea = function() {
     $('.area-position-cont li').html(localStorage.nowAddress);
   }
   if(!localStorage.nowAddress) {
-    $('#model-comfirm #wrap #box h1').html('受否同意获取地址');
+    $('#model-comfirm #wrap #box h1').html('是否同意获取地址');
     $('#model-comfirm').show();
   } else {
     $('#header-area').html(localStorage.nowAddress);
@@ -152,7 +152,7 @@ oMshop.panicCountdown = function() {
 }
 
 // 首页的商品
-oMshop.requestAjax = function() {
+oMshop.indexRequestAjax = function() {
   var page = 1;
   var addPageLock = true;
   var templateString = $('#tem').html();
@@ -166,6 +166,9 @@ oMshop.requestAjax = function() {
       data: {page:page},
       success: function(json) {
         var json = json;
+        if(json.code === 1) {
+          $('.again-load').html('商品已加载完成').css('background', 'white');
+        }
         console.log(json);
         var html = ejs.render(templateString, json)
         $('.ts-body ul')[0].innerHTML += html;

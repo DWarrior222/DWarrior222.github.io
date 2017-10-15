@@ -309,17 +309,17 @@ oMshop.afterLoginSkip = function() {
     } else {
       location.href = 'login.html'
     }
-  })
+  });
   function checkCart() {
     $.ajax({
       url: 'http://h6.duchengjiu.top/shop/api_cart.php?token=' + localStorage.token,
       type: 'GET',
       success: function(json) {
         console.log(json);
-        if(json.code === 0) {
-          location.href = 'message.html';
-        } else {
+        if(json.code === 1002) {
           location.href = 'login.html';
+        } else {
+          location.href = 'message.html';
         }
       }
     })
@@ -344,14 +344,32 @@ oMshop.footerNav = function() {
       location.href = 'cart.html';
     }
     if(target.id === 'L-order') {
-      location.href = 'order.html';
+      if(localStorage.token) {
+        checkCart();
+      } else {
+        location.href = 'login.html';
+      }
     }
   })
+  function checkCart() {
+    $.ajax({
+      url: 'http://h6.duchengjiu.top/shop/api_cart.php?token=' + localStorage.token,
+      type: 'GET',
+      success: function(json) {
+        console.log(json);
+        if(json.code === 1002) {
+          location.href = 'login.html';
+        } else {
+          location.href = 'order.html';
+        }
+      }
+    })
+  }
 }
-//搜索页面返回主页
+//搜索页面返回历史页并刷新。
 oMshop.backHistory = function() {
-  $('#go-back-history').on('touchstart', function() {
-    location.href = history.back()
+  $('#go-back-home')[0].addEventListener('touchstart', function() {
+    window.history.back(-1);
   })
 }
 oMshop.modalPrompt = function(text) {
