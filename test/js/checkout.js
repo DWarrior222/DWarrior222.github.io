@@ -88,9 +88,6 @@ $.ajax({
         if(data.length===0){
             $('.checkout-address-center')[0].innerHTML='您还没有添加地址，点击添加'
         }
-        if(localStorage.nowConsignee==undefined){
-            $('.checkout-address-center')[0].innerHTML='您还没有添加地址，点击添加'
-        }
         else{
             $('.checkout-address-center')[0].innerHTML=` <div style="line-height: 1.5;">
         <span >收货人：</span>
