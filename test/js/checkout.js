@@ -88,6 +88,10 @@ $.ajax({
         if(data.length===0){
             $('.checkout-address-center')[0].innerHTML='您还没有添加地址，点击添加'
         }
+        else if( localStorage.nowConsignee==""){
+            $('.checkout-address-center')[0].innerHTML='您还没有添加地址，点击添加'
+        }
+
         else{
             $('.checkout-address-center')[0].innerHTML=` <div style="line-height: 1.5;">
         <span >收货人：</span>
@@ -110,7 +114,7 @@ $('.checkout-fix-submit')[0].addEventListener('touchstart',function(){
     if(sum===0){
         return
     }
-    else if(localStorage.nowConsignee==undefined){
+    else if( localStorage.nowConsignee=""){
         $('.model-comfirm')[1].style.display='block'
 
         return

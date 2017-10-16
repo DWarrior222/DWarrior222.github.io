@@ -175,6 +175,7 @@ window.onload = function() {
         
     })
     document.querySelector('.delete').addEventListener('click',function(){
+        localStorage.nowConsignee="";
         $.ajax('http://h6.duchengjiu.top/shop/api_useraddress.php',{
             'type': 'get',
             'data':{
@@ -184,6 +185,7 @@ window.onload = function() {
             },
             'success':function(){
                 console.log(arguments);
+
             }
         })
         $('.modle').css({'display':'none'});
