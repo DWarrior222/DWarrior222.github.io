@@ -18,7 +18,7 @@
         <li :class="{completed: item.checked, editing: editingIndex === index}" v-for="(item, index) in filteredTodoList" :key="'item-' + index">
           <div class="view">
             <input class="toggle" type="checkbox" @click="complete(item)" v-model="item.checked">
-            <label @dblclick="editItem(index)">{{ item.text }}</label>
+            <label @dblclick="editItem(index)" v-clock>{{ item.text }}</label>
             <button class="destroy" @click="delItem(item)"></button>
           </div>
           <input class="edit" value="Well done" v-focus="editingIndex === index" v-model="item.text" @keyup.enter="saveItem(item)" @blur="saveItem(item)">
