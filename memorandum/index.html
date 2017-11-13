@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body>
+  <section class="todoapp">
+    <header class="header">
+      <h1>todos</h1>
+      <input class="new-todo" placeholder="What needs to be done?" @keyup.enter="addItem" v-model="nowItem" autofocus="">
+    </header>
+    <section class="main" style="display: block;" v-show="showList">
+      <input class="toggle-all" id="toggle-all" type="checkbox" v-model="allComplete" >
+      <label for="toggle-all">Mark all as complete</label>
+      <ul class="todo-list">
+        <li :class="{completed: item.checked, editing: editingIndex === index}" v-for="(item, index) in filteredTodoList" :key="'item-' + index">
+          <div class="view">
+            <input class="toggle" type="checkbox" @click="complete(item)" v-model="item.checked">
+            <label @dblclick="editItem(index)">{{ item.text }}</label>
+            <button class="destroy" @click="delItem(item)"></button>
+          </div>
+          <input class="edit" value="Well done" v-focus="editingIndex === index" v-model="item.text" @keyup.enter="saveItem(item)" @blur="saveItem(item)">
+        </li>
+      </ul>
+    </section>
+    <footer class="footer" style="display: block;" v-show="showList">
+      <span class="todo-count"><strong>1</strong> item left</span>
+      <ul class="filters">
+        <li>
+          <a href="#/" :class="{selected: visibility === 'all'}" @click="visibility = 'all'">All</a>
+        </li>
+        <li>
+          <a href="#/active" :class="{selected: visibility === 'active'}" @click="visibility = 'active'">Active</a>
+        </li>
+        <li>
+          <a href="#/completed" :class="{selected: visibility === 'completed'}" @click="visibility = 'completed'">Completed</a>
+        </li>
+      </ul>
+      <button class="clear-completed" @click="clearCompleted" v-show="completedCount > 0">clear completed</button>
+    </footer>
+  </section>
+
+
+  <script type="text/javascript" src="js/underscore-min.js"></script>
+  <script type="text/javascript" src="js/store.js"></script>
+  <script type="text/javascript" src="js/vue.min.js"></script>
+  <script type="text/javascript">
+
+  // item-checkbox的布尔值 <--- item.checked
+  // checked ---> 类
+  /*
+   * 理解控制关系，
+   * 1.每一个事项前面的选项框，它自身的布尔值控制它的完成状态，需要绑定一个属性来控制它的布尔值，
+   * 2.内容有一个完成状态的类，需要通过绑定一个属性，实现插入或删除，
+   * 3.通过给该事项中，添加一个checked的属性，默认为false，每次点击都会取反，通过这个checked的属性，控制前两者。
+   */
+
+  // 显示或隐藏列表数目 <--- item的个数为0时隐藏，大于0时出现   因为要动态改变，所以是计算属性
+  /*
+   * 显示或隐藏footer，用v-show="showList"
+   * 1.当事项个数为0时，不出现，事项个数大于零时出现，第一反应是计算属性，
+   * 2.判断todoList的长度即可，为0时，返回false，
+   */
+  
+  //删除项的时候，需要通过v-for传递对应的项，这个项在数组中是独一无二的，不是单纯的一个值，
+  /*
+   * 删除项，找到对应项并删除
+   * 1.事件，传递当前项到对应的函数中，
+   * 2.通过underscore的方法，删除对应项，
+   * 在这里比较纳闷的一点，万一todoList中有两项内容相同的项呢，不会出错吗？
+   * 我做了一个实验，虽然它打印出来是一个普通值，但实际上应该还是有不同，
+   * 我设定todoList中的值全部相同，然后通过console.log(item === this.todoList[0])实验，只有第一项返回true，所以这个项其实不那么一般的;
+   */
+  //添加编辑状态的类名 <--- 一个表达式，可编辑的索引与当前的index值是否相同
+  //input框获取焦点 <--- 条件是可编辑的索引与当前的index值是否相同
+  /*
+   * 编辑状态的样式
+   * 1.双击内容区域，会改变一个可编辑属性的值为当前的index值
+   * 2.自定义获取焦点指令，它通过一个表达式来判断是否该获取焦点。
+   */
+
+  //通过v-model="item.text"实时保存数据，但是当数据为空时，删除这个item，<--- 回车或者失去焦点时，判断内容是否为空，是则调用delItem方法，
+
+  /*
+   * 保存数据
+   * 1.回车时，保存数据，
+   * 2.失去焦点时，保存数据
+   * 保存数据实际上在改变内容区域的过程中，就已经保存了，通过v-model绑定到自身的item.text上，所以数据模板是同步的，而这里负责判断，当内容为空时，删除该项，并且改变可编辑属性的值为-1。
+   */
+
+
+  //影响控制全部完成 <--- v-model='allComplete' 
+  /*
+   * 控制全部完成功能的按钮应该做的事
+   * 业务：
+   * 1.监听所有事项，全部完成状态和非全部完成状态
+   * 2.通过全选按钮可以实现全选或者取消全选。
+   * 实现这个业务最好的方法就是通过计算属性，监听或者设置。
+   * computed: {
+   *   ...
+   *   allComplete: {
+   *     get() {
+   *       //通过表达式返回一个布尔值
+   *     },
+   *     set(value) {
+   *       //通过多选框的布尔值，取遍历数据，并设置某个熟悉ing，
+   *     }
+   *   }
+   * }
+   */
+
+
+
+  /*
+   * 保存数据；
+   * 1.通过观察者，当todoList数据改变的时候，使用localStorage.save() 保存todoList的数据到本地的localStorage.todolist
+   * 2.data的todoList通过localStorage.fetch()初始化为localStorage.todolist。
+   */
+
+
+   /*
+    * 实现几种情况的事项的展示(完成或进行中)
+    * 思考：在几个a链接来回跳转，也就会改变它的hash值，这个时候可以通过计算属性和过滤方法，就可以在每次hash改变的时候，得到符合条件的数据，这个新的数据会在这个方法中返回filteredTodoList
+    * 1.得到hash，通过location.hash,截取到/后面的内容
+    * 2.设置一个属性visibility，存放hash值，
+    * 3.计算属性，获取到visibility，然后过滤到数据，这个数据需要绑定到v-for循环中，
+    * 4.点击链接时，改变visibility，只有visibility改变的时候，计算属性才会计算值，否则，它会一直返回缓存值，
+    */
+   
+   /*
+    * 实现页面刷新时hash值不改变
+    * 因为刷新页面不会改变visibility，所以说浏览器会一直返回缓存值，
+    */
+
+     var filters = {
+      all: function (todos) {
+        return todos;
+      },
+      active: function (todos) {
+        console.log(todos);
+        return todos.filter(function (todo) {
+          return !todo.checked;
+        });
+      },
+      completed: function (todos) {
+        return todos.filter(function (todo) {
+          return todo.checked;
+        });
+      }
+    };
+    var visibility = location.hash.substr(location.hash.indexOf('/')+1);
+    visibility = visibility === '' ? 'all' : visibility;
+    Vue.directive('focus', {
+      // 当绑定元素插入到 DOM 中。
+      inserted: function (el) {
+        // 聚焦元素
+        el.focus()
+      },
+      update(el) {
+        el.focus();
+      }
+    })
+    var app = new Vue({
+      el: ".todoapp",
+      data: {
+        visibility: visibility,
+        nowItem: '',
+        allCompleteStatus: false,
+        editingIndex: -1,
+        todoList: todoStorage.fetch(),//初始化
+        checkedStatus: false
+      },
+      watch: {
+        //监听todoList，当改变的时候去做一件事，
+        todoList: {
+          deep: true,
+          handler: todoStorage.save//保存
+        }
+      },
+      methods: {
+        complete(item) {
+          item.checked = !item.checked;
+        },
+        addItem() {
+          let text = this.nowItem.trim();
+          if(text === '') {
+            return;
+          }
+          this.todoList.unshift({text, checked: false});
+          this.nowItem = '';
+        },
+        delItem(item) {
+          console.log(item);
+          console.log(item === this.todoList[0]);
+          this.todoList = _.without(this.todoList, item);
+        },
+        editItem(index) {
+          this.editingIndex = index;
+        },
+        saveItem(item) {
+          this.editingIndex = -1;
+          if(item.text.trim().length < 1) {
+            this.delItem(item);
+          }
+        },
+        clearCompleted() {
+          this.todoList = filters.active(this.todoList)
+        }
+      },
+      computed: {
+        showList() {
+          return this.todoList.length > 0
+        },
+        activeCount() {
+          return filters.active(this.todoList).length;
+        },
+        completedCount() {
+          return filters.completed(this.todoList).length;
+        },
+        allComplete: {
+          get() {
+            // console.log('get');
+            return this.activeCount === 0;
+          },
+          set(value) {
+            this.todoList.forEach( item => {
+              item.checked = value;
+            })
+          }
+        },
+        filteredTodoList: function () {
+          console.log(this.visibility)
+          return filters[this.visibility](this.todoList);
+        }
+      }
+    })
+  </script>
+</body>
+</html>

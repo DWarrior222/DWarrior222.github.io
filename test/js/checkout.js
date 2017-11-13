@@ -114,9 +114,8 @@ $('.checkout-fix-submit')[0].addEventListener('touchstart',function(){
     if(sum===0){
         return
     }
-    else if( localStorage.nowConsignee=""){
+    else if( localStorage.nowConsignee==""){
         $('.model-comfirm')[1].style.display='block'
-
         return
     }
     $('.model-comfirm')[0].style.display='block'
